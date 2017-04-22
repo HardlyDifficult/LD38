@@ -6,8 +6,8 @@ public class Shoot : MonoBehaviour {
   float timeOfLastShot = -100;
   Bullet bullet;
   Transform bulletSpawn;
-
   GameObject planet;
+  float shootHoldTime;
 
 	// Use this for initialization
 	protected void Start () {
@@ -18,6 +18,7 @@ public class Shoot : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+    
     Aim();
 
     if(Time.timeSinceLevelLoad - timeOfLastShot < 1)
@@ -27,11 +28,16 @@ public class Shoot : MonoBehaviour {
 
 		if(Input.GetAxis("Fire1") > 0)
     {
+      shootHoldTime += Time.deltaTime;
+    } else if(shootHoldTime > 0)
+    {
       timeOfLastShot = Time.timeSinceLevelLoad;
       var newBullet = Instantiate(bullet);
       newBullet.transform.position = bulletSpawn.transform.position;
       newBullet.transform.rotation = transform.rotation;
-      newBullet.shooter = gameObject;
+      newBullet.shooter = gameObject.transform.parent.gameObject;
+      newBullet.speed *= shootHoldTime;
+      shootHoldTime = 0;
     }
 	}
 
