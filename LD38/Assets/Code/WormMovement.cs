@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Add jump
+/// Smooth the rotation due to rough normals
+/// Should face the direction we are headed
+/// </summary>
+
 public class WormMovement : MonoBehaviour
 {
   TeamPlayer teamPlayer;
@@ -9,14 +15,14 @@ public class WormMovement : MonoBehaviour
   [Header("Movement")]
   public float moveSpeed = 10f; //How fast we move
   public float jumpStrengh = 1f; //How high we jump
-  Gravity gravity;
+  Gravity2 gravity;
   Rigidbody body;
 
   protected void Start()
   {
     body = GetComponent<Rigidbody>();
     teamPlayer = GetComponent<TeamPlayer>();
-    gravity = GetComponent<Gravity>();
+    gravity = GetComponent<Gravity2>();
   }
 
   private void Update()
@@ -27,7 +33,7 @@ public class WormMovement : MonoBehaviour
     }
 
     MoveWorm();
-    Jump();
+    //Jump();
   }
 
   /// <summary>
@@ -40,8 +46,19 @@ public class WormMovement : MonoBehaviour
       (transform.forward * Input.GetAxis("Vertical")) * Time.deltaTime * moveSpeed);
     //transform.Translate((Vector3.right * Input.GetAxis("Horizontal")) * Time.deltaTime * moveSpeed);
     //transform.Translate((Vector3.forward * Input.GetAxis("Vertical")) * Time.deltaTime * moveSpeed);
+
+
   }
 
+
+  private void FixedUpdate()
+  {
+
+    if(gravity.isGrounded && Input.GetAxis("Jump") > 0)
+    {
+      body.AddForce(transform.up * jumpStrengh);
+    }
+  }
   /// <summary>
   /// Lets the worm jump
   /// </summary>
