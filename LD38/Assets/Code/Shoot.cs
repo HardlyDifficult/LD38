@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Look at mouse
-/// </summary>
 public class Shoot : MonoBehaviour {
   float timeOfLastShot = -100;
   Bullet bullet;
   Transform bulletSpawn;
 
+  GameObject planet;
+
 	// Use this for initialization
 	protected void Start () {
+    planet = GameObject.Find("Planet");
     bullet = Resources.Load<Bullet>("Bullet");
     bulletSpawn = transform.FindChild("BulletSpawn");
 	}
@@ -30,6 +30,7 @@ public class Shoot : MonoBehaviour {
       timeOfLastShot = Time.timeSinceLevelLoad;
       var newBullet = Instantiate(bullet);
       newBullet.transform.position = bulletSpawn.transform.position;
+      newBullet.transform.rotation = transform.rotation;
       newBullet.shooter = gameObject;
     }
 	}
@@ -41,9 +42,10 @@ public class Shoot : MonoBehaviour {
     float distance;
     if(plane.Raycast(targetRay, out distance))
     {
-      var position = targetRay.GetPoint(distance);
-      var delta =  transform.position - position;
-      transform.rotation = Quaternion.LookRotation(delta);
+      var mousePosition = targetRay.GetPoint(distance);
+      var delta =  transform.position - mousePosition;
+      var up = transform.position - planet.transform.position;
+      transform.rotation = Quaternion.LookRotation(delta, up);
     }
   }
 }
