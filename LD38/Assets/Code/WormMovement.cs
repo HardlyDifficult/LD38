@@ -10,9 +10,11 @@ public class WormMovement : MonoBehaviour
   public float moveSpeed = 10f; //How fast we move
   public float jumpStrengh = 1f; //How high we jump
   Gravity gravity;
+  Rigidbody body;
 
   protected void Start()
   {
+    body = GetComponent<Rigidbody>();
     teamPlayer = GetComponent<TeamPlayer>();
     gravity = GetComponent<Gravity>();
   }
@@ -33,7 +35,11 @@ public class WormMovement : MonoBehaviour
   /// </summary>
   public void MoveWorm()
   {
-    transform.Translate((Vector2.right * Input.GetAxis("Horizontal")) * Time.deltaTime * moveSpeed);
+    body.AddForce((transform.right * Input.GetAxis("Horizontal")) * Time.deltaTime * moveSpeed
+      +
+      (transform.forward * Input.GetAxis("Vertical")) * Time.deltaTime * moveSpeed);
+    //transform.Translate((Vector3.right * Input.GetAxis("Horizontal")) * Time.deltaTime * moveSpeed);
+    //transform.Translate((Vector3.forward * Input.GetAxis("Vertical")) * Time.deltaTime * moveSpeed);
   }
 
   /// <summary>
@@ -45,7 +51,7 @@ public class WormMovement : MonoBehaviour
     {
       if(gravity.isGrounded)
       {
-        transform.Translate(Vector2.up * jumpStrengh);
+        transform.Translate(Vector3.up * jumpStrengh);
         gravity.isGrounded = false;
       }
     }

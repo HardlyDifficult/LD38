@@ -35,14 +35,13 @@ public class Gravity : MonoBehaviour
     //Storing the distance to the ground for later usage
     float distanceToGround = 0;
     //Also the raycasthit
-    RaycastHit2D hit;
+    RaycastHit hit;
 
     //The raycast starts under us
-    Vector2 down = Vector2.zero - (Vector2)transform.position;  //transform.TransformDirection(Vector3.down);
+    Vector3 down = Vector3.zero - transform.position;  //transform.TransformDirection(Vector3.down);
 
     //We start the raycast
-    hit = Physics2D.Raycast(transform.position, down, Mathf.Infinity, rayLayer);
-    if(hit.transform != null)
+    if(Physics.Raycast(transform.position, down, out hit, Mathf.Infinity, rayLayer))
     {
       //We store the distance to the ground for later usage
       distanceToGround = Vector3.Distance(hit.point, transform.position);
@@ -73,7 +72,7 @@ public class Gravity : MonoBehaviour
 
         velocity += newFallspeed;
         //Then we do the falling
-        transform.position += (Vector3)
+        transform.position += 
           //transform.Translate(
           // Vector3.ClampMagnitude(
           (down * velocity) * Time.deltaTime

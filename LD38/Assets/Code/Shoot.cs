@@ -61,7 +61,7 @@ public class Shoot : MonoBehaviour
       var mousePosition = targetRay.GetPoint(distance);
       var delta = transform.position - mousePosition;
       var up = transform.position - Vector3.zero;
-      transform.rotation = Quaternion.LookRotation((Vector2)delta, (Vector2)up);
+      transform.rotation = Quaternion.LookRotation(delta, up);
     }
   }
 }
