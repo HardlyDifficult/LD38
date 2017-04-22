@@ -25,7 +25,7 @@ public class WormMovement : MonoBehaviour
   /// </summary>
   public void MoveWorm()
   {
-    this.transform.Translate((Vector3.forward * Input.GetAxis("Horizontal")) * Time.deltaTime);
+    this.transform.Translate((Vector3.forward * Input.GetAxis("Horizontal")) * Time.deltaTime * moveSpeed);
   }
 
   /// <summary>
@@ -49,7 +49,7 @@ public class WormMovement : MonoBehaviour
       //If the worm is not grounded then we pull him down
       if(!isGrounded)
       {
-        this.transform.Translate(Vector3.ClampMagnitude((Vector3.down * fallSpeed) * Time.deltaTime, distanceToGround * 10000));
+        this.transform.Translate(Vector3.ClampMagnitude((Vector3.down * fallSpeed) * Time.deltaTime, distanceToGround));
       }
 
       //We align the worm
