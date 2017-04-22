@@ -4,57 +4,58 @@ using UnityEngine;
 
 public class PlanetDeformation : MonoBehaviour
 {
-    #region Public Data
+  #region Public Data
+  public static PlanetDeformation instance;
+  #endregion
 
-    #endregion
+  #region Private Data
+  private Mesh _planetMesh;
+  private MeshCollider _planetMeshCollider;
+  #endregion
 
-    #region Private Data
-    private Mesh _planetMesh;
-    private MeshCollider _planetMeshCollider;
-    #endregion
+  #region Public API
+  void Start()
+  {
+    instance = this;
+    _planetMesh = GetComponent<MeshFilter>().mesh;
+    _planetMeshCollider = GetComponent<MeshCollider>();
+  }
 
-    #region Public API
-    void Start ()
+  public void ExplodeAt(Vector3 center, float radius)
+  {
+    // access vertex list
+    Vector3[] VertexList = _planetMesh.vertices;
+    Vector3[] NormalList = _planetMesh.normals;
+
+    for(int i = 0; i < VertexList.Length; i++)
     {
-        _planetMesh = GetComponent<MeshFilter>().mesh;
-        _planetMeshCollider = GetComponent<MeshCollider>();
-	}
-	
-    public void ExplodeAt(Vector3 center, float radius) 
-    {
-        // access vertex list
-        Vector3[] VertexList = _planetMesh.vertices;
-        Vector3[] NormalList = _planetMesh.normals;
+      Vector3 refVert = VertexList[i];
+      Vector3 checkVert = VertexList[i];
 
-        for(int i = 0; i < VertexList.Length; i++)
-        {
-            Vector3 refVert = VertexList[i];
-            Vector3 checkVert = VertexList[i];
+      checkVert *= transform.localScale.x;
+      checkVert = transform.rotation * checkVert;
+      checkVert += transform.position;
 
-            checkVert *= transform.localScale.x;
-            checkVert = transform.rotation * checkVert;
-            checkVert += transform.position;
+      float dist = Vector3.Distance(center, checkVert);
 
-            float dist = Vector3.Distance(center, checkVert);
+      if(dist <= radius)
+      {
+        // inside sphere
 
-            if (dist <= radius)
-            {
-                // inside sphere
+        float amount = (dist / radius);
 
-                float amount = (dist / radius);
+        refVert -= NormalList[i] * 1 / transform.localScale.x * amount;
 
-                refVert -= NormalList[i] * 1 / transform.localScale.x * amount;
-
-                VertexList[i] = refVert;
-            }
-        }
-
-        _planetMesh.vertices = VertexList;
-
-        _planetMesh.RecalculateBounds();
-        _planetMesh.RecalculateNormals();
-
-        _planetMeshCollider.sharedMesh = _planetMesh;
+        VertexList[i] = refVert;
+      }
     }
-    #endregion
+
+    _planetMesh.vertices = VertexList;
+
+    _planetMesh.RecalculateBounds();
+    _planetMesh.RecalculateNormals();
+
+    _planetMeshCollider.sharedMesh = _planetMesh;
+  }
+  #endregion
 }
