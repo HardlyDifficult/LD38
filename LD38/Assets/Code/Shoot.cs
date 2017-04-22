@@ -38,6 +38,7 @@ public class Shoot : MonoBehaviour {
       newBullet.shooter = gameObject.transform.parent.gameObject;
       newBullet.speed *= shootHoldTime;
       shootHoldTime = 0;
+      TurnController.currentTeam++;
     }
 	}
 

@@ -92,6 +92,8 @@
     <Compile Include="Assets\Code\LifeLine.cs" />
     <Compile Include="Assets\Code\Shoot.cs" />
     <Compile Include="Assets\Code\Suicide.cs" />
+    <Compile Include="Assets\Code\TurnController.cs" />
+    <Compile Include="Assets\Code\UICurrentTeam.cs" />
     <Compile Include="Assets\Code\UILifeLine.cs" />
     <Compile Include="Assets\Code\WormMovement.cs" />
   </ItemGroup>
