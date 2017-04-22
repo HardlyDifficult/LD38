@@ -5,7 +5,7 @@ using UnityEngine;
 public class Gravity : MonoBehaviour
 {
    float fallSpeed = 10f; //How strong the gravity is, gets multiplied by the distance to the surface
-  internal bool isGrounded = false; //Checks if we can walk on the surface under us
+  public bool isGrounded = false; //Checks if we can walk on the surface under us
   LayerMask rayLayer; //What we check the raycast against
 
   private void Awake()
@@ -33,7 +33,7 @@ public class Gravity : MonoBehaviour
     RaycastHit hit;
 
     //The raycast starts under us
-    Vector3 down = Vector3.zero - transform.position ;  //transform.TransformDirection(Vector3.down);
+    Vector3 down = Vector3.zero - transform.position;  //transform.TransformDirection(Vector3.down);
 
     //We start the raycast
     if(Physics.Raycast(transform.position, down, out hit, Mathf.Infinity, rayLayer))
@@ -46,7 +46,7 @@ public class Gravity : MonoBehaviour
         isGrounded = true;
 
       //If the worm is not grounded then we pull him down to fall
-      if(!isGrounded)
+     // if(!isGrounded)
       {
         //Calculating new fallspeed, to fall faster the further we are from the surface
         float newFallspeed = fallSpeed * distanceToGround;
@@ -54,7 +54,11 @@ public class Gravity : MonoBehaviour
         if(newFallspeed <= fallSpeed)
           newFallspeed = fallSpeed;
         //Then we do the falling
-        transform.Translate(Vector3.ClampMagnitude((Vector3.down * newFallspeed) * Time.deltaTime, distanceToGround));
+        transform.Translate(
+          Vector3.ClampMagnitude(
+          (Vector3.down * newFallspeed) * Time.deltaTime
+          , distanceToGround)
+          );
       }
 
       //We align the worm

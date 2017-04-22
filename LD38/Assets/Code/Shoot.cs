@@ -23,7 +23,7 @@ public class Shoot : MonoBehaviour {
       timeOfLastShot = Time.timeSinceLevelLoad;
       var newBullet = Instantiate(bullet);
       newBullet.transform.position += transform.position;
-      newBullet.shooter = this.transform.FindChild("Visual").gameObject;
+      newBullet.shooter = gameObject;
     }
 	}
 }
