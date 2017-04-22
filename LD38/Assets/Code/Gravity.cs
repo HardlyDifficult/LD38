@@ -35,19 +35,20 @@ public class Gravity : MonoBehaviour
     //Storing the distance to the ground for later usage
     float distanceToGround = 0;
     //Also the raycasthit
-    RaycastHit hit;
+    RaycastHit2D hit;
 
     //The raycast starts under us
-    Vector3 down = Vector3.zero - transform.position;  //transform.TransformDirection(Vector3.down);
+    Vector2 down = Vector2.zero - (Vector2)transform.position;  //transform.TransformDirection(Vector3.down);
 
     //We start the raycast
-    if(Physics.Raycast(transform.position, down, out hit, Mathf.Infinity, rayLayer))
+    hit = Physics2D.Raycast(transform.position, down, Mathf.Infinity, rayLayer);
+    if(hit.transform != null)
     {
       //We store the distance to the ground for later usage
       distanceToGround = Vector3.Distance(hit.point, transform.position);
 
       //if we are near the surface then we are grounded and dont fall anymore
-      if(distanceToGround <= 0.1f)
+      if(distanceToGround <= 0.01f)
       {
         isGrounded = true;
         velocity = 0;
@@ -56,9 +57,13 @@ public class Gravity : MonoBehaviour
           onGrounded.Invoke();
         }
       }
+      else
+      {
+        isGrounded = false;
+      }
 
       //If the worm is not grounded then we pull him down to fall
-      // if(!isGrounded)
+      if(!isGrounded)
       {
         //Calculating new fallspeed, to fall faster the further we are from the surface
         float newFallspeed = fallSpeed * distanceToGround;
@@ -68,9 +73,9 @@ public class Gravity : MonoBehaviour
 
         velocity += newFallspeed;
         //Then we do the falling
-        transform.position += 
-        //transform.Translate(
-         // Vector3.ClampMagnitude(
+        transform.position += (Vector3)
+          //transform.Translate(
+          // Vector3.ClampMagnitude(
           (down * velocity) * Time.deltaTime
          // , distanceToGround)
          // )
@@ -82,10 +87,15 @@ public class Gravity : MonoBehaviour
     {
       //Debug.LogError("Raycast did not found a walkable surface under me. (Maybe surface has the wrong layer?)");
     }
-      if(disableRotation == false)
-      {
-        //We align the worm
-        transform.up = Vector3.Lerp(transform.up, -down, velocity * .10f);
-      }
+
+    if(disableRotation == false)
+    {
+      //We align the worm
+      //old way transform.up = Vector2.Lerp(transform.up, -down, velocity * .10f);
+
+      transform.rotation = Quaternion.Lerp(transform.rotation,
+        Quaternion.LookRotation(transform.forward, -down),
+       velocity * 10f);
+    }
   }
 }

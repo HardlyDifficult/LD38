@@ -2,30 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shoot : MonoBehaviour {
+public class Shoot : MonoBehaviour
+{
   TeamPlayer teamPlayer;
 
   float timeOfLastShot = -100;
   Bullet bullet;
   Transform bulletSpawn;
-  GameObject planet;
   float shootHoldTime;
 
-	// Use this for initialization
-	protected void Start () {
+  protected void Start()
+  {
     teamPlayer = transform.root.GetComponent<TeamPlayer>();
-    planet = GameObject.Find("Planet");
     bullet = Resources.Load<Bullet>("Bullet");
     bulletSpawn = transform.FindChild("BulletSpawn");
-	}
-	
-	// Update is called once per frame
-	void Update () {
+  }
+
+  protected void Update()
+  {
     if(teamPlayer.isMyTurn == false || TurnController.phase != TurnController.Phase.Shoot)
     {
       return;
     }
-    
+
     Aim();
 
     if(Time.timeSinceLevelLoad - timeOfLastShot < 1)
@@ -33,14 +32,16 @@ public class Shoot : MonoBehaviour {
       return;
     }
 
-		if(Input.GetAxis("Fire1") > 0)
+    if(Input.GetAxis("Fire1") > 0)
     {
       shootHoldTime += Time.deltaTime;
-    } else if(shootHoldTime > 0.01f)
+    }
+    else if(shootHoldTime > 0.01f)
     {
       timeOfLastShot = Time.timeSinceLevelLoad;
       var newBullet = Instantiate(bullet);
       newBullet.transform.position = bulletSpawn.transform.position;
+      newBullet.transform.position = new Vector3(newBullet.transform.position.x, newBullet.transform.position.y);
       newBullet.transform.rotation = transform.rotation;
       newBullet.shooter = gameObject.transform.parent.gameObject;
       newBullet.speed *= shootHoldTime;
@@ -48,19 +49,19 @@ public class Shoot : MonoBehaviour {
       //TurnController.currentTeam++;
       TurnController.NextPhase();
     }
-	}
+  }
 
   void Aim()
   {
     var targetRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-    Plane plane = new Plane(Vector3.right, 0);
+    Plane plane = new Plane(Vector3.forward, 0);
     float distance;
     if(plane.Raycast(targetRay, out distance))
     {
       var mousePosition = targetRay.GetPoint(distance);
-      var delta =  transform.position - mousePosition;
-      var up = transform.position - planet.transform.position;
-      transform.rotation = Quaternion.LookRotation(delta, up);
+      var delta = transform.position - mousePosition;
+      var up = transform.position - Vector3.zero;
+      transform.rotation = Quaternion.LookRotation((Vector2)delta, (Vector2)up);
     }
   }
 }

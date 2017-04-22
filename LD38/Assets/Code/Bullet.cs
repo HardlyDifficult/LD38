@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
   GameObject explosion;
   public float speed;
   internal GameObject shooter;
-  Vector3 previousPosition;
+  Vector2 previousPosition;
 
   protected void Awake()
   {
@@ -22,10 +22,10 @@ public class Bullet : MonoBehaviour
   {
     transform.Translate((Vector3.back * speed * Time.deltaTime));
     
-    var delta = previousPosition - transform.position;
+    var delta = previousPosition - (Vector2)transform.position;
     if(delta.sqrMagnitude > .1)
     {
-      var up = transform.position - Vector3.zero;
+      var up = (Vector2)transform.position - Vector2.zero;
       transform.rotation = Quaternion.LookRotation(delta, up);
     }
   }
@@ -33,11 +33,10 @@ public class Bullet : MonoBehaviour
   private void LateUpdate()
   {
     previousPosition = transform.position;
-
   }
 
-  protected void OnCollisionEnter(
-    Collision collision)
+  private void OnCollisionEnter2D(
+    Collision2D collision)
   {
     if(collision.gameObject == shooter)
     {

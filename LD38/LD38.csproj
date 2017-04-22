@@ -91,6 +91,7 @@
     <Compile Include="Assets\Code\Gravity.cs" />
     <Compile Include="Assets\Code\Interface\CreditsScreen.cs" />
     <Compile Include="Assets\Code\LifeLine.cs" />
+    <Compile Include="Assets\Code\PlanetChopper.cs" />
     <Compile Include="Assets\Code\Shoot.cs" />
     <Compile Include="Assets\Code\Suicide.cs" />
     <Compile Include="Assets\Code\TeamPlayer.cs" />

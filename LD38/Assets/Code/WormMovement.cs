@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class WormMovement : MonoBehaviour
 {
-
   TeamPlayer teamPlayer;
 
   [Header("Movement")]
@@ -12,7 +11,6 @@ public class WormMovement : MonoBehaviour
   public float jumpStrengh = 1f; //How high we jump
   Gravity gravity;
 
- 
   protected void Start()
   {
     teamPlayer = GetComponent<TeamPlayer>();
@@ -35,7 +33,7 @@ public class WormMovement : MonoBehaviour
   /// </summary>
   public void MoveWorm()
   {
-    transform.Translate((Vector3.forward * Input.GetAxis("Horizontal")) * Time.deltaTime * moveSpeed);
+    transform.Translate((Vector2.right * Input.GetAxis("Horizontal")) * Time.deltaTime * moveSpeed);
   }
 
   /// <summary>
@@ -47,7 +45,7 @@ public class WormMovement : MonoBehaviour
     {
       if(gravity.isGrounded)
       {
-        transform.Translate(Vector3.up * jumpStrengh);
+        transform.Translate(Vector2.up * jumpStrengh);
         gravity.isGrounded = false;
       }
     }
