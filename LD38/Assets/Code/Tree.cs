@@ -18,7 +18,7 @@ public class Tree : MonoBehaviour {
       Destroy(gameObject);
     } else
     {
-      SoundManager.Play(headbutt);
+      SoundManager.Play(headbutt, .2f);
     }
   }
 }
