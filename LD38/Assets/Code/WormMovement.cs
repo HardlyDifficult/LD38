@@ -5,19 +5,21 @@ using UnityEngine;
 public class WormMovement : MonoBehaviour
 {
 
-  [Header("Raycast")]
-  public bool isGrounded = false;
-  public float rayLength;
-
   [Header("Movement")]
-  public float moveSpeed = 1f;
-  public float jumpStrengh = 1f;
-  public float fallSpeed = 1f;
+  public float moveSpeed = 10f; //How fast we move
+  public float jumpStrengh = 1f; //How high we jump
+  Gravity gravity;
+
+ 
+  protected void Start()
+  {
+    gravity = GetComponent<Gravity>();
+  }
 
   private void Update()
   {
     MoveWorm();
-    CheckGravity();
+    Jump();
   }
 
   /// <summary>
@@ -25,41 +27,22 @@ public class WormMovement : MonoBehaviour
   /// </summary>
   public void MoveWorm()
   {
-    this.transform.Translate((Vector3.forward * Input.GetAxis("Horizontal")) * Time.deltaTime * moveSpeed);
+    transform.Translate((Vector3.forward * Input.GetAxis("Horizontal")) * Time.deltaTime * moveSpeed);
   }
 
   /// <summary>
-  /// Checks if we are in the air and need to fall
+  /// Lets the worm jump
   /// </summary>
-  private void CheckGravity()
+  public void Jump()
   {
-    RaycastHit hit;
-    Vector3 down = Vector3.zero - transform.position;
-
-    if(Physics.Raycast(transform.position, down, out hit, Mathf.Infinity))
+    if(Input.GetAxis("Jump") > 0)
     {
-      float distanceToGround = Vector3.Distance(hit.point, this.transform.position);
-      //Check the distance to the ground
-      if(distanceToGround <= 0.1f)
+      if(gravity.isGrounded)
       {
-
-        isGrounded = true;
+        transform.Translate(Vector3.up * jumpStrengh);
+        gravity.isGrounded = false;
       }
-
-      //If the worm is not grounded then we pull him down
-      if(!isGrounded)
-      {
-        this.transform.Translate(Vector3.ClampMagnitude((Vector3.down * fallSpeed) * Time.deltaTime, distanceToGround));
-      }
-
-      //We align the worm
-      this.transform.up = Vector3.Lerp(this.transform.up, hit.normal, 10);
     }
-    else
-    {
-      //Debug.LogError("Why is there no fucking planet under me?");
-    }
-
-
   }
+
 }

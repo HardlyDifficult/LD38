@@ -79,6 +79,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Code\Bullet.cs" />
+    <Compile Include="Assets\Code\DieOutOfBounds.cs" />
+    <Compile Include="Assets\Code\Gravity.cs" />
     <Compile Include="Assets\Code\Shoot.cs" />
     <Compile Include="Assets\Code\WormMovement.cs" />
   </ItemGroup>

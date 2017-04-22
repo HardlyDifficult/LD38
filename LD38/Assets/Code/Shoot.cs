@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Shoot : MonoBehaviour {
   float timeOfLastShot = -100;
-  GameObject bullet;
+  Bullet bullet;
 
 	// Use this for initialization
 	protected void Start () {
-    bullet = Resources.Load<GameObject>("Bullet");
+    bullet = Resources.Load<Bullet>("Bullet");
 	}
 	
 	// Update is called once per frame
@@ -23,6 +23,7 @@ public class Shoot : MonoBehaviour {
       timeOfLastShot = Time.timeSinceLevelLoad;
       var newBullet = Instantiate(bullet);
       newBullet.transform.position += transform.position;
+      newBullet.shooter = this.transform.FindChild("Visual").gameObject;
     }
 	}
 }
