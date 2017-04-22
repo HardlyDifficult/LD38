@@ -10,6 +10,10 @@ public class TurnController : MonoBehaviour {
   static int _currentTeam;
   public static int teamCount = 2;
 
+  const int timeForPreTurn = 1000;
+  const int timeForPostTurn = 10;
+  public static int timeRemaining;
+
   public static int currentTeam
   {
      get
@@ -23,8 +27,17 @@ public class TurnController : MonoBehaviour {
       {
         onTurnChange.Invoke();
       }
-      print(currentTeam);
+
+      timeRemaining = timeForPreTurn;
     }
   }
-  
+
+  protected void FixedUpdate()
+  {
+    timeRemaining--;
+    if(timeRemaining <= 0)
+    {
+      currentTeam++;
+    }
+  }
 }

@@ -84,6 +84,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Code\AnimateWhenMoving.cs" />
     <Compile Include="Assets\Code\Bullet.cs" />
     <Compile Include="Assets\Code\DieOutOfBounds.cs" />
     <Compile Include="Assets\Code\ExplosionDamage.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Assets\Code\TurnController.cs" />
     <Compile Include="Assets\Code\UICurrentTeam.cs" />
     <Compile Include="Assets\Code\UILifeLine.cs" />
+    <Compile Include="Assets\Code\UITurnTimer.cs" />
     <Compile Include="Assets\Code\WormMovement.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -77,15 +77,15 @@ public class Gravity : MonoBehaviour
          ;
       }
 
-      if(disableRotation == false)
-      {
-        //We align the worm
-        transform.up = Vector3.Lerp(transform.up, -down, velocity * .10f);
-      }
     }
     else
     {
       //Debug.LogError("Raycast did not found a walkable surface under me. (Maybe surface has the wrong layer?)");
     }
+      if(disableRotation == false)
+      {
+        //We align the worm
+        transform.up = Vector3.Lerp(transform.up, -down, velocity * .10f);
+      }
   }
 }

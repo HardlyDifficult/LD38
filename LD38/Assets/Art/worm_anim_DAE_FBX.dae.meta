@@ -1,0 +1,277 @@
+fileFormatVersion: 2
+guid: 367467bbf8b4a5347932538b88ed3dda
+timeCreated: 1492842157
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: body_squish_JNT_1
+    100002: body_squish_JNT_2
+    100004: body_squish_JNT_3
+    100006: body_squish_JNT_4
+    100008: body_squish_JNT_5
+    100010: eyes_mesh
+    100012: head_squish_JNT
+    100014: tongue_mesh
+    100016: //RootNode
+    100018: worm_CTRL_10
+    100020: worm_CTRL_11
+    100022: worm_CTRL_2
+    100024: worm_CTRL_3
+    100026: worm_CTRL_4
+    100028: worm_CTRL_5
+    100030: worm_CTRL_6
+    100032: worm_CTRL_7
+    100034: worm_CTRL_8
+    100036: worm_CTRL_9
+    100038: worm_head_CTRL
+    100040: worm_JNT_10
+    100042: worm_JNT_11
+    100044: worm_JNT_12
+    100046: worm_JNT_13
+    100048: worm_JNT_14
+    100050: worm_JNT_15
+    100052: worm_JNT_16
+    100054: worm_JNT_17
+    100056: worm_JNT_2
+    100058: worm_JNT_3
+    100060: worm_JNT_4
+    100062: worm_JNT_5
+    100064: worm_JNT_6
+    100066: worm_JNT_7
+    100068: worm_JNT_8
+    100070: worm_JNT_9
+    100072: worm_JNT_core
+    100074: worm_JNT_nose
+    100076: worm_JNT_root
+    100078: worm_main_CTRL
+    100080: worm_mesh
+    400000: body_squish_JNT_1
+    400002: body_squish_JNT_2
+    400004: body_squish_JNT_3
+    400006: body_squish_JNT_4
+    400008: body_squish_JNT_5
+    400010: eyes_mesh
+    400012: head_squish_JNT
+    400014: tongue_mesh
+    400016: //RootNode
+    400018: worm_CTRL_10
+    400020: worm_CTRL_11
+    400022: worm_CTRL_2
+    400024: worm_CTRL_3
+    400026: worm_CTRL_4
+    400028: worm_CTRL_5
+    400030: worm_CTRL_6
+    400032: worm_CTRL_7
+    400034: worm_CTRL_8
+    400036: worm_CTRL_9
+    400038: worm_head_CTRL
+    400040: worm_JNT_10
+    400042: worm_JNT_11
+    400044: worm_JNT_12
+    400046: worm_JNT_13
+    400048: worm_JNT_14
+    400050: worm_JNT_15
+    400052: worm_JNT_16
+    400054: worm_JNT_17
+    400056: worm_JNT_2
+    400058: worm_JNT_3
+    400060: worm_JNT_4
+    400062: worm_JNT_5
+    400064: worm_JNT_6
+    400066: worm_JNT_7
+    400068: worm_JNT_8
+    400070: worm_JNT_9
+    400072: worm_JNT_core
+    400074: worm_JNT_nose
+    400076: worm_JNT_root
+    400078: worm_main_CTRL
+    400080: worm_mesh
+    4300000: worm_mesh
+    4300002: eyes_mesh
+    4300004: tongue_mesh
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: eyes_mesh
+    13700002: tongue_mesh
+    13700004: worm_mesh
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: worm_main_CTRL
+        weight: 1
+      - path: worm_main_CTRL/worm_CTRL_2
+        weight: 1
+      - path: worm_main_CTRL/worm_CTRL_2/worm_CTRL_3
+        weight: 1
+      - path: worm_main_CTRL/worm_CTRL_2/worm_CTRL_3/worm_CTRL_4
+        weight: 1
+      - path: worm_main_CTRL/worm_CTRL_2/worm_CTRL_3/worm_CTRL_4/worm_CTRL_5
+        weight: 1
+      - path: worm_main_CTRL/worm_CTRL_2/worm_CTRL_3/worm_CTRL_4/worm_CTRL_5/worm_CTRL_6
+        weight: 1
+      - path: worm_main_CTRL/worm_CTRL_2/worm_CTRL_3/worm_CTRL_4/worm_CTRL_5/worm_CTRL_6/worm_CTRL_7
+        weight: 1
+      - path: worm_main_CTRL/worm_CTRL_2/worm_CTRL_3/worm_CTRL_4/worm_CTRL_5/worm_CTRL_6/worm_CTRL_7/worm_CTRL_8
+        weight: 1
+      - path: worm_main_CTRL/worm_CTRL_2/worm_CTRL_3/worm_CTRL_4/worm_CTRL_5/worm_CTRL_6/worm_CTRL_7/worm_CTRL_8/worm_CTRL_9
+        weight: 1
+      - path: worm_main_CTRL/worm_CTRL_2/worm_CTRL_3/worm_CTRL_4/worm_CTRL_5/worm_CTRL_6/worm_CTRL_7/worm_CTRL_8/worm_CTRL_9/worm_CTRL_10
+        weight: 1
+      - path: worm_main_CTRL/worm_CTRL_2/worm_CTRL_3/worm_CTRL_4/worm_CTRL_5/worm_CTRL_6/worm_CTRL_7/worm_CTRL_8/worm_CTRL_9/worm_CTRL_10/worm_CTRL_11
+        weight: 1
+      - path: worm_main_CTRL/worm_head_CTRL
+        weight: 1
+      - path: worm_main_CTRL/worm_JNT_core
+        weight: 1
+      - path: worm_main_CTRL/worm_JNT_core/worm_JNT_root
+        weight: 1
+      - path: worm_main_CTRL/worm_JNT_core/worm_JNT_root/head_squish_JNT
+        weight: 1
+      - path: worm_main_CTRL/worm_JNT_core/worm_JNT_root/worm_JNT_2
+        weight: 1
+      - path: worm_main_CTRL/worm_JNT_core/worm_JNT_root/worm_JNT_2/worm_JNT_3
+        weight: 1
+      - path: worm_main_CTRL/worm_JNT_core/worm_JNT_root/worm_JNT_2/worm_JNT_3/worm_JNT_4
+        weight: 1
+      - path: worm_main_CTRL/worm_JNT_core/worm_JNT_root/worm_JNT_2/worm_JNT_3/worm_JNT_4/body_squish_JNT_1
+        weight: 1
+      - path: worm_main_CTRL/worm_JNT_core/worm_JNT_root/worm_JNT_2/worm_JNT_3/worm_JNT_4/worm_JNT_5
+        weight: 1
+      - path: worm_main_CTRL/worm_JNT_core/worm_JNT_root/worm_JNT_2/worm_JNT_3/worm_JNT_4/worm_JNT_5/worm_JNT_6
+        weight: 1
+      - path: worm_main_CTRL/worm_JNT_core/worm_JNT_root/worm_JNT_2/worm_JNT_3/worm_JNT_4/worm_JNT_5/worm_JNT_6/worm_JNT_7
+        weight: 1
+      - path: worm_main_CTRL/worm_JNT_core/worm_JNT_root/worm_JNT_2/worm_JNT_3/worm_JNT_4/worm_JNT_5/worm_JNT_6/worm_JNT_7/body_squish_JNT_2
+        weight: 1
+      - path: worm_main_CTRL/worm_JNT_core/worm_JNT_root/worm_JNT_2/worm_JNT_3/worm_JNT_4/worm_JNT_5/worm_JNT_6/worm_JNT_7/worm_JNT_8
+        weight: 1
+      - path: worm_main_CTRL/worm_JNT_core/worm_JNT_root/worm_JNT_2/worm_JNT_3/worm_JNT_4/worm_JNT_5/worm_JNT_6/worm_JNT_7/worm_JNT_8/worm_JNT_9
+        weight: 1
+      - path: worm_main_CTRL/worm_JNT_core/worm_JNT_root/worm_JNT_2/worm_JNT_3/worm_JNT_4/worm_JNT_5/worm_JNT_6/worm_JNT_7/worm_JNT_8/worm_JNT_9/worm_JNT_10
+        weight: 1
+      - path: worm_main_CTRL/worm_JNT_core/worm_JNT_root/worm_JNT_2/worm_JNT_3/worm_JNT_4/worm_JNT_5/worm_JNT_6/worm_JNT_7/worm_JNT_8/worm_JNT_9/worm_JNT_10/body_squish_JNT_3
+        weight: 1
+      - path: worm_main_CTRL/worm_JNT_core/worm_JNT_root/worm_JNT_2/worm_JNT_3/worm_JNT_4/worm_JNT_5/worm_JNT_6/worm_JNT_7/worm_JNT_8/worm_JNT_9/worm_JNT_10/worm_JNT_11
+        weight: 1
+      - path: worm_main_CTRL/worm_JNT_core/worm_JNT_root/worm_JNT_2/worm_JNT_3/worm_JNT_4/worm_JNT_5/worm_JNT_6/worm_JNT_7/worm_JNT_8/worm_JNT_9/worm_JNT_10/worm_JNT_11/worm_JNT_12
+        weight: 1
+      - path: worm_main_CTRL/worm_JNT_core/worm_JNT_root/worm_JNT_2/worm_JNT_3/worm_JNT_4/worm_JNT_5/worm_JNT_6/worm_JNT_7/worm_JNT_8/worm_JNT_9/worm_JNT_10/worm_JNT_11/worm_JNT_12/worm_JNT_13
+        weight: 1
+      - path: worm_main_CTRL/worm_JNT_core/worm_JNT_root/worm_JNT_2/worm_JNT_3/worm_JNT_4/worm_JNT_5/worm_JNT_6/worm_JNT_7/worm_JNT_8/worm_JNT_9/worm_JNT_10/worm_JNT_11/worm_JNT_12/worm_JNT_13/body_squish_JNT_4
+        weight: 1
+      - path: worm_main_CTRL/worm_JNT_core/worm_JNT_root/worm_JNT_2/worm_JNT_3/worm_JNT_4/worm_JNT_5/worm_JNT_6/worm_JNT_7/worm_JNT_8/worm_JNT_9/worm_JNT_10/worm_JNT_11/worm_JNT_12/worm_JNT_13/worm_JNT_14
+        weight: 1
+      - path: worm_main_CTRL/worm_JNT_core/worm_JNT_root/worm_JNT_2/worm_JNT_3/worm_JNT_4/worm_JNT_5/worm_JNT_6/worm_JNT_7/worm_JNT_8/worm_JNT_9/worm_JNT_10/worm_JNT_11/worm_JNT_12/worm_JNT_13/worm_JNT_14/worm_JNT_15
+        weight: 1
+      - path: worm_main_CTRL/worm_JNT_core/worm_JNT_root/worm_JNT_2/worm_JNT_3/worm_JNT_4/worm_JNT_5/worm_JNT_6/worm_JNT_7/worm_JNT_8/worm_JNT_9/worm_JNT_10/worm_JNT_11/worm_JNT_12/worm_JNT_13/worm_JNT_14/worm_JNT_15/worm_JNT_16
+        weight: 1
+      - path: worm_main_CTRL/worm_JNT_core/worm_JNT_root/worm_JNT_2/worm_JNT_3/worm_JNT_4/worm_JNT_5/worm_JNT_6/worm_JNT_7/worm_JNT_8/worm_JNT_9/worm_JNT_10/worm_JNT_11/worm_JNT_12/worm_JNT_13/worm_JNT_14/worm_JNT_15/worm_JNT_16/body_squish_JNT_5
+        weight: 1
+      - path: worm_main_CTRL/worm_JNT_core/worm_JNT_root/worm_JNT_2/worm_JNT_3/worm_JNT_4/worm_JNT_5/worm_JNT_6/worm_JNT_7/worm_JNT_8/worm_JNT_9/worm_JNT_10/worm_JNT_11/worm_JNT_12/worm_JNT_13/worm_JNT_14/worm_JNT_15/worm_JNT_16/worm_JNT_17
+        weight: 1
+      - path: worm_main_CTRL/worm_JNT_core/worm_JNT_root/worm_JNT_nose
+        weight: 1
+      - path: worm_mesh
+        weight: 1
+      - path: worm_mesh/eyes_mesh
+        weight: 1
+      - path: worm_mesh/tongue_mesh
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
