@@ -57,7 +57,7 @@ public class WormMovement : MonoBehaviour
     }
     else
     {
-      Debug.LogError("Why is there no fucking planet under me?");
+      //Debug.LogError("Why is there no fucking planet under me?");
     }
 
 
