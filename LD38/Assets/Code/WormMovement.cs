@@ -5,6 +5,8 @@ using UnityEngine;
 public class WormMovement : MonoBehaviour
 {
 
+  TeamPlayer teamPlayer;
+
   [Header("Movement")]
   public float moveSpeed = 10f; //How fast we move
   public float jumpStrengh = 1f; //How high we jump
@@ -13,11 +15,17 @@ public class WormMovement : MonoBehaviour
  
   protected void Start()
   {
+    teamPlayer = GetComponent<TeamPlayer>();
     gravity = GetComponent<Gravity>();
   }
 
   private void Update()
   {
+    if(teamPlayer.isMyTurn == false)
+    {
+      return;
+    }
+
     MoveWorm();
     Jump();
   }

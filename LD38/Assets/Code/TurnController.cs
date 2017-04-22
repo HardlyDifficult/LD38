@@ -23,6 +23,7 @@ public class TurnController : MonoBehaviour {
       {
         onTurnChange.Invoke();
       }
+      print(currentTeam);
     }
   }
   

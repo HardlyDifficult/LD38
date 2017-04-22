@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,13 @@ public class ExplosionDamage : MonoBehaviour {
   protected void Awake()
   {
     colliderRadius = GetComponent<SphereCollider>().radius;
+    StartCoroutine(SuicideScript());
+  }
+
+  private IEnumerator SuicideScript()
+  {
+    yield return new WaitForSeconds(.1f);
+    Destroy(this);
   }
 
   protected void OnTriggerEnter(

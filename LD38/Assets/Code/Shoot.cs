@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Shoot : MonoBehaviour {
+  TeamPlayer teamPlayer;
+
   float timeOfLastShot = -100;
   Bullet bullet;
   Transform bulletSpawn;
@@ -11,6 +13,7 @@ public class Shoot : MonoBehaviour {
 
 	// Use this for initialization
 	protected void Start () {
+    teamPlayer = transform.root.GetComponent<TeamPlayer>();
     planet = GameObject.Find("Planet");
     bullet = Resources.Load<Bullet>("Bullet");
     bulletSpawn = transform.FindChild("BulletSpawn");
@@ -18,6 +21,10 @@ public class Shoot : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+    if(teamPlayer.isMyTurn == false )
+    {
+      return;
+    }
     
     Aim();
 
@@ -29,7 +36,7 @@ public class Shoot : MonoBehaviour {
 		if(Input.GetAxis("Fire1") > 0)
     {
       shootHoldTime += Time.deltaTime;
-    } else if(shootHoldTime > 0)
+    } else if(shootHoldTime > 0.01f)
     {
       timeOfLastShot = Time.timeSinceLevelLoad;
       var newBullet = Instantiate(bullet);
