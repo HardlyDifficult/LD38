@@ -58,7 +58,7 @@ public class Gravity : MonoBehaviour
     transform.rotation *= turnOffset;
     targetRotation *= turnOffset;
     var dot = 1 - Quaternion.Dot(transform.rotation, targetRotation);
-    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, dot * 50);
+   // transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, dot * 50);
     turnOffset = Quaternion.identity;
   }
 }

@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
+using UnityEngine;
+
+namespace HD
+{
+  public class ShootUzi : Shoot
+  {
+    public int bulletCount = 42;
+    int bulletsInChamber;
+
+    protected Projectile bulletResource;
+
+    protected void Awake()
+    {
+      bulletResource = Resources.Load<Projectile>("Bullet");
+      bulletsInChamber = bulletCount;
+
+      TurnController.onTurnChange += TurnController_onTurnChange;
+    }
+
+    void TurnController_onTurnChange()
+    {
+      bulletsInChamber = bulletCount;
+    }
+
+    protected override void OnFireStay()
+    {
+      base.OnFireStay();
+
+      FireProjectile(bulletResource);
+
+      if(bulletsInChamber-- <= 0)
+      {
+        TurnController.NextPhase();
+      }
+    }
+  }
+}
