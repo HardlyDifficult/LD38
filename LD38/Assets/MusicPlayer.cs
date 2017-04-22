@@ -3,9 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MusicPlayer : MonoBehaviour {
+  float baseVolume;
 
-	// Use this for initialization
 	void Start () {
-    GetComponent<AudioSource>().volume *= SoundManager.musicVolume;
-	}
+    baseVolume = GetComponent<AudioSource>().volume;
+    SoundManager.onVolumeChange += SoundManager_onVolumeChange;
+    SoundManager_onVolumeChange();
+  }
+
+  void SoundManager_onVolumeChange()
+  {
+    GetComponent<AudioSource>().volume = baseVolume * SoundManager.musicVolume;
+  }
+
+  void OnDestroy()
+  {
+    SoundManager.onVolumeChange -= SoundManager_onVolumeChange;
+  }
 }

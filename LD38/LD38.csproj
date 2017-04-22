@@ -109,6 +109,7 @@
     <Compile Include="Assets\Code\Weapons\ShootMissileLauncher.cs" />
     <Compile Include="Assets\Code\Weapons\ShootUzi.cs" />
     <Compile Include="Assets\Code\WormMovement.cs" />
+    <Compile Include="Assets\Mareske\Code\IngameMenu.cs" />
     <Compile Include="Assets\Mareske\Code\MainMenu.cs" />
     <Compile Include="Assets\Mareske\Code\SoundManager.cs" />
     <Compile Include="Assets\MusicPlayer.cs" />
