@@ -5,13 +5,24 @@ using System;
 
 public class TurnController : MonoBehaviour
 {
+  static TurnController instance;
   public enum Phase
   {
     Shoot, Hide
   }
   public static Phase phase;
 
+  public GameObject[] wormList;
+
   public static event Action onTurnChange;
+
+  public static GameObject currentWorm
+  {
+    get
+    {
+      return instance.wormList[currentTeam]; // TODO team plus worm..
+    }
+  }
 
   static int _currentTeam;
   public static int teamCount = 2;
@@ -37,6 +48,11 @@ public class TurnController : MonoBehaviour
 
       timeRemaining = timeForPreTurn;
     }
+  }
+
+  protected void Awake()
+  {
+    instance = this;
   }
 
   protected void FixedUpdate()
