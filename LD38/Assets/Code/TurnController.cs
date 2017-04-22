@@ -5,13 +5,21 @@ using System;
 
 public class TurnController : MonoBehaviour {
 
+  
+
+  public enum Phase
+  {
+    Shoot, Hide
+  }
+  public static Phase phase;
+
   public static event Action onTurnChange;
 
   static int _currentTeam;
   public static int teamCount = 2;
 
   const int timeForPreTurn = 1000;
-  const int timeForPostTurn = 10;
+  const int timeForPostTurn = timeForPreTurn / 10;
   public static int timeRemaining;
 
   public static int currentTeam
@@ -22,6 +30,7 @@ public class TurnController : MonoBehaviour {
     }
     set
     {
+      phase = 0;
       _currentTeam = value % teamCount;
       if(onTurnChange != null)
       {
@@ -39,5 +48,11 @@ public class TurnController : MonoBehaviour {
     {
       currentTeam++;
     }
+  }
+
+  internal static void NextPhase()
+  {
+    phase++;
+    timeRemaining = timeForPostTurn;
   }
 }

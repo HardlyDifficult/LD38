@@ -21,7 +21,7 @@ public class Shoot : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-    if(teamPlayer.isMyTurn == false )
+    if(teamPlayer.isMyTurn == false || TurnController.phase != TurnController.Phase.Shoot)
     {
       return;
     }
@@ -45,7 +45,8 @@ public class Shoot : MonoBehaviour {
       newBullet.shooter = gameObject.transform.parent.gameObject;
       newBullet.speed *= shootHoldTime;
       shootHoldTime = 0;
-      TurnController.currentTeam++;
+      //TurnController.currentTeam++;
+      TurnController.NextPhase();
     }
 	}
 
