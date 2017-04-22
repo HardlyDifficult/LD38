@@ -2,11 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Should face the direction we are headed
-/// Aim needs to work for 3d
-/// </summary>
-
 public class WormMovement : MonoBehaviour
 {
   public float moveSpeed = 10f; //How fast we move
@@ -30,8 +25,8 @@ public class WormMovement : MonoBehaviour
       return;
     }
 
-    Jump();
     MoveWorm();
+    Jump();
   }
 
   void MoveWorm()
@@ -41,7 +36,7 @@ public class WormMovement : MonoBehaviour
       )
       * Time.deltaTime * moveSpeed);
 
-    transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Vertical"), 0);
+    gravity.turnOffset = Quaternion.Euler(0, Input.GetAxis("Vertical"), 0);
   }
 
   void Jump()

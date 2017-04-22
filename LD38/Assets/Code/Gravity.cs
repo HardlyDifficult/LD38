@@ -9,10 +9,13 @@ public class Gravity : MonoBehaviour
   Rigidbody body;
   public bool isGrounded;
   public event Action onGrounded;
+  public Quaternion targetRotation;
+  public Quaternion turnOffset = Quaternion.identity;
 
   protected void Awake()
   {
     body = GetComponent<Rigidbody>();
+    targetRotation = transform.rotation;
   }
 
   protected void FixedUpdate()
@@ -22,9 +25,10 @@ public class Gravity : MonoBehaviour
     if(Physics.Raycast(transform.position + transform.up, toCenter, out hit, Mathf.Infinity,
       LayerMask.GetMask(new[] { "Planet" })))
     {
+      Vector3 hitPoint = hit.point - transform.up;
       //transform.position = hit.point;
-      var delta = hit.point - transform.position;
-      if(delta.sqrMagnitude < .01f)
+      var delta = hitPoint - transform.position;
+      if(delta.sqrMagnitude < 2f)
       {
         if(isGrounded == false && onGrounded != null)
         {
@@ -42,8 +46,19 @@ public class Gravity : MonoBehaviour
         body.AddForce(delta.normalized * force);
       }
 
-      transform.rotation = Quaternion.FromToRotation(transform.up, transform.position -
-        Vector3.zero) * transform.rotation;
-    } 
+      targetRotation = Quaternion.FromToRotation(targetRotation * Vector3.up, 
+        hit.normal
+        // old transform.position - Vector3.zero
+        ) * targetRotation;
+    }
+  }
+
+  protected void Update()
+  {
+    transform.rotation *= turnOffset;
+    targetRotation *= turnOffset;
+    var dot = 1 - Quaternion.Dot(transform.rotation, targetRotation);
+    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, dot * 50);
+    turnOffset = Quaternion.identity;
   }
 }

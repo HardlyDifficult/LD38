@@ -134,7 +134,8 @@
     <Compile Include="Assets\Code\Editor\AutoSave.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Code\Shader\CellShader.shader" />
+    <None Include="Assets\Art\Shader\cell_shader.shader" />
+    <None Include="Assets\Art\Shader\cell_shader_metalic.shader" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Readme.txt" />

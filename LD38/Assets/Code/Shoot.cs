@@ -53,14 +53,14 @@ public class Shoot : MonoBehaviour
 
   void Aim()
   {
-    var targetRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-    Plane plane = new Plane(Vector3.forward, 0);
+    Ray targetRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+    Plane plane = new Plane(transform.right, 0);
     float distance;
     if(plane.Raycast(targetRay, out distance))
     {
-      var mousePosition = targetRay.GetPoint(distance);
-      var delta = transform.position - mousePosition;
-      var up = transform.position - Vector3.zero;
+      Vector3 mousePosition = targetRay.GetPoint(distance);
+      Vector3 delta = transform.position - mousePosition;
+      Vector3 up = transform.position - Vector3.zero;
       transform.rotation = Quaternion.LookRotation(delta, up);
     }
   }
