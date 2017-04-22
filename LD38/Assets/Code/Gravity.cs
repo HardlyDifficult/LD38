@@ -1,100 +1,49 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using UnityEngine;
-using System;
 
 public class Gravity : MonoBehaviour
 {
-  public bool disableRotation;
-
-  float fallSpeed = .050f; //How strong the gravity is, gets multiplied by the distance to the surface
-  public bool isGrounded = false; //Checks if we can walk on the surface under us
-  LayerMask rayLayer; //What we check the raycast against
-  float velocity;
+  public float force = 10;
+  Rigidbody body;
+  public bool isGrounded;
   public event Action onGrounded;
 
-  private void Awake()
+  protected void Awake()
   {
-    rayLayer = LayerMask.GetMask(new[] { "Planet" });
+    body = GetComponent<Rigidbody>();
   }
 
-  // Update is called once per frame
-  void Update()
+  protected void FixedUpdate()
   {
-    CheckGravity();
-  }
-
-  /// <summary>
-  /// Checks if we are in the air and need to fall
-  /// </summary>
-  private void CheckGravity()
-  {
-    //Hardly is a handsome guy and everyone who can should leave him some bits or sweet donations
-    //For all the entertaiment he gets us :-)
-
-    //Storing the distance to the ground for later usage
-    float distanceToGround = 0;
-    //Also the raycasthit
+    Vector3 toCenter = Vector3.zero - transform.position;
     RaycastHit hit;
-
-    //The raycast starts under us
-    Vector3 down = Vector3.zero - transform.position;  //transform.TransformDirection(Vector3.down);
-
-    //We start the raycast
-    if(Physics.Raycast(transform.position, down, out hit, Mathf.Infinity, rayLayer))
+    if(Physics.Raycast(transform.position + transform.up, toCenter, out hit, Mathf.Infinity,
+      LayerMask.GetMask(new[] { "Planet" })))
     {
-      //We store the distance to the ground for later usage
-      distanceToGround = Vector3.Distance(hit.point, transform.position);
-
-      //if we are near the surface then we are grounded and dont fall anymore
-      if(distanceToGround <= 0.01f)
+      //transform.position = hit.point;
+      var delta = hit.point - transform.position;
+      if(delta.sqrMagnitude < .01f)
       {
-        isGrounded = true;
-        velocity = 0;
-        if(onGrounded != null)
+        if(isGrounded == false && onGrounded != null)
         {
           onGrounded.Invoke();
         }
+        isGrounded = true;
       }
       else
       {
         isGrounded = false;
       }
 
-      //If the worm is not grounded then we pull him down to fall
-      if(!isGrounded)
+      if(isGrounded == false)
       {
-        //Calculating new fallspeed, to fall faster the further we are from the surface
-        float newFallspeed = fallSpeed * distanceToGround;
-        //If the fallspeed is slower then the main fallspeed, we set it to it
-        if(newFallspeed <= fallSpeed)
-          newFallspeed = fallSpeed;
-
-        velocity += newFallspeed;
-        //Then we do the falling
-        transform.position += 
-          //transform.Translate(
-          // Vector3.ClampMagnitude(
-          (down * velocity) * Time.deltaTime
-         // , distanceToGround)
-         // )
-         ;
+        body.AddForce(delta.normalized * force);
       }
 
-    }
-    else
-    {
-      //Debug.LogError("Raycast did not found a walkable surface under me. (Maybe surface has the wrong layer?)");
-    }
-
-    if(disableRotation == false)
-    {
-      //We align the worm
-      //old way transform.up = Vector2.Lerp(transform.up, -down, velocity * .10f);
-
-      transform.rotation = Quaternion.Lerp(transform.rotation,
-        Quaternion.LookRotation(transform.forward, -down),
-       velocity * 10f);
-    }
+      transform.rotation = Quaternion.FromToRotation(transform.up, transform.position -
+        Vector3.zero) * transform.rotation;
+    } 
   }
 }
