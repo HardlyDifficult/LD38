@@ -14,8 +14,6 @@ public class EnvironmentController : MonoBehaviour
     public void Awake()
     {
         _currentScale = PlanetObject.transform.localScale;
-
-        Debug.Log(_currentScale);
         TurnController.onTurnChange += OnTurnChange;
     }
 
