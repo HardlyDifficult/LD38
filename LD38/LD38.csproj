@@ -87,6 +87,7 @@
     <Compile Include="Assets\Code\AnimateWhenMoving.cs" />
     <Compile Include="Assets\Code\Bullet.cs" />
     <Compile Include="Assets\Code\DieOutOfBounds.cs" />
+    <Compile Include="Assets\Code\EnvironmentSpawner.cs" />
     <Compile Include="Assets\Code\ExplosionDamage.cs" />
     <Compile Include="Assets\Code\Gravity.cs" />
     <Compile Include="Assets\Code\Interface\CreditsScreen.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Assets\Code\Shoot.cs" />
     <Compile Include="Assets\Code\Suicide.cs" />
     <Compile Include="Assets\Code\TeamPlayer.cs" />
+    <Compile Include="Assets\Code\Tree.cs" />
     <Compile Include="Assets\Code\TurnController.cs" />
     <Compile Include="Assets\Code\UICurrentTeam.cs" />
     <Compile Include="Assets\Code\UILifeLine.cs" />
