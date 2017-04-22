@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Gravity : MonoBehaviour
 {
-   float fallSpeed = 10f; //How strong the gravity is, gets multiplied by the distance to the surface
+   float fallSpeed = .50f; //How strong the gravity is, gets multiplied by the distance to the surface
   public bool isGrounded = false; //Checks if we can walk on the surface under us
   LayerMask rayLayer; //What we check the raycast against
 
