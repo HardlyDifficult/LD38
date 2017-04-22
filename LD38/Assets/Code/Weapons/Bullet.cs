@@ -9,7 +9,7 @@ namespace HD
   {
     private void Start()
     {
-      body.AddForce(shooter.transform.root.right * speed);
+      body.AddForce(-transform.forward * speed);
     }
   }
 }

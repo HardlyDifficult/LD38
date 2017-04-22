@@ -11,6 +11,7 @@ public class ExplosionDamage : MonoBehaviour {
   {
     colliderRadius = GetComponent<SphereCollider>().radius;
     StartCoroutine(SuicideScript());
+    PlanetDeformation.instance.ExplodeAt(transform.position, 3);
   }
 
   private IEnumerator SuicideScript()

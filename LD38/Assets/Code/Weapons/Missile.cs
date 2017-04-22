@@ -9,7 +9,7 @@ namespace HD
   {
     protected void Update()
     {
-      body.AddForce(transform.right * speed);
+      body.AddForce(-transform.forward * speed);
     }
   }
 }

@@ -2,68 +2,74 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class MainMenu : MonoBehaviour {
+public class MainMenu : MonoBehaviour
+{
 
-    [Header("Referenzes")]
-    public GameObject optionsScreenUI;
-    public Slider soundVolumeSliderUI;
-    public Slider musicVolumeSliderUI;
+  [Header("Referenzes")]
+  public GameObject optionsScreenUI;
+  public Slider soundVolumeSliderUI;
+  public Slider musicVolumeSliderUI;
 
-    #region Buttons
-    /// <summary>
-    /// Loads the game scene
-    /// </summary>
-    public void StartGame()
-    {
-        optionsScreenUI.SetActive(false);
+  #region Buttons
+  /// <summary>
+  /// Loads the game scene
+  /// </summary>
+  public void StartGame()
+  {
+    SoundManager.PlayClick();
 
-        //Example below, because i dont know the buildnumber of the scene in your project
-        SceneManager.LoadScene("Main");
-    }
+    optionsScreenUI.SetActive(false);
+    SceneManager.LoadScene("Main");
+  }
 
-    /// <summary>
-    /// Loads the credits scene
-    /// </summary>
-    public void GoToCredits()
-    {
-        optionsScreenUI.SetActive(false);
+  /// <summary>
+  /// Loads the credits scene
+  /// </summary>
+  public void GoToCredits()
+  {
+    SoundManager.PlayClick();
 
-        //Example below, because i dont know the buildnumber of the scene in your project
-        SceneManager.LoadScene("Credits");
-    }
+    optionsScreenUI.SetActive(false);
+    SceneManager.LoadScene("Credits");
+  }
 
-    /// <summary>
-    /// Quits the application
-    /// </summary>
-    public void QuitGame()
-    {
-        optionsScreenUI.SetActive(false);
-        Application.Quit();
-    }
+  /// <summary>
+  /// Quits the application
+  /// </summary>
+  public void QuitGame()
+  {
+    SoundManager.PlayClick();
 
-    public void OpenOptionsScreen()
-    {
-        optionsScreenUI.SetActive(true);
-    }
-    #endregion
+    optionsScreenUI.SetActive(false);
+    Application.Quit();
+  }
 
-    #region Options
-    /// <summary>
-    /// Gets the sound volume slider change and gives the new volume to the soundmanager
-    /// </summary>
-    /// <param name="_volume"></param>
-    public void SoundVolumeChange()
-    {
-        SoundManager.soundVolume = soundVolumeSliderUI.value;
-    }
+  public void OpenOptionsScreen()
+  {
+    soundVolumeSliderUI.value = SoundManager.soundVolume;
+    musicVolumeSliderUI.value = SoundManager.musicVolume;
+    SoundManager.PlayClick();
+    optionsScreenUI.SetActive(true);
+  }
+  #endregion
 
-    /// <summary>
-    /// Gets the music volume slider change and gives the new volume to the soundmanager
-    /// </summary>
-    /// <param name="_volume"></param>
-    public void MusicVolumeChange()
-    {
-        SoundManager.musicVolume = musicVolumeSliderUI.value;
-    }
-    #endregion
+  #region Options
+  /// <summary>
+  /// Gets the sound volume slider change and gives the new volume to the soundmanager
+  /// </summary>
+  /// <param name="_volume"></param>
+  public void SoundVolumeChange()
+  {
+    SoundManager.soundVolume = soundVolumeSliderUI.value;
+  }
+
+  /// <summary>
+  /// Gets the music volume slider change and gives the new volume to the soundmanager
+  /// </summary>
+  /// <param name="_volume"></param>
+  public void MusicVolumeChange()
+  {
+    SoundManager.musicVolume = musicVolumeSliderUI.value;
+  }
+  #endregion
 }

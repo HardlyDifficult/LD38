@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>WebGL:20</UnityBuildTarget>
     <UnityVersion>5.6.0f3</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -87,9 +85,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Code\AnimateWhenMoving.cs" />
-    <Compile Include="Assets\Code\Weapons\Bullet.cs" />
-    <Compile Include="Assets\Code\Weapons\Missile.cs" />
-    <Compile Include="Assets\Code\Weapons\Projectile.cs" />
     <Compile Include="Assets\Code\DieOutOfBounds.cs" />
     <Compile Include="Assets\Code\EnvironmentSpawner.cs" />
     <Compile Include="Assets\Code\ExplosionDamage.cs" />
@@ -97,7 +92,7 @@
     <Compile Include="Assets\Code\Interface\CreditsScreen.cs" />
     <Compile Include="Assets\Code\LifeLine.cs" />
     <Compile Include="Assets\Code\PlanetChopper.cs" />
-    <Compile Include="Assets\Code\Weapons\Shoot.cs" />
+    <Compile Include="Assets\Code\PlanetDeformation.cs" />
     <Compile Include="Assets\Code\Suicide.cs" />
     <Compile Include="Assets\Code\TeamPlayer.cs" />
     <Compile Include="Assets\Code\Tree.cs" />
@@ -106,11 +101,20 @@
     <Compile Include="Assets\Code\UILifeLine.cs" />
     <Compile Include="Assets\Code\UITurnTimer.cs" />
     <Compile Include="Assets\Code\VectorExtensions.cs" />
+    <Compile Include="Assets\Code\ViewController.cs" />
+    <Compile Include="Assets\Code\Weapons\Bullet.cs" />
+    <Compile Include="Assets\Code\Weapons\Missile.cs" />
+    <Compile Include="Assets\Code\Weapons\Projectile.cs" />
+    <Compile Include="Assets\Code\Weapons\Shoot.cs" />
     <Compile Include="Assets\Code\Weapons\ShootMissileLauncher.cs" />
     <Compile Include="Assets\Code\Weapons\ShootUzi.cs" />
     <Compile Include="Assets\Code\WormMovement.cs" />
+    <Compile Include="Assets\GameCamera.cs" />
+    <Compile Include="Assets\Mareske\Code\IngameMenu.cs" />
     <Compile Include="Assets\Mareske\Code\MainMenu.cs" />
     <Compile Include="Assets\Mareske\Code\SoundManager.cs" />
+    <Compile Include="Assets\MusicPlayer.cs" />
+    <Compile Include="Assets\Temp\TheTerminatorsBehaviour.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Art\Shader\cell_shader.shader" />
