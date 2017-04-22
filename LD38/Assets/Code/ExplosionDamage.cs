@@ -27,7 +27,7 @@ public class ExplosionDamage : MonoBehaviour {
     {
       return;
     }
-
+    
     var percentDamage = other.contactOffset / colliderRadius;
     lifeLine.life -= percentDamage * baseDamage;
   }

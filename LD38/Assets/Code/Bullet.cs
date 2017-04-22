@@ -38,16 +38,12 @@ public class Bullet : MonoBehaviour
   private void OnCollisionEnter(
     Collision collision)
   {
-    if(collision.gameObject == shooter)
+    if(collision.transform.root == shooter)
     {
       return;
     }
-
-    if(collision.gameObject.layer != LayerMask.NameToLayer("Planet"))
-    {
-      Destroy(collision.transform.gameObject);
-    }
-    BlowUp();
+    
+    //BlowUp();
   }
 
   private void BlowUp()

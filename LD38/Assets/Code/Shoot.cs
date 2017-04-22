@@ -43,7 +43,7 @@ public class Shoot : MonoBehaviour
       newBullet.transform.position = bulletSpawn.transform.position;
       newBullet.transform.position = new Vector3(newBullet.transform.position.x, newBullet.transform.position.y);
       newBullet.transform.rotation = transform.rotation;
-      newBullet.shooter = gameObject.transform.parent.gameObject;
+      newBullet.shooter = gameObject.transform.root.gameObject;
       newBullet.speed *= shootHoldTime;
       shootHoldTime = 0;
       //TurnController.currentTeam++;
@@ -54,14 +54,20 @@ public class Shoot : MonoBehaviour
   void Aim()
   {
     Ray targetRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-    Plane plane = new Plane(transform.right, 0);
+    Plane plane = new Plane(transform.root.forward, transform.root.position);
+
+    Debug.DrawRay(transform.position, transform.root.right * 10000);
+    Debug.DrawRay(transform.position, -transform.root.right * 10000);
+
     float distance;
     if(plane.Raycast(targetRay, out distance))
     {
       Vector3 mousePosition = targetRay.GetPoint(distance);
-      Vector3 delta = transform.position - mousePosition;
+     
+      Vector3 delta =  transform.position - mousePosition;
       Vector3 up = transform.position - Vector3.zero;
+
       transform.rotation = Quaternion.LookRotation(delta, up);
-    }
+    } 
   }
 }
