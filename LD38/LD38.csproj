@@ -111,6 +111,7 @@
     <Compile Include="Assets\Code\WormMovement.cs" />
     <Compile Include="Assets\Mareske\Code\MainMenu.cs" />
     <Compile Include="Assets\Mareske\Code\SoundManager.cs" />
+    <Compile Include="Assets\MusicPlayer.cs" />
     <Compile Include="Assets\Temp\TheTerminatorsBehaviour.cs" />
   </ItemGroup>
   <ItemGroup>

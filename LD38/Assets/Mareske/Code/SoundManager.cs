@@ -12,7 +12,7 @@ public class SoundManager : MonoBehaviour
   public static float soundVolume = 1f;
   public static float musicVolume = 1f;
 
-  static SoundManager()
+  static void Init()
   {
     click = Resources.Load<AudioClip>("ShortClick");
 
@@ -20,11 +20,11 @@ public class SoundManager : MonoBehaviour
     DontDestroyOnLoad(tAudioSource);
 
     tSource = tAudioSource.AddComponent<AudioSource>();
-
   }
 
   void Awake()
   {
+    Init();
     //DontDestroyOnLoad(transform.gameObject);
   }
 
@@ -54,9 +54,9 @@ public class SoundManager : MonoBehaviour
 
   public static void Play(AudioClip clip, float volume = 1.0f, float pitch = 1.0f)
   {
-    
+    Init();
     tSource.clip = clip;
-    tSource.volume = volume;
+    tSource.volume = volume * soundVolume;
     tSource.pitch = pitch;
 
     tAudioSource.transform.position = Camera.main.transform.position;

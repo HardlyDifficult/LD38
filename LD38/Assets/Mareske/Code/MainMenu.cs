@@ -19,8 +19,6 @@ public class MainMenu : MonoBehaviour
     SoundManager.PlayClick();
 
     optionsScreenUI.SetActive(false);
-
-    //Example below, because i dont know the buildnumber of the scene in your project
     SceneManager.LoadScene("Main");
   }
 
@@ -32,8 +30,6 @@ public class MainMenu : MonoBehaviour
     SoundManager.PlayClick();
 
     optionsScreenUI.SetActive(false);
-
-    //Example below, because i dont know the buildnumber of the scene in your project
     SceneManager.LoadScene("Credits");
   }
 
@@ -50,6 +46,8 @@ public class MainMenu : MonoBehaviour
 
   public void OpenOptionsScreen()
   {
+    soundVolumeSliderUI.value = SoundManager.soundVolume;
+    musicVolumeSliderUI.value = SoundManager.musicVolume;
     SoundManager.PlayClick();
     optionsScreenUI.SetActive(true);
   }
