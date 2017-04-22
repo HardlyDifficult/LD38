@@ -124,5 +124,10 @@ public class CreditsScreen : MonoBehaviour
             }
         }
 	}
+
+    public void BackButton()
+    {
+        Debug.LogError("Use this to return to menu!");
+    }
     #endregion
 }
