@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class TurnController : MonoBehaviour {
-
-  
-
+public class TurnController : MonoBehaviour
+{
   public enum Phase
   {
     Shoot, Hide
@@ -24,7 +22,7 @@ public class TurnController : MonoBehaviour {
 
   public static int currentTeam
   {
-     get
+    get
     {
       return _currentTeam;
     }
