@@ -15,7 +15,7 @@ namespace HD
     {
       get
       {
-        return 1;
+        return 0.5f;
       }
     }
 
