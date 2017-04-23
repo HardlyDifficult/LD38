@@ -29,7 +29,7 @@ public class ViewController : MonoBehaviour
   {
     while(true)
     {
-      if(TurnController.currentWorm != null)
+      if(TurnController.HasPlayer)
       {
         if(hits != null)
         {
@@ -56,7 +56,7 @@ public class ViewController : MonoBehaviour
         }
 
         hits = Physics.SphereCastAll(CameraObj.transform.position, areaEffectedRadius, CameraObj.transform.forward,
-          Vector3.Distance(TurnController.currentWorm.transform.position, CameraObj.transform.position), layersToHide);
+          Vector3.Distance(TurnController.CurrentPlayer.transform.position, CameraObj.transform.position), layersToHide);
 
         for(int i = 0; i < hits.Length; i++)
         {

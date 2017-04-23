@@ -5,15 +5,18 @@ using UnityEngine.UI;
 
 public class UITurnTimer : MonoBehaviour
 {
-  Text text;
+    Text text;
 
-  protected void Start()
-  {
-    text = GetComponent<Text>();
-  }
+    protected void Start()
+    {
+        text = GetComponent<Text>();
+    }
 
-  public void Update()
-  {
-    text.text = Mathf.RoundToInt(TurnController.timeRemaining * Time.fixedDeltaTime).ToString();
-  }
+    public void Update()
+    {
+        if (!TurnController.isGameOver)
+        {
+            text.text = Mathf.RoundToInt(TurnController.timeRemaining*Time.fixedDeltaTime).ToString();
+        }
+    }
 }

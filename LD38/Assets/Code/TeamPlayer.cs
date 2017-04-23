@@ -1,35 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class TeamPlayer : MonoBehaviour {
-  protected ExplosionDamage explosion;
+public class TeamPlayer : MonoBehaviour
+{
+    private Player _playerComponent;
+    protected ExplosionDamage explosion;
 
-  protected virtual void Awake()
-  {
-    explosion = Resources.Load<ExplosionDamage>("Explosion");
-  }
-
-  public int teamId;
-
-  public bool isMyTurn
-  {
-    get
+    protected virtual void Awake()
     {
-      return teamId == TurnController.currentTeam;
+        explosion = Resources.Load<ExplosionDamage>("Explosion");
+        _playerComponent = GetComponent<Player>();
     }
-  }
 
-  protected void Start()
-  {
-    TurnController.Add(this);
-  }
+    protected void OnDestroy()
+    {
+        TurnController.Remove(_playerComponent);
 
-  protected void OnDestroy()
-  {
-    TurnController.Remove(this);
-
-    var newExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
-    newExplosion.transform.localScale = Vector3.one * .5f;
-  }
+        var newExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
+        newExplosion.transform.localScale = Vector3.one * .5f;
+    }
 }

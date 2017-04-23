@@ -25,6 +25,6 @@ public class UIFirePower : MonoBehaviour
       image.fillAmount = 0;
     }
 
-    print(shooter.shootPower + " power " + shooter.shootHoldTime);
+    //print(shooter.shootPower + " power " + shooter.shootHoldTime);
   }
 }
