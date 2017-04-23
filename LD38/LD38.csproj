@@ -90,6 +90,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Art\MiniMap\MiniMapController.cs" />
     <Compile Include="Assets\Code\AnimateWhenMoving.cs" />
     <Compile Include="Assets\Code\ButtonReturnToMenu.cs" />
     <Compile Include="Assets\Code\DieOutOfBounds.cs" />

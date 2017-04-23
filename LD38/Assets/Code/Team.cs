@@ -6,7 +6,7 @@ public class Team
   public int Id;
   public string TeamName;
 
-  public List<PlayerInfo> playerList;
+  public List<TeamPlayer> playerList;
 
   public float TeamHealth
   {
@@ -17,7 +17,7 @@ public class Team
       {
         if(playerList[i] != null)
         {
-          health += playerList[i].Health;
+          health += playerList[i].playerInfo.Health;
         }
       }
 
@@ -32,7 +32,7 @@ public class Team
     get { return TeamHealth > 0.0f; }
   }
 
-  public PlayerInfo CurrentPlayer
+  public TeamPlayer CurrentPlayer
   {
     get
     {
@@ -52,7 +52,7 @@ public class Team
     Id = id;
     TeamName = teamName;
 
-    playerList = new List<PlayerInfo>();
+    playerList = new List<TeamPlayer>();
 
     TurnController.onTurnChange += OnTurnChange;
   }
@@ -79,7 +79,7 @@ public class Team
 
   }
 
-  public void AddPlayer(PlayerInfo player)
+  public void AddPlayer(TeamPlayer player)
   {
     if(!ContainsPlayer(player))
     {
@@ -87,18 +87,18 @@ public class Team
     }
   }
 
-  public void RemovePlayer(PlayerInfo player)
+  public void RemovePlayer(TeamPlayer player)
   {
     playerList.Remove(player);
   }
 
-  public bool ContainsPlayer(PlayerInfo p)
+  public bool ContainsPlayer(TeamPlayer p)
   {
     return playerList.Contains(p);
   }
 
 
-  public bool GetTurn(PlayerInfo player)
+  public bool GetTurn(TeamPlayer player)
   {
     return CurrentPlayer == player;
   }

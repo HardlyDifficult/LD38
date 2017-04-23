@@ -4,28 +4,28 @@ using UnityEngine.SceneManagement;
 public class TeamPlayer : MonoBehaviour
 {
   public GameObject deathObject;
-  private PlayerInfo _playerComponent;
+  public PlayerInfo playerInfo;
   protected ExplosionDamage explosion;
 
   public bool isMyTurn
   {
     get
     {
-      return TurnController.GetPlayerTurn(_playerComponent);
+      return TurnController.GetPlayerTurn(this);
     }
   }
 
   protected virtual void Awake()
   {
     explosion = Resources.Load<ExplosionDamage>("Explosion");
-    _playerComponent = GetComponent<PlayerInfo>();
+    playerInfo = GetComponent<PlayerInfo>();
   }
 
   protected void OnDestroy()
   {
     Instantiate(deathObject, transform.position, transform.rotation);
 
-    TurnController.Remove(_playerComponent);
+    TurnController.Remove(this);
 
     var newExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
     newExplosion.transform.localScale = Vector3.one * .5f;

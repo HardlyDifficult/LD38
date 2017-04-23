@@ -9,7 +9,7 @@ public class WormMovement : MonoBehaviour
     Gravity gravity;
     Rigidbody body;
 
-    private PlayerInfo _playerComponent;
+    private TeamPlayer _playerComponent;
 
     protected void Start()
     {
@@ -17,7 +17,7 @@ public class WormMovement : MonoBehaviour
         teamPlayer = GetComponent<TeamPlayer>();
         gravity = GetComponent<Gravity>();
 
-        _playerComponent = GetComponent<PlayerInfo>();
+        _playerComponent = GetComponent<TeamPlayer>();
     }
 
     protected void FixedUpdate()

@@ -58,7 +58,7 @@ public class NetworkManager : Photon.PunBehaviour
         canvas.transform.FindChild("MultiplayerPanel").FindChild("ServerText").GetComponent<Text>().text = "Connected to server as: " + PhotonNetwork.playerName;
 
         // Spawn network worm
-        PlayerInfo worm = PhotonNetwork.Instantiate("NetworkWorm", SpawnLocation, Quaternion.identity, 0).GetComponent<PlayerInfo>();
+        TeamPlayer worm = PhotonNetwork.Instantiate("NetworkWorm", SpawnLocation, Quaternion.identity, 0).GetComponent<TeamPlayer>();
         Team team = TurnController.GetTeam(_teamID);
         TurnController.AddPlayer(team, worm);
       }

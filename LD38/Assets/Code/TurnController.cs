@@ -5,73 +5,89 @@ using System;
 
 public enum Phase
 {
-    Shoot, Hide
+  Shoot, Hide
 }
 
 
 public class TurnController : MonoBehaviour
 {
-    public GameObject gameOverPanel;
+  public GameObject gameOverPanel;
 
-    public static bool isGameOver;
-    public static TurnController instance;
-    public static Phase phase;
+  public static bool isGameOver;
+  public static TurnController instance;
+  public static Phase phase;
 
-    public List<Team> teamList;
+  public List<Team> teamList;
 
-    public static event Action onTurnChange;
+  public static event Action onTurnChange;
 
 
-    public static int playersPerTeam = 10;
+  public static int playersPerTeam = 10;
 
-    const int timeForPreTurn = 1000;
-    const int timeForPostTurn = timeForPreTurn / 10;
-    public static int timeRemaining;
+  const int timeForPreTurn = 1000;
+  const int timeForPostTurn = timeForPreTurn / 10;
+  public static int timeRemaining;
 
-    public static Team CurrentTeam
+  internal static IEnumerable<TeamPlayer> GetAllPlayers()
+  {
+    foreach(var team in instance.teamList)
     {
-        get
-        {
-            if (_currentTeamId >= instance.teamList.Count)
-                return null;
-
-            return instance.teamList[_currentTeamId];
-        }
+      foreach(var player in team.playerList)
+      {
+        yield return player;
+      }
     }
-        
+  }
 
-    private static int _currentTeamId;
-    public static int currentTeamId
+  public static Team CurrentTeam
+  {
+    get
     {
-        get
-        {
-            return _currentTeamId;
-        }
-        set
-        {
-            phase = 0;
-            _currentTeamId = value % instance.teamList.Count;
-            if (onTurnChange != null)
-            {
-                onTurnChange.Invoke();
-            }
+      if(_currentTeamId >= instance.teamList.Count)
+        return null;
 
-            timeRemaining = timeForPreTurn;
-        }
+      return instance.teamList[_currentTeamId];
     }
+  }
 
-    public static bool HasPlayer
+
+  private static int _currentTeamId;
+  public static int currentTeamId
+  {
+    get
     {
-        get { return CurrentPlayer != null; }
+      return _currentTeamId;
     }
-
-    public static PlayerInfo CurrentPlayer
+    set
     {
-        get
-        {
-            return CurrentTeam.CurrentPlayer;
-        }
+      phase = 0;
+      _currentTeamId = value % instance.teamList.Count;
+      if(onTurnChange != null)
+      {
+        onTurnChange.Invoke();
+      }
+
+      timeRemaining = timeForPreTurn;
     }
+  }
+
+  public static bool HasPlayer
+  {
+    get { return CurrentPlayer != null; }
+  }
+
+  public static PlayerInfo CurrentPlayer
+  {
+    get
+    {
+      if(CurrentTeam == null || CurrentTeam.CurrentPlayer == null)
+      {
+        return null;
+      }
+
+      return CurrentTeam.CurrentPlayer.playerInfo;
+    }
+  }
 
   internal static Team GetTeam(int teamID)
   {
@@ -84,116 +100,116 @@ public class TurnController : MonoBehaviour
   }
 
   public static Team WinningTeam
+  {
+    get
     {
-        get
+      float bestTeamHealth = 0.0f;
+      Team teamWithBestHealth = null;
+      for(int i = 0; i < instance.teamList.Count; i++)
+      {
+        Team t = instance.teamList[i];
+        if(t.TeamHealth > bestTeamHealth)
         {
-            float bestTeamHealth = 0.0f;
-            Team teamWithBestHealth = null;
-            for (int i = 0; i < instance.teamList.Count; i++)
-            {
-                Team t = instance.teamList[i];
-                if (t.TeamHealth > bestTeamHealth)
-                {
-                    bestTeamHealth = t.TeamHealth;
-                    teamWithBestHealth = t;
-                }
-
-            }
-
-            return teamWithBestHealth;
-        }
-    }
-
-    #region Events
-
-    protected void OnEnable()
-    {
-        phase = Phase.Shoot;
-        isGameOver = false;
-        instance = this;
-
-        teamList = new List<Team>();
-    }
-
-    protected void FixedUpdate()
-    {
-        if (isGameOver) return;
-
-        if (Input.GetKeyDown(KeyCode.T))
-            timeRemaining = 0;
-
-        if (CurrentPlayer == null)
-            timeRemaining = 0;
-
-        timeRemaining--;
-        if (timeRemaining <= 0)
-        {
-            currentTeamId++;
-        }
-    }
-
-    protected void OnDestroy()
-    {
-        isGameOver = true;
-    }
-    #endregion
-
-    #region API
-
-    public static void AddTeam(Team team)
-    {
-        if(!instance.teamList.Contains(team))   
-            instance.teamList.Add(team);
-    }
-
-    public static void AddPlayer(Team team, PlayerInfo player)
-    {
-        team.AddPlayer(player);
-    }
-
-    public static Team FindPlayerTeam(PlayerInfo p)
-    {
-        for (int i = 0; i < instance.teamList.Count; i++)
-        {
-            if (instance.teamList[i].ContainsPlayer(p))
-            {
-                return instance.teamList[i];
-            }
+          bestTeamHealth = t.TeamHealth;
+          teamWithBestHealth = t;
         }
 
-        return null;
-    }
+      }
 
-    public static bool GetPlayerTurn(PlayerInfo playerObj)
+      return teamWithBestHealth;
+    }
+  }
+
+  #region Events
+
+  protected void OnEnable()
+  {
+    phase = Phase.Shoot;
+    isGameOver = false;
+    instance = this;
+
+    teamList = new List<Team>();
+  }
+
+  protected void FixedUpdate()
+  {
+    if(isGameOver) return;
+
+    if(Input.GetKeyDown(KeyCode.T))
+      timeRemaining = 0;
+
+    if(CurrentPlayer == null)
+      timeRemaining = 0;
+
+    timeRemaining--;
+    if(timeRemaining <= 0)
     {
-        return CurrentTeam.GetTurn(playerObj);
+      currentTeamId++;
     }
+  }
 
-    public static void Remove(
-      PlayerInfo player)
+  protected void OnDestroy()
+  {
+    isGameOver = true;
+  }
+  #endregion
+
+  #region API
+
+  public static void AddTeam(Team team)
+  {
+    if(!instance.teamList.Contains(team))
+      instance.teamList.Add(team);
+  }
+
+  public static void AddPlayer(Team team, TeamPlayer player)
+  {
+    team.AddPlayer(player);
+  }
+
+  public static Team FindPlayerTeam(TeamPlayer p)
+  {
+    for(int i = 0; i < instance.teamList.Count; i++)
     {
-        if (isGameOver)
-        {
-            return;
-        }
-
-        Team t = FindPlayerTeam(player);
-        t.RemovePlayer(player);
-
-        if (!t.TeamAlive)
-        {
-            isGameOver = true;
-            if (instance.gameOverPanel != null)
-            {
-                instance.gameOverPanel.SetActive(true);
-            }
-        }
+      if(instance.teamList[i].ContainsPlayer(p))
+      {
+        return instance.teamList[i];
+      }
     }
 
-    internal static void NextPhase()
+    return null;
+  }
+
+  public static bool GetPlayerTurn(TeamPlayer playerObj)
+  {
+    return CurrentTeam.GetTurn(playerObj);
+  }
+
+  public static void Remove(
+    TeamPlayer player)
+  {
+    if(isGameOver)
     {
-        phase++;
-        timeRemaining = timeForPostTurn;
+      return;
     }
-    #endregion
+
+    Team t = FindPlayerTeam(player);
+    t.RemovePlayer(player);
+
+    if(!t.TeamAlive)
+    {
+      isGameOver = true;
+      if(instance.gameOverPanel != null)
+      {
+        instance.gameOverPanel.SetActive(true);
+      }
+    }
+  }
+
+  internal static void NextPhase()
+  {
+    phase++;
+    timeRemaining = timeForPostTurn;
+  }
+  #endregion
 }
