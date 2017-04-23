@@ -22,8 +22,8 @@ public class TurnController : MonoBehaviour
     public static event Action onTurnChange;
 
 
-    public static int teamCount = 2;
-    public static int playersPerTeam = 3;
+    public static int teamCount = 5;
+    public static int playersPerTeam = 10;
 
     const int timeForPreTurn = 1000;
     const int timeForPostTurn = timeForPreTurn / 10;

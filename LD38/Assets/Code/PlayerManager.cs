@@ -8,13 +8,22 @@ public class PlayerManager : MonoBehaviour
 
     public void Awake()
     {
+        string[] teamNames =
+        {
+            "Grub",
+            "Worm",
+            "Caterpillar",
+            "Snake",
+            "Ladybug"
+        };
+
         for (int i = 0; i < TurnController.teamCount; i++)
         {
-            string teamName = i%2 == 0 ? "Worm" : "Grub";
+            string teamName = teamNames[i];
 
             Team team = new Team(i, 
                 TurnController.playersPerTeam, 
-                teamName + "s"
+                "Team " + teamName + "s"
             );
 
             TurnController.AddTeam(team);

@@ -13,7 +13,15 @@ public class UIGameOverPanel : MonoBehaviour
             return;
         }
 
-        text.text = TurnController.WinningTeam.TeamName;
+        if (TurnController.WinningTeam == null)
+        {
+            text.text = "A draw!?";
+        }
+        else
+        {
+            text.text = TurnController.WinningTeam.TeamName;
+        }
+   
         var audio = Camera.main.GetComponent<AudioSource>();
         audio.clip = deathMusic;
         audio.Play();
