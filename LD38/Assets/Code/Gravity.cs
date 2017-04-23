@@ -29,7 +29,7 @@ public class Gravity : MonoBehaviour
     {
       Vector3 hitPoint = hit.point + directionToCenter;
       var delta = hitPoint - transform.position;
-      if(delta.sqrMagnitude < 1.1f)
+      if(delta.sqrMagnitude < 2f)
       {
         if(isGrounded == false && onGrounded != null)
         {
@@ -47,11 +47,6 @@ public class Gravity : MonoBehaviour
         body.AddForce(delta.normalized * force);
         isGrounded = false;
       }
-
-      //if(isGrounded == false)
-      //{
-      //  body.AddForce(delta.normalized * force);
-      //}
 
       targetRotation = Quaternion.FromToRotation(targetRotation * Vector3.up,
         hit.normal

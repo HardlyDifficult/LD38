@@ -43,7 +43,7 @@ public class ViewController : MonoBehaviour
               continue;
             }
 
-            Renderer rend = hit.transform.GetComponent<Renderer>();
+            Renderer rend = hit.transform.GetComponentInChildren<Renderer>();
 
             if(rend)
             {
@@ -57,13 +57,15 @@ public class ViewController : MonoBehaviour
           }
         }
 
-
         hits = Physics.SphereCastAll(CameraObj.transform.position, areaEffectedRadius, CameraObj.transform.forward,
           Vector3.Distance(TurnController.currentWorm.transform.position, CameraObj.transform.position), layersToHide);
+
+        print(hits.Length);
+
         for(int i = 0; i < hits.Length; i++)
         {
           RaycastHit hit = hits[i];
-          Renderer rend = hit.transform.GetComponent<Renderer>();
+          Renderer rend = hit.transform.GetComponentInChildren<Renderer>();
 
           if(rend)
           {

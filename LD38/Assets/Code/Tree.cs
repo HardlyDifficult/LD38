@@ -16,7 +16,10 @@ public class Tree : MonoBehaviour {
     if(collision.gameObject.GetComponent<Tree>() != null)
     {
       Destroy(gameObject);
-    } else
+    } else if(Time.timeSinceLevelLoad < .1f && collision.gameObject.layer == LayerMask.NameToLayer("Character"))
+    {
+      Destroy(gameObject);
+    } else 
     {
       SoundManager.Play(headbutt, .2f);
     }

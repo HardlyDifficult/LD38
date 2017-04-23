@@ -30,11 +30,14 @@ public class WormMovement : MonoBehaviour
   }
 
   void MoveWorm()
-  {    
-    body.AddForce((transform.right * Input.GetAxis("Vertical")
-      //+ transform.forward * Input.GetAxis("Vertical") Switching to turn instead of move that direction
-      )
-      * Time.deltaTime * moveSpeed);
+  {
+    if(gravity.isGrounded)
+    { 
+      body.AddForce((transform.right * Input.GetAxis("Vertical")
+        //+ transform.forward * Input.GetAxis("Vertical") Switching to turn instead of move that direction
+        )
+        * Time.deltaTime * moveSpeed);
+    }
 
     gravity.turnOffset = Quaternion.Euler(0, Input.GetAxis("Horizontal"), 0);
   }
