@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TeamPlayer : MonoBehaviour
 {
+  public GameObject deathObject;
   private PlayerInfo _playerComponent;
   protected ExplosionDamage explosion;
 
@@ -21,6 +23,8 @@ public class TeamPlayer : MonoBehaviour
 
   protected void OnDestroy()
   {
+    Instantiate(deathObject, transform.position, transform.rotation);
+
     TurnController.Remove(_playerComponent);
 
     var newExplosion = Instantiate(explosion, transform.position, Quaternion.identity);

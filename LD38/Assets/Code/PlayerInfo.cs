@@ -2,6 +2,8 @@
 
 public class PlayerInfo : MonoBehaviour
 {
+  public Transform weaponMountPosition;
+
   public UILifeLine uiLifeLineComponent;
   public LifeLine LifeLineComponent
   {

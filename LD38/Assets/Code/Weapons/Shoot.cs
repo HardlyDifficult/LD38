@@ -28,7 +28,6 @@ public abstract class Shoot : MonoBehaviour
 
     protected virtual void Start()
     {
-        Player = GetComponentInParent<PlayerInfo>();
         bulletSpawnAnchorPointOnGun = transform.FindChild("BulletSpawn");
     }
 
@@ -49,7 +48,9 @@ public abstract class Shoot : MonoBehaviour
 
     protected void FixedUpdate()
     {
-        if (!TurnController.GetPlayerTurn(Player) || TurnController.phase != Phase.Shoot)
+    Player = GetComponentInParent<PlayerInfo>();
+
+    if(!TurnController.GetPlayerTurn(Player) || TurnController.phase != Phase.Shoot)
         {
             return;
         }

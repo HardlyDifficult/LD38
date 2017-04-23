@@ -130,6 +130,9 @@
     <Compile Include="Assets\Mareske\Code\IngameMenu.cs" />
     <Compile Include="Assets\Mareske\Code\MainMenu.cs" />
     <Compile Include="Assets\Mareske\Code\SoundManager.cs" />
+    <Compile Include="Assets\Mareske\Code\WeaponManager.cs" />
+    <Compile Include="Assets\Mareske\Code\WeaponSelectionButton.cs" />
+    <Compile Include="Assets\Mareske\Code\WeaponSelectionGrid.cs" />
     <Compile Include="Assets\Photon Unity Networking\Demos\Demo2DJumpAndRunWithPhysics\Scripts\Demo2DJumpAndRun.cs" />
     <Compile Include="Assets\Photon Unity Networking\Demos\Demo2DJumpAndRunWithPhysics\Scripts\JumpAndRunMovement.cs" />
     <Compile Include="Assets\Photon Unity Networking\Demos\DemoBoxes\ColorPerPlayer.cs" />
