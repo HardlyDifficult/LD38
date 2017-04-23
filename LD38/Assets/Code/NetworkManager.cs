@@ -33,7 +33,10 @@ public class NetworkManager : Photon.PunBehaviour
     Connect();
 
     SceneManager.sceneLoaded += OnFinishedLoadingLevel;
-  }
+
+        GameObject canvas = GameObject.Find("Canvas");
+        canvas.transform.FindChild("ButtonHolder").FindChild("JoinRandomRoom").GetComponent<Button>().interactable = false;
+    }
 
   void Update()
   {
@@ -103,7 +106,9 @@ public class NetworkManager : Photon.PunBehaviour
   public override void OnConnectedToMaster()
   {
     Debug.Log("Connected to master server!");
-  }
+        GameObject canvas = GameObject.Find("Canvas");
+        canvas.transform.FindChild("ButtonHolder").FindChild("JoinRandomRoom").GetComponent<Button>().interactable = true;
+    }
 
   public override void OnJoinedRoom()
   {
