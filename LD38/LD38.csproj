@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="Assets\Code\AnimateWhenMoving.cs" />
     <Compile Include="Assets\Code\DieOutOfBounds.cs" />
+    <Compile Include="Assets\Code\EnvironmentController.cs" />
     <Compile Include="Assets\Code\EnvironmentSpawner.cs" />
     <Compile Include="Assets\Code\ExplosionDamage.cs" />
     <Compile Include="Assets\Code\Gravity.cs" />

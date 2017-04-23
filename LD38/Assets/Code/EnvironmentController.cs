@@ -5,7 +5,7 @@ public class EnvironmentController : MonoBehaviour
 {
     public GameObject PlanetObject;
 
-    public static float ShrinkPerTurn = 0.01f; // In percentages.
+    public static float ShrinkPerTurn = 0.1f; // In percentages.
     public static float ShrinkAnimationTime = 0.8f;
     public float ShrinkMinimumSize = 5.0f;
 
