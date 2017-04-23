@@ -14,22 +14,20 @@ public class TurnController : MonoBehaviour
     public GameObject gameOverPanel;
 
     public static bool isGameOver;
-    static TurnController instance;
+    public static TurnController instance;
     public static Phase phase;
 
-    List<Team> teamList;
+    public List<Team> teamList;
 
     public static event Action onTurnChange;
 
 
-    public static int teamCount = 5;
     public static int playersPerTeam = 10;
 
     const int timeForPreTurn = 1000;
     const int timeForPostTurn = timeForPreTurn / 10;
     public static int timeRemaining;
 
-    private static Team _currentTeam;
     public static Team CurrentTeam
     {
         get
@@ -52,7 +50,7 @@ public class TurnController : MonoBehaviour
         set
         {
             phase = 0;
-            _currentTeamId = value % teamCount;
+            _currentTeamId = value % instance.teamList.Count;
             if (onTurnChange != null)
             {
                 onTurnChange.Invoke();
@@ -67,7 +65,7 @@ public class TurnController : MonoBehaviour
         get { return CurrentPlayer != null; }
     }
 
-    public static Player CurrentPlayer
+    public static PlayerInfo CurrentPlayer
     {
         get
         {
@@ -75,8 +73,17 @@ public class TurnController : MonoBehaviour
         }
     }
 
+  internal static Team GetTeam(int teamID)
+  {
+    while(instance.teamList.Count <= teamID)
+    {
+      instance.teamList.Add(new Team(instance.teamList.Count, 0, instance.teamList.Count.ToString())); // TODO name
+    }
 
-    public static Team WinningTeam
+    return instance.teamList[teamID];
+  }
+
+  public static Team WinningTeam
     {
         get
         {
@@ -139,12 +146,12 @@ public class TurnController : MonoBehaviour
             instance.teamList.Add(team);
     }
 
-    public static void AddPlayer(Team team, Player player)
+    public static void AddPlayer(Team team, PlayerInfo player)
     {
         team.AddPlayer(player);
     }
 
-    public static Team FindPlayerTeam(Player p)
+    public static Team FindPlayerTeam(PlayerInfo p)
     {
         for (int i = 0; i < instance.teamList.Count; i++)
         {
@@ -157,13 +164,13 @@ public class TurnController : MonoBehaviour
         return null;
     }
 
-    public static bool GetPlayerTurn(Player playerObj)
+    public static bool GetPlayerTurn(PlayerInfo playerObj)
     {
         return CurrentTeam.GetTurn(playerObj);
     }
 
     public static void Remove(
-      Player player)
+      PlayerInfo player)
     {
         if (isGameOver)
         {

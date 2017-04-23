@@ -3,20 +3,25 @@ using UnityEngine.UI;
 
 public class UICurrentTeam : MonoBehaviour
 {
-    public Text CurrentTeamText;
-    public Text CurrentWormText;
+  public Text CurrentTeamText;
+  public Text CurrentWormText;
 
-    private void FixedUpdate()
+  private void FixedUpdate()
+  {
+    if(TurnController.isGameOver)
     {
-        if (TurnController.isGameOver)
-        {
-            gameObject.SetActive(false);
-            return;
-        }
-
-        CurrentTeamText.text = TurnController.CurrentTeam.TeamName;
-
-        if(TurnController.CurrentPlayer != null)
-            CurrentWormText.text = TurnController.CurrentPlayer.PlayerName;
+      gameObject.SetActive(false);
+      return;
     }
+
+    if(TurnController.CurrentTeam != null)
+    {
+      CurrentTeamText.text = TurnController.CurrentTeam.TeamName;
+    }
+
+    if(TurnController.CurrentPlayer != null)
+    {
+      CurrentWormText.text = TurnController.CurrentPlayer.PlayerName;
+    }
+  }
 }

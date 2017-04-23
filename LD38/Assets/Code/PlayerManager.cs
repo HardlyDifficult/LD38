@@ -6,45 +6,45 @@ public class PlayerManager : MonoBehaviour
     public GameObject PlayerPrefab;
     public GameObject Planet;
 
-    public void Awake()
-    {
-        string[] teamNames =
-        {
-            "Grub",
-            "Worm",
-            "Caterpillar",
-            "Snake",
-            "Ladybug"
-        };
+    //public void Awake()
+    //{
+    //    string[] teamNames =
+    //    {
+    //        "Grub",
+    //        "Worm",
+    //        "Caterpillar",
+    //        "Snake",
+    //        "Ladybug"
+    //    };
 
-        for (int i = 0; i < TurnController.teamCount; i++)
-        {
-            string teamName = teamNames[i];
+    //    for (int i = 0; i < TurnController.instance.teamList.Count; i++)
+    //    {
+    //        string teamName = teamNames[i];
 
-            Team team = new Team(i, 
-                TurnController.playersPerTeam, 
-                "Team " + teamName + "s"
-            );
+    //        Team team = new Team(i, 
+    //            TurnController.playersPerTeam, 
+    //            "Team " + teamName + "s"
+    //        );
 
-            TurnController.AddTeam(team);
+    //        TurnController.AddTeam(team);
 
-            for (int j = 0; j < TurnController.playersPerTeam; j++)
-            {
-                Player player = SpawnPlayer();
-                player.PlayerName = teamName + " " + (j + 1);
+    //        for (int j = 0; j < TurnController.playersPerTeam; j++)
+    //        {
+    //            PlayerInfo player = SpawnPlayer();
+    //            player.PlayerName = teamName + " " + (j + 1);
 
-                TurnController.AddPlayer(team, player);
-            }
-        }
-    }
+    //            TurnController.AddPlayer(team, player);
+    //        }
+    //    }
+    //}
 
-    public Player SpawnPlayer()
+    public PlayerInfo SpawnPlayer()
     {
         Vector3 randomSpawnPoint = RandomHelper.RandomPointOnObject(Planet);
 
         GameObject player = Instantiate(PlayerPrefab, randomSpawnPoint, Quaternion.identity);
 
-        Player playerComponent = player.GetComponent<Player>();
+        PlayerInfo playerComponent = player.GetComponent<PlayerInfo>();
 
         if (playerComponent != null)
             return playerComponent;

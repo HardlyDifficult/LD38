@@ -2,7 +2,7 @@
 
 public abstract class Shoot : MonoBehaviour
 {
-    public Player Player;
+    public PlayerInfo Player;
     protected Transform bulletSpawnAnchorPointOnGun;
 
     const float maxHoldTime = 2;
@@ -28,7 +28,7 @@ public abstract class Shoot : MonoBehaviour
 
     protected virtual void Start()
     {
-        Player = GetComponentInParent<Player>();
+        Player = GetComponentInParent<PlayerInfo>();
         bulletSpawnAnchorPointOnGun = transform.FindChild("BulletSpawn");
     }
 

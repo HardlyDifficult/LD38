@@ -2,20 +2,28 @@
 
 public class TeamPlayer : MonoBehaviour
 {
-    private Player _playerComponent;
-    protected ExplosionDamage explosion;
+  private PlayerInfo _playerComponent;
+  protected ExplosionDamage explosion;
 
-    protected virtual void Awake()
+  public bool isMyTurn
+  {
+    get
     {
-        explosion = Resources.Load<ExplosionDamage>("Explosion");
-        _playerComponent = GetComponent<Player>();
+      return TurnController.GetPlayerTurn(_playerComponent);
     }
+  }
 
-    protected void OnDestroy()
-    {
-        TurnController.Remove(_playerComponent);
+  protected virtual void Awake()
+  {
+    explosion = Resources.Load<ExplosionDamage>("Explosion");
+    _playerComponent = GetComponent<PlayerInfo>();
+  }
 
-        var newExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
-        newExplosion.transform.localScale = Vector3.one * .5f;
-    }
+  protected void OnDestroy()
+  {
+    TurnController.Remove(_playerComponent);
+
+    var newExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
+    newExplosion.transform.localScale = Vector3.one * .5f;
+  }
 }
