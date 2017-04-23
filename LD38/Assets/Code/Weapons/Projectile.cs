@@ -21,7 +21,6 @@ public abstract class Projectile : MonoBehaviour
   protected virtual void Awake()
   {
     explosion = Resources.Load<ExplosionDamage>("Explosion");
-
   }
 
   protected virtual void Start()
