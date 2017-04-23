@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 public abstract class Shoot : MonoBehaviour
 {
-  protected TeamPlayer teamPlayer;
+  public TeamPlayer Player;
   protected Transform bulletSpawnAnchorPointOnGun;
 
   const float maxHoldTime = 2;
@@ -30,7 +29,6 @@ public abstract class Shoot : MonoBehaviour
 
   protected virtual void Start()
   {
-    teamPlayer = transform.root.GetComponent<TeamPlayer>();
     bulletSpawnAnchorPointOnGun = transform.FindChild("BulletSpawn");
   }
 
@@ -51,14 +49,16 @@ public abstract class Shoot : MonoBehaviour
 
   protected void FixedUpdate()
   {
-    if(teamPlayer.isMyTurn == false || TurnController.phase != TurnController.Phase.Shoot)
+    Player = GetComponentInParent<TeamPlayer>();
+
+    if(!TurnController.GetPlayerTurn(Player) || TurnController.phase != Phase.Shoot)
     {
       return;
     }
 
     Aim();
 
-    if(Input.GetAxis("Fire1") > 0)
+    if(Input.GetAxis("Fire1") > 0 && EventSystem.current.IsPointerOverGameObject() == false)
     {
       if(shootHoldTime == 0)
       {
@@ -67,12 +67,12 @@ public abstract class Shoot : MonoBehaviour
       OnFireStay();
       shootHoldTime += Time.deltaTime;
     }
-    else 
+    else
     {
       OnFireStop();
       shootHoldTime = 0;
     }
-  } 
+  }
 
   void Aim()
   {
@@ -84,19 +84,19 @@ public abstract class Shoot : MonoBehaviour
 
     Ray targetRay = Camera.main.ScreenPointToRay(screenPos);
     Plane plane = new Plane(transform.root.forward, transform.root.position);
-    
+
     float distance;
     if(plane.Raycast(targetRay, out distance))
     {
       Vector3 mousePosition = targetRay.GetPoint(distance);
-     
-      Vector3 delta =  transform.position - mousePosition;
+
+      Vector3 delta = transform.position - mousePosition;
       Vector3 up = transform.position - Vector3.zero;
 
       Quaternion originalRotation = transform.rotation;
       transform.rotation = Quaternion.LookRotation(delta, up);
 
-      
+
       //Vector3 euler = transform.localRotation.eulerAngles;
       if((transform.right - transform.root.forward).sqrMagnitude > 1
         //Mathf.Abs(euler.y) > 1 || Mathf.Abs(euler.z) > 1 || 
@@ -107,7 +107,7 @@ public abstract class Shoot : MonoBehaviour
       }
     }
   }
-  
+
   /// <param name="antiAccurancyInDegrees">Higher means worse aim</param>
   protected void FireProjectile(Projectile resource, float antiAccurancyInDegrees)
   {

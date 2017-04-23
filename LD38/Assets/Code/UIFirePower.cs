@@ -11,12 +11,16 @@ public class UIFirePower : MonoBehaviour
   void Start()
   {
     image = GetComponent<Image>();
-    shooter = transform.root.GetComponentInChildren<Shoot>();
   }
 
   // Update is called once per frame
   void Update()
   {
+    shooter = transform.root.GetComponentInChildren<Shoot>();
+    if(shooter == null)
+    {
+      return;
+    }
     if(shooter.showShootPower)
     {
     image.fillAmount = shooter.shootPower;
@@ -25,6 +29,6 @@ public class UIFirePower : MonoBehaviour
       image.fillAmount = 0;
     }
 
-    print(shooter.shootPower + " power " + shooter.shootHoldTime);
+    //print(shooter.shootPower + " power " + shooter.shootHoldTime);
   }
 }

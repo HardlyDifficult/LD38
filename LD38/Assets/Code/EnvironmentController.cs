@@ -11,6 +11,8 @@ public class EnvironmentController : MonoBehaviour
 
   private Vector3 _currentScale;
 
+  int turnCounter;
+
   public void Start()
   {
     _currentScale = PlanetObject.transform.localScale;
@@ -28,6 +30,11 @@ public class EnvironmentController : MonoBehaviour
 
   private void OnTurnChange()
   {
+    if(turnCounter++ < 3)
+    {
+      return;
+    }
+
     _currentScale *= 1.0f - ShrinkPerTurn;
 
     _currentScale = new Vector3(

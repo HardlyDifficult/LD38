@@ -15,6 +15,8 @@ public class IngameMenu : MonoBehaviour
   public GameObject optionsUI;
   public Slider soundVolumeSliderUI;
   public Slider musicVolumeSliderUI;
+  public GameObject weaponSelectionUI;
+
 
   private void Start()
   {
@@ -44,6 +46,8 @@ public class IngameMenu : MonoBehaviour
 
       menuUI.SetActive(false);
       optionsUI.SetActive(false);
+      weaponSelectionUI.SetActive(true);
+
     }
     else
     {
@@ -52,6 +56,8 @@ public class IngameMenu : MonoBehaviour
       inMenu = true;
 
       menuUI.SetActive(true);
+      weaponSelectionUI.SetActive(false);
+
     }
   }
 

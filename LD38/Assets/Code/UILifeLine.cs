@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class UILifeLine : MonoBehaviour {
-  LifeLine life;
+  public LifeLine life;
   Image image;
 	// Use this for initialization
 	void Start () {

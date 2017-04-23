@@ -1,35 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class UICurrentTeam : MonoBehaviour {
-  Text text;
+public class UICurrentTeam : MonoBehaviour
+{
+  public Text CurrentTeamText;
+  public Text CurrentWormText;
 
-  protected void Start()
+  private void FixedUpdate()
   {
-    text = GetComponent<Text>();
-    Debug.Assert(text != null);
-
-    TurnController.onTurnChange += TurnController_onTurnChange;
-  }
-
-  protected void OnDestroy()
-  {
-    TurnController.onTurnChange -= TurnController_onTurnChange;
-  }
-
-  private void TurnController_onTurnChange()
-  {
-    switch(TurnController.currentTeam)
+    if(TurnController.isGameOver)
     {
-      default:
-      case 0:
-        text.text = "Team 1";
-        break;
-      case 1:
-        text.text = "Team 2";
-        break;
+      gameObject.SetActive(false);
+      return;
+    }
+
+    if(TurnController.CurrentTeam != null)
+    {
+      CurrentTeamText.text = TurnController.CurrentTeam.TeamName;
+    }
+
+    if(TurnController.CurrentPlayer != null)
+    {
+      CurrentWormText.text = TurnController.CurrentPlayer.PlayerName;
     }
   }
 }

@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class ViewController : MonoBehaviour
 {
+  public Shader standard;
+  public Shader diffuse;
+
   GameObject CameraObj;
 
   [SerializeField]
@@ -29,7 +32,7 @@ public class ViewController : MonoBehaviour
   {
     while(true)
     {
-      if(TurnController.currentWorm != null)
+      if(TurnController.HasPlayer)
       {
         if(hits != null)
         {
@@ -47,7 +50,7 @@ public class ViewController : MonoBehaviour
             {
               // Change the material of all hit colliders
               // to use a transparent shader.
-              rend.material.shader = Shader.Find("Standard");
+              rend.material.shader = standard;//Shader.Find("Standard");
               Color tempColor = rend.material.color;
               tempColor.a = 1F;
               rend.material.color = tempColor;
@@ -56,7 +59,7 @@ public class ViewController : MonoBehaviour
         }
 
         hits = Physics.SphereCastAll(CameraObj.transform.position, areaEffectedRadius, CameraObj.transform.forward,
-          Vector3.Distance(TurnController.currentWorm.transform.position, CameraObj.transform.position), layersToHide);
+          Vector3.Distance(TurnController.CurrentPlayer.transform.position, CameraObj.transform.position), layersToHide);
 
         for(int i = 0; i < hits.Length; i++)
         {
@@ -67,7 +70,7 @@ public class ViewController : MonoBehaviour
           {
             // Change the material of all hit colliders
             // to use a transparent shader.
-            rend.material.shader = Shader.Find("Transparent/Diffuse");
+            rend.material.shader = diffuse;//Shader.Find("Transparent/Diffuse");
             Color tempColor = rend.material.color;
             tempColor.a = transparecyRange;
             rend.material.color = tempColor;
