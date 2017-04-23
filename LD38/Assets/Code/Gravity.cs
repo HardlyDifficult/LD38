@@ -52,9 +52,6 @@ public class Gravity : MonoBehaviour
         hit.normal
         // old transform.position - Vector3.zero
         ) * targetRotation;
-    } else
-    {
-      print("Miss");
     }
   }
 
