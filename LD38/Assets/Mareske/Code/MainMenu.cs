@@ -5,21 +5,27 @@ using UnityEngine;
 public class MainMenu : MonoBehaviour
 {
 
-  [Header("Referenzes")]
+  [Header("References")]
   public GameObject optionsScreenUI;
   public Slider soundVolumeSliderUI;
   public Slider musicVolumeSliderUI;
 
-  #region Buttons
-  /// <summary>
-  /// Loads the game scene
-  /// </summary>
-  public void StartGame()
+  [Header("Network")]
+  public bool IsMultiplayer = false;
+
+    #region Buttons
+    /// <summary>
+    /// Loads the game scene
+    /// </summary>
+    public void StartGame()
   {
     SoundManager.PlayClick();
 
     optionsScreenUI.SetActive(false);
-    SceneManager.LoadScene("Main");
+        if (!IsMultiplayer)
+            SceneManager.LoadScene("Main");
+        else
+            SceneManager.LoadScene("MultiplayerLobby");
   }
 
   /// <summary>
