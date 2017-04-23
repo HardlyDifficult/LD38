@@ -13,7 +13,7 @@ public abstract class Projectile : MonoBehaviour
   protected Vector3 previousPosition;
   protected Rigidbody body;
 
-  protected virtual void Awake()
+  protected virtual void Start()
   {
     body = GetComponent<Rigidbody>();
     gravity = GetComponent<Gravity>();

@@ -7,7 +7,7 @@ public class ExplosionDamage : MonoBehaviour {
   float baseDamage = 100000;
   float colliderRadius;
 
-  protected void Awake()
+  protected void Start()
   {
     colliderRadius = GetComponent<SphereCollider>().radius;
     StartCoroutine(SuicideScript());

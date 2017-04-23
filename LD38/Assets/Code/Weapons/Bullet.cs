@@ -7,8 +7,10 @@ namespace HD
 {
   public class Bullet : Projectile
   {
-    private void Start()
+    protected override  void Start()
     {
+      base.Start();
+
       body.AddForce(-transform.forward * speed);
     }
   }

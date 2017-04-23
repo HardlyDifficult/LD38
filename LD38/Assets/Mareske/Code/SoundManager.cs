@@ -55,7 +55,7 @@ public class SoundManager : MonoBehaviour
     tSource = tAudioSource.AddComponent<AudioSource>();
   }
 
-  void Awake()
+  void Start()
   {
     Init();
     //DontDestroyOnLoad(transform.gameObject);

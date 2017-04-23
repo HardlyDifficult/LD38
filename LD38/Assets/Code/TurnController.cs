@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class TurnController : MonoBehaviour
 {
+  public GameObject gameOverPanel;
+
   bool isGameOver;
   static TurnController instance;
   public enum Phase
@@ -58,10 +60,26 @@ public class TurnController : MonoBehaviour
     }
   }
 
+  public static int winningTeamId
+  {
+    get
+    {
+      for(int i = 0; i < instance.wormList.Length; i++)
+      {
+        if(instance.wormList[i].Count > 0)
+        {
+          return i;
+        }
+      }
+
+      return -1;
+    }
+  }
   #region Events
  
   protected void OnEnable()
   {
+    phase = Phase.Shoot;
     isGameOver = false;
     instance = this;
     wormList = new List<TeamPlayer>[2];
@@ -78,6 +96,11 @@ public class TurnController : MonoBehaviour
     {
       currentTeam++;
     }
+  }
+
+  protected void OnDestroy()
+  {
+    isGameOver = true;
   }
   #endregion
 
@@ -101,7 +124,7 @@ public class TurnController : MonoBehaviour
     if(instance.wormList[player.teamId].Count == 0)
     { // Game over, you lose.
       instance.isGameOver = true;
-      SceneManager.LoadScene("MainMenu");
+      instance.gameOverPanel.SetActive(true);
     }
   }
 

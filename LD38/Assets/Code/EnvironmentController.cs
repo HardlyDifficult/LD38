@@ -11,7 +11,7 @@ public class EnvironmentController : MonoBehaviour
 
   private Vector3 _currentScale;
 
-  public void Awake()
+  public void Start()
   {
     _currentScale = PlanetObject.transform.localScale;
     TurnController.onTurnChange += OnTurnChange;

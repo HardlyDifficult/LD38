@@ -9,7 +9,7 @@ public class EnvironmentSpawner : MonoBehaviour
   private bool _treesDirty = false;
   private List<GameObject> _spawnedTreeList = new List<GameObject>();
 
-  public void Awake()
+  public void Start()
   {
     TurnController.onTurnChange += OnTurnChange;
 

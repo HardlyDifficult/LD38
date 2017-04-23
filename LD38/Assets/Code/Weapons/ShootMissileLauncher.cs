@@ -9,8 +9,10 @@ namespace HD
   {
     protected Projectile missileResource;
 
-    protected void Awake()
+    protected override void Start()
     {
+      base.Start();
+
       missileResource = Resources.Load<Projectile>("Missile");
     }
 

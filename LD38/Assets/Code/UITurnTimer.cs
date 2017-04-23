@@ -7,7 +7,7 @@ public class UITurnTimer : MonoBehaviour
 {
   Text text;
 
-  protected void Awake()
+  protected void Start()
   {
     text = GetComponent<Text>();
   }

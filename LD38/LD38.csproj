@@ -85,13 +85,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Code\AnimateWhenMoving.cs" />
+    <Compile Include="Assets\Code\ButtonReturnToMenu.cs" />
     <Compile Include="Assets\Code\DieOutOfBounds.cs" />
     <Compile Include="Assets\Code\EnvironmentController.cs" />
     <Compile Include="Assets\Code\EnvironmentSpawner.cs" />
     <Compile Include="Assets\Code\ExplosionDamage.cs" />
+    <Compile Include="Assets\Code\GameCamera.cs" />
     <Compile Include="Assets\Code\Gravity.cs" />
     <Compile Include="Assets\Code\Interface\CreditsScreen.cs" />
     <Compile Include="Assets\Code\LifeLine.cs" />
+    <Compile Include="Assets\Code\MusicPlayer.cs" />
     <Compile Include="Assets\Code\PlanetChopper.cs" />
     <Compile Include="Assets\Code\PlanetDeformation.cs" />
     <Compile Include="Assets\Code\Suicide.cs" />
@@ -99,6 +102,7 @@
     <Compile Include="Assets\Code\Tree.cs" />
     <Compile Include="Assets\Code\TurnController.cs" />
     <Compile Include="Assets\Code\UICurrentTeam.cs" />
+    <Compile Include="Assets\Code\UIGameOverPanel.cs" />
     <Compile Include="Assets\Code\UILifeLine.cs" />
     <Compile Include="Assets\Code\UITurnTimer.cs" />
     <Compile Include="Assets\Code\VectorExtensions.cs" />
@@ -110,11 +114,9 @@
     <Compile Include="Assets\Code\Weapons\ShootMissileLauncher.cs" />
     <Compile Include="Assets\Code\Weapons\ShootUzi.cs" />
     <Compile Include="Assets\Code\WormMovement.cs" />
-    <Compile Include="Assets\GameCamera.cs" />
     <Compile Include="Assets\Mareske\Code\IngameMenu.cs" />
     <Compile Include="Assets\Mareske\Code\MainMenu.cs" />
     <Compile Include="Assets\Mareske\Code\SoundManager.cs" />
-    <Compile Include="Assets\MusicPlayer.cs" />
     <Compile Include="Assets\Temp\TheTerminatorsBehaviour.cs" />
   </ItemGroup>
   <ItemGroup>

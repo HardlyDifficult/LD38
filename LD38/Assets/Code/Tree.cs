@@ -6,7 +6,7 @@ public class Tree : MonoBehaviour {
 
   AudioClip headbutt;
 
-  protected void Awake()
+  protected void Start()
   {
     headbutt = Resources.Load<AudioClip>("HeadbuttTree");
   }

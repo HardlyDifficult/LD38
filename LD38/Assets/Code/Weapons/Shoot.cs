@@ -7,8 +7,8 @@ public abstract class Shoot : MonoBehaviour
   protected TeamPlayer teamPlayer;
   protected Transform bulletSpawnAnchorPointOnGun;
   protected float shootHoldTime;
-
-  protected void Start()
+  
+  protected virtual void Start()
   {
     teamPlayer = transform.root.GetComponent<TeamPlayer>();
     bulletSpawnAnchorPointOnGun = transform.FindChild("BulletSpawn");

@@ -12,8 +12,10 @@ namespace HD
 
     protected Projectile bulletResource;
 
-    protected void Awake()
+    protected override  void Start()
     {
+      base.Start();
+
       bulletResource = Resources.Load<Projectile>("Bullet");
       bulletsInChamber = bulletCount;
 

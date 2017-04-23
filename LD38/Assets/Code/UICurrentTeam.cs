@@ -6,17 +6,23 @@ using UnityEngine.UI;
 public class UICurrentTeam : MonoBehaviour {
   Text text;
 
-  protected void Awake()
+  protected void Start()
   {
-    TurnController.onTurnChange += TurnController_onTurnChange;
     text = GetComponent<Text>();
+    Debug.Assert(text != null);
+
+    TurnController.onTurnChange += TurnController_onTurnChange;
+  }
+
+  protected void OnDestroy()
+  {
+    TurnController.onTurnChange -= TurnController_onTurnChange;
   }
 
   private void TurnController_onTurnChange()
   {
     switch(TurnController.currentTeam)
     {
-
       default:
       case 0:
         text.text = "Team 1";

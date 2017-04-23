@@ -12,7 +12,7 @@ public class Gravity : MonoBehaviour
   public Quaternion targetRotation;
   public Quaternion turnOffset = Quaternion.identity;
 
-  protected void Awake()
+  protected void Start()
   {
     body = GetComponent<Rigidbody>();
     targetRotation = transform.rotation;
