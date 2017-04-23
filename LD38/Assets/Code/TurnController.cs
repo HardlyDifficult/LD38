@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class TurnController : MonoBehaviour
 {
+  bool isGameOver;
   static TurnController instance;
   public enum Phase
   {
@@ -12,19 +14,25 @@ public class TurnController : MonoBehaviour
   }
   public static Phase phase;
 
-  public GameObject[] wormList;
+  List<TeamPlayer>[] wormList;
 
   public static event Action onTurnChange;
 
-  public static GameObject currentWorm
+  public static TeamPlayer currentWorm
   {
     get
     {
-      return instance.wormList[currentTeam]; // TODO team plus worm..
+      if(instance.wormList[currentTeam].Count == 0)
+      {
+        return null;
+      }
+
+      return instance.wormList[currentTeam][currentPlayer];
     }
   }
 
   static int _currentTeam;
+  static int currentPlayer; // TODO a way to change player
   public static int teamCount = 2;
 
   const int timeForPreTurn = 1000;
@@ -50,9 +58,17 @@ public class TurnController : MonoBehaviour
     }
   }
 
-  protected void Awake()
+  #region Events
+ 
+  protected void OnEnable()
   {
+    isGameOver = false;
     instance = this;
+    wormList = new List<TeamPlayer>[2];
+    for(int i = 0; i < wormList.Length; i++)
+    {
+      wormList[i] = new List<TeamPlayer>();
+    }
   }
 
   protected void FixedUpdate()
@@ -63,10 +79,36 @@ public class TurnController : MonoBehaviour
       currentTeam++;
     }
   }
+  #endregion
+
+  #region API
+  public static void Add(
+    TeamPlayer player)
+  {
+    instance.wormList[player.teamId].Add(player);
+  }
+
+  public static void Remove(
+    TeamPlayer player)
+  {
+    if(instance.isGameOver)
+    {
+      return;
+    }
+
+    instance.wormList[player.teamId].Remove(player);
+
+    if(instance.wormList[player.teamId].Count == 0)
+    { // Game over, you lose.
+      instance.isGameOver = true;
+      SceneManager.LoadScene("MainMenu");
+    }
+  }
 
   internal static void NextPhase()
   {
     phase++;
     timeRemaining = timeForPostTurn;
   }
+  #endregion
 }

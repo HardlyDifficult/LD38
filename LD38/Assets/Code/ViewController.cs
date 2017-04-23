@@ -25,14 +25,12 @@ public class ViewController : MonoBehaviour
     StartCoroutine(CheckInTheWay());
   }
 
-
   IEnumerator CheckInTheWay()
   {
     while(true)
     {
       if(TurnController.currentWorm != null)
       {
-
         if(hits != null)
         {
           for(int i = 0; i < hits.Length; i++)
@@ -59,8 +57,6 @@ public class ViewController : MonoBehaviour
 
         hits = Physics.SphereCastAll(CameraObj.transform.position, areaEffectedRadius, CameraObj.transform.forward,
           Vector3.Distance(TurnController.currentWorm.transform.position, CameraObj.transform.position), layersToHide);
-
-        print(hits.Length);
 
         for(int i = 0; i < hits.Length; i++)
         {

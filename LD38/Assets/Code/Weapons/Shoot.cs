@@ -67,7 +67,18 @@ public abstract class Shoot : MonoBehaviour
       Vector3 delta =  transform.position - mousePosition;
       Vector3 up = transform.position - Vector3.zero;
 
+      Quaternion originalRotation = transform.rotation;
       transform.rotation = Quaternion.LookRotation(delta, up);
+
+      
+      //Vector3 euler = transform.localRotation.eulerAngles;
+      if((transform.right - transform.root.forward).sqrMagnitude > 1
+        //Mathf.Abs(euler.y) > 1 || Mathf.Abs(euler.z) > 1 || 
+        //euler.x > 75 || euler.x < -20
+        )
+      {
+        transform.rotation = originalRotation;
+      }
     }
   }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TeamPlayer : MonoBehaviour {
+
   public int teamId;
 
   public bool isMyTurn
@@ -11,5 +12,15 @@ public class TeamPlayer : MonoBehaviour {
     {
       return teamId == TurnController.currentTeam;
     }
+  }
+
+  protected void Start()
+  {
+    TurnController.Add(this);
+  }
+
+  protected void OnDestroy()
+  {
+    TurnController.Remove(this);
   }
 }
