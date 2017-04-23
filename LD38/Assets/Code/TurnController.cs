@@ -124,7 +124,10 @@ public class TurnController : MonoBehaviour
     if(instance.wormList[player.teamId].Count == 0)
     { // Game over, you lose.
       instance.isGameOver = true;
-      instance.gameOverPanel.SetActive(true);
+      if(instance.gameOverPanel != null)
+      {
+        instance.gameOverPanel.SetActive(true);
+      }
     }
   }
 

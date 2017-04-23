@@ -6,8 +6,28 @@ public abstract class Shoot : MonoBehaviour
 {
   protected TeamPlayer teamPlayer;
   protected Transform bulletSpawnAnchorPointOnGun;
-  protected float shootHoldTime;
-  
+
+  const float maxHoldTime = 2;
+  public float shootHoldTime;
+
+  public abstract bool showShootPower
+  {
+    get;
+  }
+
+  public float shootPower
+  {
+    get
+    {
+      var _shootHoldTime = shootHoldTime % (maxHoldTime * 2);
+      if(_shootHoldTime > maxHoldTime)
+      {
+        _shootHoldTime = maxHoldTime * 2 - _shootHoldTime;
+      }
+      return _shootHoldTime / maxHoldTime;
+    }
+  }
+
   protected virtual void Start()
   {
     teamPlayer = transform.root.GetComponent<TeamPlayer>();
@@ -56,7 +76,13 @@ public abstract class Shoot : MonoBehaviour
 
   void Aim()
   {
-    Ray targetRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+    Vector2 screenPos = Input.mousePosition;
+    if(screenPos.x < Screen.width / 2)
+    {
+      screenPos += new Vector2(Screen.width / 2, 0);
+    }
+
+    Ray targetRay = Camera.main.ScreenPointToRay(screenPos);
     Plane plane = new Plane(transform.root.forward, transform.root.position);
     
     float distance;
@@ -90,6 +116,6 @@ public abstract class Shoot : MonoBehaviour
       UnityEngine.Random.Range(-antiAccurancyInDegrees, antiAccurancyInDegrees));
     Projectile newBullet = Instantiate(resource, bulletSpawnAnchorPointOnGun.transform.position, transform.rotation * rng);
     newBullet.shooter = gameObject.transform.root.gameObject;
-    newBullet.shootHoldTime = shootHoldTime;
+    newBullet.shootPower = shootPower;
   }
 }
