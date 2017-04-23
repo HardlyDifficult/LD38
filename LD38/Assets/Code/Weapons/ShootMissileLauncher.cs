@@ -9,6 +9,14 @@ namespace HD
   {
     protected Projectile missileResource;
 
+    public override bool showShootPower
+    {
+      get
+      {
+        return true;
+      }
+    }
+
     protected override void Start()
     {
       base.Start();

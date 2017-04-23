@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TeamPlayer : MonoBehaviour {
+  protected ExplosionDamage explosion;
+
+  protected virtual void Awake()
+  {
+    explosion = Resources.Load<ExplosionDamage>("Explosion");
+  }
 
   public int teamId;
 
@@ -22,5 +28,8 @@ public class TeamPlayer : MonoBehaviour {
   protected void OnDestroy()
   {
     TurnController.Remove(this);
+
+    var newExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
+    newExplosion.transform.localScale = Vector3.one * .5f;
   }
 }

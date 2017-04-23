@@ -12,6 +12,14 @@ namespace HD
 
     protected Projectile bulletResource;
 
+    public override bool showShootPower
+    {
+      get
+      {
+        return false;
+      }
+    }
+
     protected override  void Start()
     {
       base.Start();

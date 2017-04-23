@@ -6,7 +6,7 @@ public abstract class Projectile : MonoBehaviour
 {
   public float speed = 10;
   internal GameObject shooter;
-  internal float shootHoldTime;
+  internal float shootPower;
 
   protected Gravity gravity;
   protected ExplosionDamage explosion;
@@ -21,7 +21,6 @@ public abstract class Projectile : MonoBehaviour
   protected virtual void Awake()
   {
     explosion = Resources.Load<ExplosionDamage>("Explosion");
-
   }
 
   protected virtual void Start()

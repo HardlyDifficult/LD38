@@ -5,6 +5,10 @@ using UnityEngine;
 
 namespace HD
 {
+  /// <summary>
+  /// When holding / charging display UI bar
+  /// Right click to cancel a shot
+  /// </summary>
   public class Missile : Projectile
   {
     protected override float explosionIntensity
@@ -19,7 +23,8 @@ namespace HD
     {
       base.Update();
 
-      body.AddForce(-transform.forward * speed);
+      body.AddForce(-transform.forward * speed * shootPower * Time.deltaTime);
+      speed *= .99f;
     }
   }
 }
