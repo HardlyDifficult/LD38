@@ -87,8 +87,9 @@ public class MiniMapController : MonoBehaviour {
 			float xD = x * 55 * .8f;
 			float yD = y * 55 * .8f;
 
-			//Adjust position of blip.
-			blipTransform.anchoredPosition = miniMapTransform.anchoredPosition + new Vector2(xD, yD);
-		}
+      //Adjust position of blip.
+      //blipTransform.anchoredPosition = miniMapTransform.anchoredPosition + new Vector2(xD, yD);
+      blipTransform.anchoredPosition = new Vector2(xD, yD);
+    }
 	}
 }
