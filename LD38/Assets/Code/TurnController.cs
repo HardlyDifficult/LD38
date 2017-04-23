@@ -60,6 +60,11 @@ public class TurnController : MonoBehaviour
     }
     set
     {
+      if(instance.teamList.Count == 0)
+      {
+        return;
+      }
+
       phase = 0;
       _currentTeamId = value % instance.teamList.Count;
       if(onTurnChange != null)

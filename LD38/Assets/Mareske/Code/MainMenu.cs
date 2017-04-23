@@ -10,8 +10,6 @@ public class MainMenu : MonoBehaviour
   public Slider soundVolumeSliderUI;
   public Slider musicVolumeSliderUI;
 
-  [Header("Network")]
-  public bool IsMultiplayer = false;
 
     #region Buttons
     /// <summary>
@@ -22,9 +20,9 @@ public class MainMenu : MonoBehaviour
     SoundManager.PlayClick();
 
     optionsScreenUI.SetActive(false);
-        if (!IsMultiplayer)
-            SceneManager.LoadScene("Main");
-        else
+        //if (!IsMultiplayer)
+        //    SceneManager.LoadScene("Main");
+        //else
             SceneManager.LoadScene("MultiplayerLobby");
   }
 
