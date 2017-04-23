@@ -7,7 +7,7 @@ public class Gravity : MonoBehaviour
 {
   public float force = 10;
   Rigidbody body;
-  public bool isGrounded;
+  public bool isGrounded = true;
   public event Action onGrounded;
   public Quaternion targetRotation;
   public Quaternion turnOffset = Quaternion.identity;
@@ -20,36 +20,46 @@ public class Gravity : MonoBehaviour
 
   protected void FixedUpdate()
   {
-    Vector3 toCenter = Vector3.zero - transform.position;
+    Vector3 directionToCenter = (Vector3.zero - transform.position).normalized;
     RaycastHit hit;
-    if(Physics.Raycast(transform.position + transform.up, toCenter, out hit, Mathf.Infinity,
+
+    Vector3 objectPivotPointPlusOne = transform.position - directionToCenter;
+    if(Physics.Raycast(objectPivotPointPlusOne, directionToCenter, out hit, Mathf.Infinity,
       LayerMask.GetMask(new[] { "Planet" })))
     {
-      Vector3 hitPoint = hit.point - transform.up;
-      //transform.position = hit.point;
+      Vector3 hitPoint = hit.point + directionToCenter;
       var delta = hitPoint - transform.position;
-      if(delta.sqrMagnitude < 2f)
+      if(delta.sqrMagnitude < 1.1f)
       {
         if(isGrounded == false && onGrounded != null)
         {
           onGrounded.Invoke();
         }
         isGrounded = true;
+        body.AddForce(delta.normalized * force);
+
       }
-      else
+      else if(delta.sqrMagnitude < .1f)
       {
+        isGrounded = false;
+      } else
+      {
+        body.AddForce(delta.normalized * force);
         isGrounded = false;
       }
 
-      if(isGrounded == false)
-      {
-        body.AddForce(delta.normalized * force);
-      }
+      //if(isGrounded == false)
+      //{
+      //  body.AddForce(delta.normalized * force);
+      //}
 
-      targetRotation = Quaternion.FromToRotation(targetRotation * Vector3.up, 
+      targetRotation = Quaternion.FromToRotation(targetRotation * Vector3.up,
         hit.normal
         // old transform.position - Vector3.zero
         ) * targetRotation;
+    } else
+    {
+      print("Miss");
     }
   }
 
