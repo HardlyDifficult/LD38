@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 public abstract class Shoot : MonoBehaviour
 {
@@ -57,7 +58,7 @@ public abstract class Shoot : MonoBehaviour
 
     Aim();
 
-    if(Input.GetAxis("Fire1") > 0)
+    if(Input.GetAxis("Fire1") > 0 && EventSystem.current.IsPointerOverGameObject() == false)
     {
       if(shootHoldTime == 0)
       {
