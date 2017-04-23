@@ -1,140 +1,192 @@
-﻿using System.Collections;
+﻿
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEngine.SceneManagement;
+
+public enum Phase
+{
+    Shoot, Hide
+}
+
 
 public class TurnController : MonoBehaviour
 {
-  public GameObject gameOverPanel;
+    public GameObject gameOverPanel;
 
-  bool isGameOver;
-  static TurnController instance;
-  public enum Phase
-  {
-    Shoot, Hide
-  }
-  public static Phase phase;
+    public static bool isGameOver;
+    static TurnController instance;
+    public static Phase phase;
 
-  List<TeamPlayer>[] wormList;
+    List<Team> teamList;
 
-  public static event Action onTurnChange;
+    public static event Action onTurnChange;
 
-  public static TeamPlayer currentWorm
-  {
-    get
+
+    public static int teamCount = 2;
+    public static int playersPerTeam = 3;
+
+    const int timeForPreTurn = 1000;
+    const int timeForPostTurn = timeForPreTurn / 10;
+    public static int timeRemaining;
+
+    private static Team _currentTeam;
+    public static Team CurrentTeam
     {
-      if(instance.wormList[currentTeam].Count == 0)
-      {
-        return null;
-      }
-
-      return instance.wormList[currentTeam][currentPlayer];
-    }
-  }
-
-  static int _currentTeam;
-  static int currentPlayer; // TODO a way to change player
-  public static int teamCount = 2;
-
-  const int timeForPreTurn = 1000;
-  const int timeForPostTurn = timeForPreTurn / 10;
-  public static int timeRemaining;
-
-  public static int currentTeam
-  {
-    get
-    {
-      return _currentTeam;
-    }
-    set
-    {
-      phase = 0;
-      _currentTeam = value % teamCount;
-      if(onTurnChange != null)
-      {
-        onTurnChange.Invoke();
-      }
-
-      timeRemaining = timeForPreTurn;
-    }
-  }
-
-  public static int winningTeamId
-  {
-    get
-    {
-      for(int i = 0; i < instance.wormList.Length; i++)
-      {
-        if(instance.wormList[i].Count > 0)
+        get
         {
-          return i;
+            if (_currentTeamId >= instance.teamList.Count)
+                return null;
+
+            return instance.teamList[_currentTeamId];
         }
-      }
-
-      return -1;
     }
-  }
-  #region Events
- 
-  protected void OnEnable()
-  {
-    phase = Phase.Shoot;
-    isGameOver = false;
-    instance = this;
-    wormList = new List<TeamPlayer>[2];
-    for(int i = 0; i < wormList.Length; i++)
+        
+
+    private static int _currentTeamId;
+    public static int currentTeamId
     {
-      wormList[i] = new List<TeamPlayer>();
-    }
-  }
+        get
+        {
+            return _currentTeamId;
+        }
+        set
+        {
+            phase = 0;
+            _currentTeamId = value % teamCount;
+            if (onTurnChange != null)
+            {
+                onTurnChange.Invoke();
+            }
 
-  protected void FixedUpdate()
-  {
-    timeRemaining--;
-    if(timeRemaining <= 0)
+            timeRemaining = timeForPreTurn;
+        }
+    }
+
+    public static bool HasPlayer
     {
-      currentTeam++;
+        get { return CurrentPlayer != null; }
     }
-  }
 
-  protected void OnDestroy()
-  {
-    isGameOver = true;
-  }
-  #endregion
-
-  #region API
-  public static void Add(
-    TeamPlayer player)
-  {
-    instance.wormList[player.teamId].Add(player);
-  }
-
-  public static void Remove(
-    TeamPlayer player)
-  {
-    if(instance.isGameOver)
+    public static Player CurrentPlayer
     {
-      return;
+        get
+        {
+            return CurrentTeam.CurrentPlayer;
+        }
     }
 
-    instance.wormList[player.teamId].Remove(player);
 
-    if(instance.wormList[player.teamId].Count == 0)
-    { // Game over, you lose.
-      instance.isGameOver = true;
-      if(instance.gameOverPanel != null)
-      {
-        instance.gameOverPanel.SetActive(true);
-      }
+    public static Team WinningTeam
+    {
+        get
+        {
+            float bestTeamHealth = 0.0f;
+            Team teamWithBestHealth = null;
+            for (int i = 0; i < instance.teamList.Count; i++)
+            {
+                Team t = instance.teamList[i];
+                if (t.TeamHealth > bestTeamHealth)
+                {
+                    bestTeamHealth = t.TeamHealth;
+                    teamWithBestHealth = t;
+                }
+
+            }
+
+            return teamWithBestHealth;
+        }
     }
-  }
 
-  internal static void NextPhase()
-  {
-    phase++;
-    timeRemaining = timeForPostTurn;
-  }
-  #endregion
+    #region Events
+
+    protected void OnEnable()
+    {
+        phase = Phase.Shoot;
+        isGameOver = false;
+        instance = this;
+
+        teamList = new List<Team>();
+    }
+
+    protected void FixedUpdate()
+    {
+        if (isGameOver) return;
+
+        if (Input.GetKeyDown(KeyCode.T))
+            timeRemaining = 0;
+
+        if (CurrentPlayer == null)
+            timeRemaining = 0;
+
+        timeRemaining--;
+        if (timeRemaining <= 0)
+        {
+            currentTeamId++;
+        }
+    }
+
+    protected void OnDestroy()
+    {
+        isGameOver = true;
+    }
+    #endregion
+
+    #region API
+
+    public static void AddTeam(Team team)
+    {
+        if(!instance.teamList.Contains(team))   
+            instance.teamList.Add(team);
+    }
+
+    public static void AddPlayer(Team team, Player player)
+    {
+        team.AddPlayer(player);
+    }
+
+    public static Team FindPlayerTeam(Player p)
+    {
+        for (int i = 0; i < instance.teamList.Count; i++)
+        {
+            if (instance.teamList[i].ContainsPlayer(p))
+            {
+                return instance.teamList[i];
+            }
+        }
+
+        return null;
+    }
+
+    public static bool GetPlayerTurn(Player playerObj)
+    {
+        return CurrentTeam.GetTurn(playerObj);
+    }
+
+    public static void Remove(
+      Player player)
+    {
+        if (isGameOver)
+        {
+            return;
+        }
+
+        Team t = FindPlayerTeam(player);
+        t.RemovePlayer(player);
+
+        if (!t.TeamAlive)
+        {
+            isGameOver = true;
+            if (instance.gameOverPanel != null)
+            {
+                instance.gameOverPanel.SetActive(true);
+            }
+        }
+    }
+
+    internal static void NextPhase()
+    {
+        phase++;
+        timeRemaining = timeForPostTurn;
+    }
+    #endregion
 }
