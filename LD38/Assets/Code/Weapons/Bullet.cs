@@ -7,7 +7,15 @@ namespace HD
 {
   public class Bullet : Projectile
   {
-    protected override  void Start()
+    protected override float explosionIntensity
+    {
+      get
+      {
+        return .01f;
+      }
+    }
+
+    protected override void Start()
     {
       base.Start();
 

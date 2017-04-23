@@ -7,8 +7,18 @@ namespace HD
 {
   public class Missile : Projectile
   {
-    protected void Update()
+    protected override float explosionIntensity
     {
+      get
+      {
+        return 1;
+      }
+    }
+
+    protected override void Update()
+    {
+      base.Update();
+
       body.AddForce(-transform.forward * speed);
     }
   }

@@ -29,7 +29,7 @@ public abstract class Shoot : MonoBehaviour
 
   }
 
-  protected void Update()
+  protected void FixedUpdate()
   {
     if(teamPlayer.isMyTurn == false || TurnController.phase != TurnController.Phase.Shoot)
     {
@@ -81,10 +81,14 @@ public abstract class Shoot : MonoBehaviour
       }
     }
   }
-
-  protected void FireProjectile(Projectile resource)
+  
+  /// <param name="antiAccurancyInDegrees">Higher means worse aim</param>
+  protected void FireProjectile(Projectile resource, float antiAccurancyInDegrees)
   {
-    Projectile newBullet = Instantiate(resource, bulletSpawnAnchorPointOnGun.transform.position, transform.rotation);
+    Quaternion rng = Quaternion.Euler(UnityEngine.Random.Range(-antiAccurancyInDegrees, antiAccurancyInDegrees),
+      UnityEngine.Random.Range(-antiAccurancyInDegrees, antiAccurancyInDegrees),
+      UnityEngine.Random.Range(-antiAccurancyInDegrees, antiAccurancyInDegrees));
+    Projectile newBullet = Instantiate(resource, bulletSpawnAnchorPointOnGun.transform.position, transform.rotation * rng);
     newBullet.shooter = gameObject.transform.root.gameObject;
     newBullet.shootHoldTime = shootHoldTime;
   }

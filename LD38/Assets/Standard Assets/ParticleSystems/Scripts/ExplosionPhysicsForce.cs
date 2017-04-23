@@ -17,9 +17,10 @@ namespace UnityStandardAssets.Effects
             yield return null;
 
             float multiplier = GetComponent<ParticleSystemMultiplier>().multiplier;
+      multiplier *= transform.localScale.x;
 
             float r = 10*multiplier;
-            var cols = Physics.OverlapSphere(transform.position, r);
+            var cols = Physics.OverlapSphere(transform.position, r, LayerMask.GetMask(new[] { "Character", "default" }));
             var rigidbodies = new List<Rigidbody>();
             foreach (var col in cols)
             {

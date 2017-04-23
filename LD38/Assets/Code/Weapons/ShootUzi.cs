@@ -31,7 +31,7 @@ namespace HD
     {
       base.OnFireStay();
 
-      FireProjectile(bulletResource);
+      FireProjectile(bulletResource, 1);
 
       if(bulletsInChamber-- <= 0)
       {

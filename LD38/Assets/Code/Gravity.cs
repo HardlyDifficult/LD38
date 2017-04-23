@@ -11,6 +11,7 @@ public class Gravity : MonoBehaviour
   public event Action onGrounded;
   public Quaternion targetRotation;
   public Quaternion turnOffset = Quaternion.identity;
+  public bool allowRotation = true;
 
   protected void Start()
   {
@@ -57,10 +58,13 @@ public class Gravity : MonoBehaviour
 
   protected void Update()
   {
-    transform.rotation *= turnOffset;
-    targetRotation *= turnOffset;
-    var dot = 1 - Quaternion.Dot(transform.rotation, targetRotation);
-    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, dot * 50);
-    turnOffset = Quaternion.identity;
+    if(allowRotation)
+    {
+      transform.rotation *= turnOffset;
+      targetRotation *= turnOffset;
+      var dot = 1 - Quaternion.Dot(transform.rotation, targetRotation);
+      transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, dot * 50);
+      turnOffset = Quaternion.identity;
+    }
   }
 }

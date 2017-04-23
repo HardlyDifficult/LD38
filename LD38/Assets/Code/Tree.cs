@@ -13,7 +13,7 @@ public class Tree : MonoBehaviour {
 
   protected void OnCollisionEnter(Collision collision)
   {
-    if(collision.gameObject.GetComponent<Tree>() != null)
+    if(collision.gameObject.GetComponentInChildren<Tree>() != null)
     {
       Destroy(gameObject);
     } else if(Time.timeSinceLevelLoad < .1f && collision.gameObject.layer == LayerMask.NameToLayer("Character"))
@@ -21,6 +21,11 @@ public class Tree : MonoBehaviour {
       Destroy(gameObject);
     } else 
     {
+      if(collision.gameObject.layer == LayerMask.NameToLayer("Weapon"))
+      {
+        Destroy(gameObject);
+      }
+
       SoundManager.Play(headbutt, .2f);
     }
   }

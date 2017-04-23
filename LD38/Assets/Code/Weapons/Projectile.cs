@@ -9,16 +9,28 @@ public abstract class Projectile : MonoBehaviour
   internal float shootHoldTime;
 
   protected Gravity gravity;
-  protected GameObject explosion;
+  protected ExplosionDamage explosion;
   protected Vector3 previousPosition;
   protected Rigidbody body;
+
+  protected abstract float explosionIntensity
+  {
+    get;
+  }
+
+  protected virtual void Awake()
+  {
+    explosion = Resources.Load<ExplosionDamage>("Explosion");
+
+  }
 
   protected virtual void Start()
   {
     body = GetComponent<Rigidbody>();
     gravity = GetComponent<Gravity>();
+    gravity.allowRotation = false;
     gravity.onGrounded += BlowUp;
-    explosion = Resources.Load<GameObject>("Explosion");
+
     previousPosition = transform.position;
   }
 
@@ -33,9 +45,21 @@ public abstract class Projectile : MonoBehaviour
     BlowUp();
   }
 
+  protected virtual void Update()
+  {
+    Vector3 delta = previousPosition - transform.position;
+    if(delta.sqrMagnitude > .1f)
+    {
+      Vector3 directionToCenter = (Vector3.zero - transform.position).normalized;
+      transform.rotation = Quaternion.LookRotation(delta, directionToCenter);
+      previousPosition = transform.position;
+    }
+  }
+
   protected void BlowUp()
   {
     var newExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
+    newExplosion.transform.localScale = Vector3.one * explosionIntensity;
     Destroy(gameObject);
   }
 }

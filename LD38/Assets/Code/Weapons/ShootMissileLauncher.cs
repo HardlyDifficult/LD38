@@ -22,7 +22,7 @@ namespace HD
 
       if(shootHoldTime > 0.01f)
       {
-        FireProjectile(missileResource);
+        FireProjectile(missileResource, .1f);
         TurnController.NextPhase();
       }
     }

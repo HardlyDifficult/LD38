@@ -10,6 +10,11 @@ public class UIGameOverPanel : MonoBehaviour
 
   protected void OnEnable()
   {
+    if(Camera.main == null)
+    {
+      return;
+    }
+
     text.text = "Team " + (TurnController.winningTeamId + 1);
     var audio = Camera.main.GetComponent<AudioSource>();
     audio.clip = deathMusic;
