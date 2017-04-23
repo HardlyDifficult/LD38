@@ -12,10 +12,14 @@ public class NetworkManager : Photon.PunBehaviour
     public int maxPlayersInRoom = 6;
 
     public InputField userNameField;
+
+    public GameObject networkWorm;
+    public Vector3 SpawnLocation;
     #endregion
 
     #region Private Data
     private bool _isInRoom = false;
+    private int _teamID = 0;
     #endregion
 
     #region Public API
@@ -43,7 +47,7 @@ public class NetworkManager : Photon.PunBehaviour
 
     private void OnFinishedLoadingLevel(Scene scene, LoadSceneMode mode)
     {
-        if(scene.name == "Main")
+        if(scene.name == "MainMultiplayer")
         {
             // if this is the main level
             if(_isInRoom)
@@ -51,6 +55,13 @@ public class NetworkManager : Photon.PunBehaviour
                 GameObject canvas = GameObject.Find("Canvas_Ingame"); // get the canvas object
 
                 canvas.transform.FindChild("MultiplayerPanel").FindChild("ServerText").GetComponent<Text>().text = "Connected to server as: " + PhotonNetwork.playerName;
+
+                // Spawn network worm
+                GameObject worm = PhotonNetwork.Instantiate("NetworkWorm", SpawnLocation, Quaternion.identity, 0);
+
+                worm.GetComponent<TeamPlayer>().teamId = _teamID;
+
+                TurnController.Add(worm.GetComponent<TeamPlayer>());
             }
         }
     }
@@ -82,6 +93,8 @@ public class NetworkManager : Photon.PunBehaviour
 
         PhotonNetwork.playerName = userNameField.text;
 
+        _teamID = GameObject.Find("Canvas").transform.FindChild("PlayerInfo").FindChild("TeamOption").GetComponent<Dropdown>().value;
+
         PhotonNetwork.JoinRandomRoom();
     }
 
@@ -95,7 +108,7 @@ public class NetworkManager : Photon.PunBehaviour
         Debug.Log("Joined room!");
 
         // Load level
-        PhotonNetwork.LoadLevel("Main");
+        PhotonNetwork.LoadLevel("MainMultiplayer");
 
         _isInRoom = true;
     }
