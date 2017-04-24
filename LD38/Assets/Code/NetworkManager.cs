@@ -110,7 +110,8 @@ public class NetworkManager : Photon.PunBehaviour
 
   public void BackToMainMenu()
   {
-    SoundManager.PlayClick();
+    //TODO: Hook this back up
+    //SoundManager.PlayClick();
 
     PhotonNetwork.Disconnect();
 
@@ -130,8 +131,8 @@ public class NetworkManager : Photon.PunBehaviour
   }
 
   public void JoinGame()
-  {
-    SoundManager.PlayClick();
+    {        //TODO: Hook this back up.
+        //SoundManager.PlayClick();
 
     PhotonNetwork.playerName = userNameField.text;
 

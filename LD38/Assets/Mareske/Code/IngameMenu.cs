@@ -20,8 +20,8 @@ public class IngameMenu : MonoBehaviour
 
   private void Start()
   {
-    soundVolumeSliderUI.value = SoundManager.soundVolume;
-    musicVolumeSliderUI.value = SoundManager.musicVolume;
+    soundVolumeSliderUI.value = Game.SoundManager.EffectVolume;
+    musicVolumeSliderUI.value = Game.SoundManager.MusicVolume;
   }
 
   private void Update()
@@ -82,7 +82,7 @@ public class IngameMenu : MonoBehaviour
   /// <param name="_volume"></param>
   public void SoundVolumeChange()
   {
-    SoundManager.soundVolume = soundVolumeSliderUI.value;
+        Game.SoundManager.EffectVolume = soundVolumeSliderUI.value;
   }
 
   /// <summary>
@@ -91,7 +91,7 @@ public class IngameMenu : MonoBehaviour
   /// <param name="_volume"></param>
   public void MusicVolumeChange()
   {
-    SoundManager.musicVolume = musicVolumeSliderUI.value;
+        Game.SoundManager.MusicVolume = musicVolumeSliderUI.value;
   }
   #endregion
 }
