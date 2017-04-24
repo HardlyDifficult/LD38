@@ -123,10 +123,10 @@ public class WeaponManager : MonoBehaviour
   /// </summary>
   public void DeactivateWeapons()
   {
-    if(PhotonNetwork.isMasterClient == false)
-    {
-      return;
-    }
+    //if(PhotonNetwork.isMasterClient == false)
+    //{
+    //  return;
+    //}
 
     //We go trought each weaponBlueprint
     foreach(WeaponBlueprint wb in weaponList)
