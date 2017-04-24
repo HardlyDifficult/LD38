@@ -78,7 +78,7 @@ public abstract class Shoot : MonoBehaviour
       shootHoldTime = 0;
     }
   }
-
+  Quaternion originalRotation;
   void Aim()
   {
     Vector2 screenPos = Input.mousePosition;
@@ -98,18 +98,11 @@ public abstract class Shoot : MonoBehaviour
       Vector3 delta = transform.position - mousePosition;
       Vector3 up = transform.position - Vector3.zero;
 
-      Quaternion originalRotation = transform.rotation;
+       originalRotation = transform.rotation;
       Quaternion targetRotation = Quaternion.LookRotation(delta, up);
 
 
-      //Vector3 euler = transform.localRotation.eulerAngles;
-      if((transform.right - transform.root.forward).sqrMagnitude > 1
-        //Mathf.Abs(euler.y) > 1 || Mathf.Abs(euler.z) > 1 || 
-        //euler.x > 75 || euler.x < -20
-        )
-      {
-        targetRotation = originalRotation;
-      }
+     
 
       GetComponent<PhotonView>().RPC("SetRotation", PhotonTargets.All, targetRotation);
     }
@@ -121,6 +114,14 @@ public abstract class Shoot : MonoBehaviour
     if(PhotonView.Get(this).isMine)
     {
       transform.rotation = targetRotation;
+      //Vector3 euler = transform.localRotation.eulerAngles;
+      if((transform.right - transform.root.forward).sqrMagnitude > 1
+        //Mathf.Abs(euler.y) > 1 || Mathf.Abs(euler.z) > 1 || 
+        //euler.x > 75 || euler.x < -20
+        )
+      {
+        targetRotation = originalRotation;
+      }
     }
   }
 
