@@ -6,7 +6,7 @@ public class DieOutOfBounds : MonoBehaviour {
   
 	// Update is called once per frame
 	void Update () {
-    if(PhotonNetwork.isMasterClient == false)
+    if(PhotonView.Get(this).isMine == false)
     {
       return;
     }

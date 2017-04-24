@@ -7,6 +7,7 @@ public abstract class Projectile : MonoBehaviour
   public float speed = 10;
   internal GameObject shooter;
   internal float shootPower;
+  bool isDead;
 
   protected Gravity gravity;
   //protected ExplosionDamage explosion;
@@ -33,11 +34,16 @@ public abstract class Projectile : MonoBehaviour
     previousPosition = transform.position;
   }
 
+  private void OnDestroy()
+  {
+    isDead = true;
+  }
+
   protected virtual void OnCollisionEnter(
     Collision collision)
   {
 
-    if(PhotonNetwork.isMasterClient == false)
+    if(PhotonView.Get(this).isMine == false)
     {
       return;
     }
@@ -64,12 +70,13 @@ public abstract class Projectile : MonoBehaviour
   protected void BlowUp()
   {
 
-    if(PhotonNetwork.isMasterClient == false)
+    if(isDead || PhotonView.Get(this).isMine == false)
     {
       return;
     }
 
-    var newExplosion = PhotonNetwork.Instantiate("Explosion", transform.position, Quaternion.identity, 0);
+    isDead = true;
+    var newExplosion = PhotonNetwork.Instantiate("Explosion3", transform.position, Quaternion.identity, 0);
     newExplosion.transform.localScale = Vector3.one * explosionIntensity;
     PhotonNetwork.Destroy(gameObject);
   }

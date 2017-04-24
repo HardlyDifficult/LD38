@@ -14,15 +14,15 @@ namespace UnityStandardAssets.Effects
     {
 
 
-      if(PhotonNetwork.isMasterClient)
+      if(PhotonView.Get(this).isMine )
       {
 
         // wait one frame because some explosions instantiate debris which should then
         // be pushed by physics force
         yield return null;
 
-        float multiplier = GetComponent<ParticleSystemMultiplier>().multiplier;
-        multiplier *= transform.localScale.x;
+        float multiplier = 1;//GetComponent<ParticleSystemMultiplier>().multiplier;
+        //multiplier *= transform.localScale.x;
 
         float r = 10 * multiplier;
         var cols = Physics.OverlapSphere(transform.position, r, LayerMask.GetMask(new[] { "Character", "default" }));

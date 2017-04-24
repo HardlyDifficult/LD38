@@ -9,7 +9,7 @@ public class ExplosionDamage : MonoBehaviour {
 
   protected void Start()
   {
-    if(PhotonNetwork.isMasterClient == false)
+    if(PhotonView.Get(this).isMine == false)
     {
       return;
     }
@@ -28,7 +28,7 @@ public class ExplosionDamage : MonoBehaviour {
   protected void OnTriggerEnter(
     Collider other)
   {
-    if(PhotonNetwork.isMasterClient == false)
+    if(PhotonView.Get(this).isMine == false)
     {
       return;
     }

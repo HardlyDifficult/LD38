@@ -12,7 +12,7 @@ public class Suicide : MonoBehaviour
   void Update()
   {
 
-    if(PhotonNetwork.isMasterClient == false)
+    if(isNotPhoton == false && PhotonView.Get(this).isMine == false)
     {
       return;
     }

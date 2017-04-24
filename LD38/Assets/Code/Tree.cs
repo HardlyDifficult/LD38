@@ -21,9 +21,8 @@ public class Tree : MonoBehaviour
 
   protected void OnCollisionEnter(Collision collision)
   {
-
     SoundManager.Play(headbutt, .2f);
-    if(PhotonNetwork.isMasterClient == false)
+    if(PhotonView.Get(gameObject.transform.root.gameObject).isMine == false)
     {
       return;
     }

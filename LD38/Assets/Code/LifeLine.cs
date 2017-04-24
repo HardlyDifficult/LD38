@@ -26,7 +26,7 @@ public class LifeLine : MonoBehaviour
     if(life <= 0)
     {
 
-      if(PhotonNetwork.isMasterClient == false)
+      if(PhotonView.Get(this).isMine == false)
       {
         return;
       }

@@ -7,7 +7,7 @@ public class TeamPlayer : MonoBehaviour
 
   public GameObject deathObject;
   public PlayerInfo playerInfo;
-  protected ExplosionDamage explosion;
+  bool isDead;
 
   public bool isMyTurn
   {
@@ -20,7 +20,6 @@ public class TeamPlayer : MonoBehaviour
   protected virtual void Awake()
   {
     photonView = GetComponent<PhotonView>();
-    explosion = Resources.Load<ExplosionDamage>("Explosion");
     playerInfo = GetComponent<PlayerInfo>();
   }
 
@@ -30,7 +29,12 @@ public class TeamPlayer : MonoBehaviour
 
     TurnController.Remove(this);
 
-    var newExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
+    if(isDead)
+    {
+      return;
+    }
+    isDead = true;
+    var newExplosion = PhotonNetwork.Instantiate("Explosion3", transform.position, Quaternion.identity, 0);
     newExplosion.transform.localScale = Vector3.one * .5f;
   }
 }

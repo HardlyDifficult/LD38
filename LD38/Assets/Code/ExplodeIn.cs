@@ -5,18 +5,24 @@ using UnityEngine;
 public class ExplodeIn : MonoBehaviour {
   public float timeRemaining = 5;
   public float explosionIntensity = 1;
+  bool isDead;
 
+  private void OnDestroy()
+  {
+    isDead = true;
+  }
 
-	void Update () {
-		if(PhotonNetwork.isMasterClient == false)
+  void Update () {
+		if(isDead || PhotonView.Get(this).isMine == false)
     {
       return;
     }
+    isDead = true;
 
     timeRemaining -= Time.deltaTime;
     if(timeRemaining <= 0)
     {
-      var newExplosion = PhotonNetwork.Instantiate("Explosion", transform.position, Quaternion.identity, 0);
+      var newExplosion = PhotonNetwork.Instantiate("Explosion3", transform.position, Quaternion.identity, 0);
       newExplosion.transform.localScale = Vector3.one * explosionIntensity;
       PhotonNetwork.Destroy(gameObject);
     }
