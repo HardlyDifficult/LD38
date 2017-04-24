@@ -70,7 +70,7 @@ public class WeaponManager : MonoBehaviour
  
   }
 
-  internal static Image GetIcon(int weaponId)
+  internal static Sprite GetIcon(int weaponId)
   {
     for(int i = 0; i < me.weaponList.Count; i++)
     {
@@ -136,7 +136,7 @@ public class WeaponBlueprint
   public float weaponDamage;
 
   [Header("Referenzes")]
-  public Image weaponIcon;
+  public Sprite weaponIcon;
   public string weaponPrefab;
   [HideInInspector]
   public GameObject weaponInstance;

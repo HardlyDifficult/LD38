@@ -14,7 +14,43 @@ public class NetworkManager : Photon.PunBehaviour
   public InputField userNameField;
 
   public GameObject networkWorm;
-  public Vector3 SpawnLocation;
+  
+
+  public Vector3 SpawnLocation
+  {
+    get
+    {
+      float x = UnityEngine.Random.Range(-10, 10);
+      if(x < 0)
+      {
+        x -= 30;
+      }
+      else
+      {
+        x += 30;
+      }
+      float y = UnityEngine.Random.Range(-10, 10);
+      if(y < 0)
+      {
+        y -= 30;
+      }
+      else
+      {
+        y += 30;
+      }
+      float z = UnityEngine.Random.Range(-10, 10);
+      if(z < 0)
+      {
+        z -= 30;
+      }
+      else
+      {
+        z += 30;
+      }
+
+      return new Vector3(x, y, z);
+    }
+  }
   #endregion
 
   #region Private Data
@@ -59,6 +95,7 @@ public class NetworkManager : Photon.PunBehaviour
 
         // Spawn network worm
         TeamPlayer worm = PhotonNetwork.Instantiate("NetworkWorm", SpawnLocation, Quaternion.identity, 0).GetComponent<TeamPlayer>();
+        worm.GetComponentInChildren<NameDisplayer>().SetName(PhotonNetwork.playerName);
         TurnController.AddPlayer(_teamID, worm.GetComponent<PhotonView>().viewID);
       }
     }

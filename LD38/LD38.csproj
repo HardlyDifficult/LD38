@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.6.0f3</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -132,6 +130,8 @@
     <Compile Include="Assets\Code\Weapons\ShootUzi.cs" />
     <Compile Include="Assets\Mareske\Code\IngameMenu.cs" />
     <Compile Include="Assets\Mareske\Code\MainMenu.cs" />
+    <Compile Include="Assets\Mareske\Code\NameDisplayer.cs" />
+    <Compile Include="Assets\Mareske\Code\NameManager.cs" />
     <Compile Include="Assets\Mareske\Code\SoundManager.cs" />
     <Compile Include="Assets\Mareske\Code\WeaponManager.cs" />
     <Compile Include="Assets\Mareske\Code\WeaponSelectionButton.cs" />

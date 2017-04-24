@@ -9,8 +9,13 @@ public class WeaponSelectionButton : MonoBehaviour
   [Header("Data")]
   public int weaponID;
 
-  [Header("UI")]
-  public Image weaponIcon;
+   public Sprite weaponIcon
+  {
+    set
+    {
+      GetComponent<Image>().sprite = value;
+    }
+  }
 
   /// <summary>
   /// Activates the Weapon
