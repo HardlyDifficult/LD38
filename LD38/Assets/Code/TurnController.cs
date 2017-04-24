@@ -8,25 +8,94 @@ public enum Phase
   Shoot, Hide
 }
 
-
 public class TurnController : MonoBehaviour
 {
+  /// <summary>
+  /// TODO - sync
+  /// </summary>
+  Phase _phase;
+  int _timeRemaining;
+  int _currentTeamId;
+
+  public Phase phase
+  {
+    get
+    {
+      return _phase;
+    }
+    set
+    {
+      instance.GetComponent<PhotonView>().RPC("SetPhase", PhotonTargets.AllBuffered, value);
+    }
+  }
+
+  [PunRPC]
+  void SetPhase(Phase value)
+  {
+    _phase = value;
+  }
+
+  public int timeRemaining
+  {
+    get
+    {
+      return _timeRemaining;
+    }
+    set
+    {
+      instance.GetComponent<PhotonView>().RPC("SetTimeRemaining", PhotonTargets.All, value);
+    }
+  }
+
+  [PunRPC]
+  void SetTimeRemaining(int value)
+  {
+    _timeRemaining = value;
+  }
+
+  public int currentTeamId
+  {
+    get
+    {
+      return _currentTeamId;
+    }
+    set
+    {
+      instance.GetComponent<PhotonView>().RPC("SetTeamId", PhotonTargets.AllBuffered, value);
+    }
+  }
+
+  [PunRPC]
+  void SetTeamId(int value)
+  {
+    if(instance.teamList.Count == 0)
+    {
+      return;
+    }
+
+    instance.phase = 0;
+    instance._currentTeamId = value % instance.teamList.Count;
+    if(onTurnChange != null)
+    {
+      onTurnChange.Invoke();
+    }
+
+    instance.timeRemaining = timeForPreTurn;
+  }
+
   public GameObject gameOverPanel;
 
   public static bool isGameOver;
   public static TurnController instance;
-  public static Phase phase;
 
   public List<Team> teamList;
 
   public static event Action onTurnChange;
 
-
   public static int playersPerTeam = 10;
 
   const int timeForPreTurn = 1000;
   const int timeForPostTurn = timeForPreTurn / 10;
-  public static int timeRemaining;
 
   internal static IEnumerable<TeamPlayer> GetAllPlayers()
   {
@@ -43,39 +112,14 @@ public class TurnController : MonoBehaviour
   {
     get
     {
-      if(_currentTeamId >= instance.teamList.Count)
+      if(instance.currentTeamId >= instance.teamList.Count)
         return null;
 
-      return instance.teamList[_currentTeamId];
+      return instance.teamList[instance.currentTeamId];
     }
   }
 
-
-  private static int _currentTeamId;
-  public static int currentTeamId
-  {
-    get
-    {
-      return _currentTeamId;
-    }
-    set
-    {
-      if(instance.teamList.Count == 0)
-      {
-        return;
-      }
-
-      phase = 0;
-      _currentTeamId = value % instance.teamList.Count;
-      if(onTurnChange != null)
-      {
-        onTurnChange.Invoke();
-      }
-
-      timeRemaining = timeForPreTurn;
-    }
-  }
-
+  
   public static bool HasPlayer
   {
     get { return CurrentPlayer != null; }
@@ -104,6 +148,11 @@ public class TurnController : MonoBehaviour
     return instance.teamList[teamID];
   }
 
+  internal static TeamPlayer GetPlayer(int teamId, int playerId)
+  {
+    return instance.teamList[teamId].playerList[playerId];
+  }
+
   public static Team WinningTeam
   {
     get
@@ -129,9 +178,9 @@ public class TurnController : MonoBehaviour
 
   protected void OnEnable()
   {
+    instance = this;
     phase = Phase.Shoot;
     isGameOver = false;
-    instance = this;
 
     teamList = new List<Team>();
   }
@@ -160,15 +209,17 @@ public class TurnController : MonoBehaviour
   #endregion
 
   #region API
+  
 
-  public static void AddTeam(Team team)
+  public static void AddPlayer(int teamId, int playerViewId)
   {
-    if(!instance.teamList.Contains(team))
-      instance.teamList.Add(team);
+    instance.GetComponent<PhotonView>().RPC("DoAddPlayer", PhotonTargets.AllBuffered, teamId, playerViewId);
   }
 
-  public static void AddPlayer(Team team, TeamPlayer player)
-  {
+  [PunRPC]
+  void DoAddPlayer(int teamId, int playerViewId) {
+    var team = TurnController.GetTeam(teamId);
+    var player = PhotonView.Find(playerViewId).GetComponent<TeamPlayer>();
     team.AddPlayer(player);
   }
 
@@ -213,8 +264,8 @@ public class TurnController : MonoBehaviour
 
   internal static void NextPhase()
   {
-    phase++;
-    timeRemaining = timeForPostTurn;
+    instance.phase++;
+    instance.timeRemaining = timeForPostTurn;
   }
   #endregion
 }

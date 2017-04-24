@@ -2,21 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using System;
 
 public class WeaponManager : MonoBehaviour
 {
-
-  [Header("Game Design")]
+  //[Header("Game Design")]
   //We store our weapons here in the List
   public List<WeaponBlueprint> weaponList = new List<WeaponBlueprint>();
-
-  public Transform curWorm_WeaponTrans
-  {
-    get
-    {
-      return TurnController.CurrentPlayer.weaponMountPosition;
-    }
-  }
 
   public static WeaponManager me;
 
@@ -30,6 +22,7 @@ public class WeaponManager : MonoBehaviour
     }
   }
 
+
   private void Start()
   {
     SetUpWeapons();
@@ -40,18 +33,54 @@ public class WeaponManager : MonoBehaviour
   /// </summary>
   public void SetUpWeapons()
   {
+    if(PhotonNetwork.isMasterClient == false)
+    {
+      return;
+    }
+
     //We go trough our weapon list
     foreach(WeaponBlueprint wb in weaponList)
     {
       //and Instantiate the weapon
-      wb.weaponInstance = Instantiate(wb.weaponPrefab, this.transform.position, Quaternion.identity);
+      wb.weaponInstance = PhotonNetwork.Instantiate(wb.weaponPrefab, this.transform.position, Quaternion.identity, 0);
+
+      me.GetComponent<PhotonView>().RPC("RpcShowWeapon", PhotonTargets.AllBuffered, wb.weaponID, wb.weaponInstance.GetComponent<PhotonView>().viewID);
 
       //after that we instantiate the UI
-      WeaponSelectionGrid.me.InstantiateWeaponButton(wb);
+      
     }
 
     //Then we hide all the weapons
     DeactivateWeapons();
+  }
+
+  [PunRPC]
+  void RpcShowWeapon(int weaponId, int viewId)
+  {
+
+    for(int i = 0; i < me.weaponList.Count; i++)
+    {
+      if(me.weaponList[i].weaponID == weaponId)
+      {
+        me.weaponList[i].weaponInstance = PhotonView.Find(viewId).gameObject;
+      }
+    }
+
+    WeaponSelectionGrid.me.InstantiateWeaponButton(weaponId, viewId);
+ 
+  }
+
+  internal static Image GetIcon(int weaponId)
+  {
+    for(int i = 0; i < me.weaponList.Count; i++)
+    {
+      if(me.weaponList[i].weaponID == weaponId)
+      {
+        return me.weaponList[i].weaponIcon;
+      }
+    }
+
+    return null;
   }
 
   /// <summary>
@@ -60,9 +89,17 @@ public class WeaponManager : MonoBehaviour
   /// <param name="_id"></param>
   public void ActivateWeapon(int _id)
   {
+    GetComponent<PhotonView>().RPC("DoActivate", PhotonTargets.AllBuffered, 
+      new[] { _id, TurnController.instance.currentTeamId, TurnController.CurrentTeam._currentPlayerIndex });
+  }
+  //var id = new[] { _id, TurnController.currentTeamId, TurnController.CurrentTeam._currentPlayerIndex };
+  [PunRPC]
+  void DoActivate(int[] id)
+  {
     //Deactivating all weapons, why all? Just in case something weird happens
     DeactivateWeapons();
-
+    int _id = (int)id[0];
+    var curWorm_WeaponTrans = TurnController.GetPlayer((int)id[1], (int)id[2]).playerInfo.weaponMountPosition;
     //We move and activate the weapon that we need
     weaponList[_id].weaponInstance.transform.position = curWorm_WeaponTrans.position;
     weaponList[_id].weaponInstance.transform.rotation = curWorm_WeaponTrans.rotation;
@@ -75,6 +112,11 @@ public class WeaponManager : MonoBehaviour
   /// </summary>
   public void DeactivateWeapons()
   {
+    if(PhotonNetwork.isMasterClient == false)
+    {
+      return;
+    }
+
     //We go trought each weaponBlueprint
     foreach(WeaponBlueprint wb in weaponList)
     {
@@ -95,7 +137,7 @@ public class WeaponBlueprint
 
   [Header("Referenzes")]
   public Image weaponIcon;
-  public GameObject weaponPrefab;
+  public string weaponPrefab;
   [HideInInspector]
   public GameObject weaponInstance;
 }

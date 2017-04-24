@@ -3,6 +3,16 @@ using System.Collections.Generic;
 
 public class Team
 {
+  /// <summary>
+  /// TODO sync
+  /// </summary>
+  public int _currentPlayerIndex = 0;
+
+
+
+
+
+
   public int Id;
   public string TeamName;
 
@@ -45,7 +55,6 @@ public class Team
     }
   }
 
-  private int _currentPlayerIndex = 0;
 
   public Team(int id, int teamSize, string teamName)
   {
@@ -59,7 +68,7 @@ public class Team
 
   private void OnTurnChange()
   {
-    if(TurnController.currentTeamId == Id)
+    if(TurnController.instance.currentTeamId == Id)
     {
       CycleTeamMembers();
     }
@@ -102,6 +111,4 @@ public class Team
   {
     return CurrentPlayer == player;
   }
-
-
 }

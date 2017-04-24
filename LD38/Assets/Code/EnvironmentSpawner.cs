@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class EnvironmentSpawner : MonoBehaviour
 {
-  public GameObject[] treeList;
+  public string[] treeList;
 
   private bool _treesDirty = false;
   private List<GameObject> _spawnedTreeList = new List<GameObject>();
 
   public void Start()
   {
+    if(PhotonNetwork.isMasterClient == false)
+    {
+      Destroy(this);
+    }
+
+    var p = PhotonNetwork.Instantiate("Planet", Vector3.zero, Quaternion.identity, 0);
+    p.name = "Planet";
     TurnController.onTurnChange += OnTurnChange;
 
     for(int i = 0; i < treeList.Length; i++)
@@ -28,7 +35,7 @@ public class EnvironmentSpawner : MonoBehaviour
   }
 
   void Spawn(
-    GameObject gameObject)
+    string gameObject)
   {
     Vector3 randomPosition;
     do
@@ -67,7 +74,7 @@ public class EnvironmentSpawner : MonoBehaviour
       }
 
       Vector3 hitPoint = hit.point + rotation * Vector3.down * .2f;
-      GameObject newTree = Instantiate(gameObject, hitPoint, rotation);
+      GameObject newTree = PhotonNetwork.Instantiate(gameObject, hitPoint, rotation, 0);
       float width = UnityEngine.Random.Range(.2f, 1.0f);
       newTree.transform.localScale = new Vector3(width, UnityEngine.Random.Range(.5f, 1.5f), width);
       newTree.transform.localPosition = hitPoint;

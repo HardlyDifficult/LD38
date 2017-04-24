@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnvironmentController : MonoBehaviour
 {
-  public GameObject PlanetObject;
+  GameObject PlanetObject;
 
   public static float ShrinkPerTurn = 0.1f; // In percentages.
   public static float ShrinkAnimationTime = 0.8f;
@@ -15,6 +15,12 @@ public class EnvironmentController : MonoBehaviour
 
   public void Start()
   {
+    if(PhotonNetwork.isMasterClient == false)
+    {
+      Destroy(this);
+    }
+
+    PlanetObject = GameObject.Find("Planet");
     _currentScale = PlanetObject.transform.localScale;
     TurnController.onTurnChange += OnTurnChange;
   }

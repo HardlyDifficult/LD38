@@ -15,6 +15,11 @@ public class Gravity : MonoBehaviour
 
   protected void Start()
   {
+
+    if(GetComponent<PhotonView>().isMine == false)
+    {
+      Destroy(this);
+    }
     body = GetComponent<Rigidbody>();
     targetRotation = transform.rotation;
   }

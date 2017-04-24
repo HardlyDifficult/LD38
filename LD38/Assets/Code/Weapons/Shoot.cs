@@ -51,7 +51,7 @@ public abstract class Shoot : MonoBehaviour
   {
     Player = GetComponentInParent<TeamPlayer>();
 
-    if(!TurnController.GetPlayerTurn(Player) || TurnController.phase != Phase.Shoot)
+    if(!TurnController.GetPlayerTurn(Player) || TurnController.instance.phase != Phase.Shoot)
     {
       return;
     }

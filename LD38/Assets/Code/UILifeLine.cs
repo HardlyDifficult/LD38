@@ -7,7 +7,7 @@ public class UILifeLine : MonoBehaviour {
   public LifeLine life;
   Image image;
 	// Use this for initialization
-	void Start () {
+	void Awake() {
     image = GetComponent<Image>();
     life = transform.root.GetComponent<LifeLine>();
 	}

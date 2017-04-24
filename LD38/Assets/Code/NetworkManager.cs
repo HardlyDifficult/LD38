@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class NetworkManager : Photon.PunBehaviour
 {
-  const string VERSION = "0.1";
+  const string VERSION = "0.2";
 
   #region Public Data
   public string roomName = "Let's Play Grubs!";
@@ -25,6 +25,8 @@ public class NetworkManager : Photon.PunBehaviour
   #region Public API
   void Start()
   {
+
+    PhotonNetwork.isMessageQueueRunning = false;
     DontDestroyOnLoad(gameObject);
 
     PhotonNetwork.autoJoinLobby = false;
@@ -34,13 +36,8 @@ public class NetworkManager : Photon.PunBehaviour
 
     SceneManager.sceneLoaded += OnFinishedLoadingLevel;
 
-        GameObject canvas = GameObject.Find("Canvas");
-        canvas.transform.FindChild("ButtonHolder").FindChild("JoinRandomRoom").GetComponent<Button>().interactable = false;
-    }
-
-  void Update()
-  {
-
+    GameObject canvas = GameObject.Find("Canvas");
+    canvas.transform.FindChild("ButtonHolder").FindChild("JoinRandomRoom").GetComponent<Button>().interactable = false;
   }
 
   private void OnDestroy()
@@ -62,13 +59,15 @@ public class NetworkManager : Photon.PunBehaviour
 
         // Spawn network worm
         TeamPlayer worm = PhotonNetwork.Instantiate("NetworkWorm", SpawnLocation, Quaternion.identity, 0).GetComponent<TeamPlayer>();
-        Team team = TurnController.GetTeam(_teamID);
-        TurnController.AddPlayer(team, worm);
+        TurnController.AddPlayer(_teamID, worm.GetComponent<PhotonView>().viewID);
       }
-    } else
+    }
+    else
     {
       Destroy(gameObject);
     }
+
+    PhotonNetwork.isMessageQueueRunning = true;
   }
 
   public void BackToMainMenu()
@@ -106,9 +105,9 @@ public class NetworkManager : Photon.PunBehaviour
   public override void OnConnectedToMaster()
   {
     Debug.Log("Connected to master server!");
-        GameObject canvas = GameObject.Find("Canvas");
-        canvas.transform.FindChild("ButtonHolder").FindChild("JoinRandomRoom").GetComponent<Button>().interactable = true;
-    }
+    GameObject canvas = GameObject.Find("Canvas");
+    canvas.transform.FindChild("ButtonHolder").FindChild("JoinRandomRoom").GetComponent<Button>().interactable = true;
+  }
 
   public override void OnJoinedRoom()
   {
