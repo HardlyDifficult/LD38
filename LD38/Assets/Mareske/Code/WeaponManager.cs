@@ -100,6 +100,17 @@ public class WeaponManager : MonoBehaviour
     DeactivateWeapons();
     int _id = (int)id[0];
     var curWorm_WeaponTrans = TurnController.GetPlayer((int)id[1], (int)id[2]).playerInfo.weaponMountPosition;
+
+    if(_id == 3)
+    {
+      var go = PhotonNetwork.Instantiate(weaponList[_id].weaponPrefab, 
+        curWorm_WeaponTrans.position + curWorm_WeaponTrans.rotation * Quaternion.Euler(0,90,0) * new Vector3(5, 0, 0), 
+        curWorm_WeaponTrans.rotation, 0);
+      // TODO end turn
+      return;
+    }
+
+
     //We move and activate the weapon that we need
     weaponList[_id].weaponInstance.transform.position = curWorm_WeaponTrans.position;
     weaponList[_id].weaponInstance.transform.rotation = curWorm_WeaponTrans.rotation;

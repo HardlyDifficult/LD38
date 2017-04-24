@@ -10,6 +10,13 @@ namespace HD
     public int bulletCount = 42;
     int bulletsInChamber;
 
+    public override float shootPower
+    {
+      get
+      {
+        return 1;
+      }
+    }
 
     public override bool showShootPower
     {
@@ -37,7 +44,7 @@ namespace HD
     {
       base.OnFireStay();
 
-      FireProjectile("Bullet", 1);
+      FireProjectile("Bullet", 10);
 
       if(bulletsInChamber-- <= 0)
       {

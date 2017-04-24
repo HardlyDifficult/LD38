@@ -14,7 +14,7 @@ public abstract class Shoot : MonoBehaviour
     get;
   }
 
-  public float shootPower
+  public virtual float shootPower
   {
     get
     {
