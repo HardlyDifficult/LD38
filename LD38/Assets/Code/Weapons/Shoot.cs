@@ -29,7 +29,7 @@ public abstract class Shoot : MonoBehaviour
 
   protected virtual void Start()
   {
-    bulletSpawnAnchorPointOnGun = transform.FindChild("BulletSpawn");
+    bulletSpawnAnchorPointOnGun = transform.GetChild(0).FindChild("BulletSpawn");
   }
 
   protected virtual void OnFireStart()

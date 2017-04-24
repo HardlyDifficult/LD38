@@ -25,6 +25,10 @@ public class TurnController : MonoBehaviour
     }
     set
     {
+      if(WeaponManager.me != null)
+      {
+        WeaponManager.me.DeactivateWeapons();
+      }
       instance.GetComponent<PhotonView>().RPC("SetPhase", PhotonTargets.AllBuffered, value);
     }
   }
