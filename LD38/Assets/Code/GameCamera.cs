@@ -16,9 +16,10 @@ public class GameCamera : MonoBehaviour
     Vector3 offset = TurnController.CurrentPlayer.transform.up * Zoom + -TurnController.CurrentPlayer.transform.forward * Zoom;
     Vector3 position = TurnController.CurrentPlayer.transform.position + offset;
 
-    transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime);
-    transform.rotation = Quaternion.LookRotation(TurnController.CurrentPlayer.transform.position - transform.position,
+    transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * .7f);
+    var targetRotation = Quaternion.LookRotation(TurnController.CurrentPlayer.transform.position - transform.position,
       TurnController.CurrentPlayer.transform.up);
+    transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * .9f);
   }
 
 
