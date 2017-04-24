@@ -11,6 +11,11 @@ public class EnvironmentSpawner : MonoBehaviour
 
   public void Start()
   {
+    if(PhotonNetwork.isMasterClient ==false)
+    {
+      return;
+    }
+
     var p = PhotonNetwork.Instantiate("Planet", Vector3.zero, Quaternion.identity, 0);
     p.name = "Planet";
     TurnController.onTurnChange += OnTurnChange;
