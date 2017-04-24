@@ -12,20 +12,19 @@ public class EnvironmentController : MonoBehaviour
   private Vector3 _currentScale;
 
   int turnCounter;
-
-  public void Start()
-  {
-
-    PlanetObject = GameObject.Find("Planet");
-    _currentScale = PlanetObject.transform.localScale;
-    TurnController.onTurnChange += OnTurnChange;
-  }
-
+  
   public void Update()
   {
     if(PhotonNetwork.isMasterClient == false)
     {
       return;
+    }
+
+    if(PlanetObject == null)
+    {
+      PlanetObject = GameObject.Find("Planet");
+      _currentScale = PlanetObject.transform.localScale;
+      TurnController.onTurnChange += OnTurnChange;
     }
 
     if(PlanetObject != null)

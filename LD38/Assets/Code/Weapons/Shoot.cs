@@ -51,7 +51,7 @@ public abstract class Shoot : MonoBehaviour
   {
     Player = GetComponentInParent<TeamPlayer>();
 
-    if(Player == null || Player.GetComponent<PhotonView>().isMine ==false)
+    if(Player == null || Player.GetComponent<PhotonView>().isMine == false)
     {
       return;
     }
@@ -99,7 +99,7 @@ public abstract class Shoot : MonoBehaviour
       Vector3 up = transform.position - Vector3.zero;
 
       Quaternion originalRotation = transform.rotation;
-      transform.rotation = Quaternion.LookRotation(delta, up);
+      Quaternion targetRotation = Quaternion.LookRotation(delta, up);
 
 
       //Vector3 euler = transform.localRotation.eulerAngles;
@@ -108,8 +108,19 @@ public abstract class Shoot : MonoBehaviour
         //euler.x > 75 || euler.x < -20
         )
       {
-        transform.rotation = originalRotation;
+        targetRotation = originalRotation;
       }
+
+      GetComponent<PhotonView>().RPC("SetRotation", PhotonTargets.All, targetRotation);
+    }
+  }
+
+  [PunRPC]
+  public void SetRotation(Quaternion targetRotation)
+  {
+    if(PhotonView.Get(this).isMine)
+    {
+      transform.rotation = targetRotation;
     }
   }
 
