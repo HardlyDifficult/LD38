@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ExplosionDamage : MonoBehaviour {
-  float baseDamage = 100000;
+  float baseDamage = 1000;
   float colliderRadius;
 
   protected void Start()
@@ -38,7 +38,7 @@ public class ExplosionDamage : MonoBehaviour {
       return;
     }
     
-    var percentDamage = other.contactOffset / colliderRadius;
+    var percentDamage = Mathf.Min(1, 100 * other.contactOffset / colliderRadius);
     lifeLine.life -= percentDamage * baseDamage;
   }
 }

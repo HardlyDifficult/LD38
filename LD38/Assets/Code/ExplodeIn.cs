@@ -17,7 +17,6 @@ public class ExplodeIn : MonoBehaviour {
     {
       return;
     }
-    isDead = true;
 
     timeRemaining -= Time.deltaTime;
     if(timeRemaining <= 0)
@@ -25,6 +24,7 @@ public class ExplodeIn : MonoBehaviour {
       var newExplosion = PhotonNetwork.Instantiate("Explosion3", transform.position, Quaternion.identity, 0);
       newExplosion.transform.localScale = Vector3.one * explosionIntensity;
       PhotonNetwork.Destroy(gameObject);
+      isDead = true;
     }
 	}
 }

@@ -22,6 +22,11 @@ public class MiniMapController : MonoBehaviour {
 		blips = new List<GameObject>();
 
 		foreach(TeamPlayer player in TurnController.GetAllPlayers()) {
+      if(player == null)
+      {
+        continue;
+      }
+
 			//Calculate latitude and longitude of player
 			//Latidude based on height and angle from center of planet
 			//Longitude based on rotation around y-axis
