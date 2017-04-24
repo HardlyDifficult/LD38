@@ -22,7 +22,6 @@ public class WeaponManager : MonoBehaviour
     }
   }
 
-
   private void Start()
   {
     SetUpWeapons();
@@ -47,7 +46,6 @@ public class WeaponManager : MonoBehaviour
       me.GetComponent<PhotonView>().RPC("RpcShowWeapon", PhotonTargets.AllBufferedViaServer, wb.weaponID, wb.weaponInstance.GetComponent<PhotonView>().viewID);
 
       //after that we instantiate the UI
-      
     }
 
     //Then we hide all the weapons
@@ -57,7 +55,6 @@ public class WeaponManager : MonoBehaviour
   [PunRPC]
   void RpcShowWeapon(int weaponId, int viewId)
   {
-
     for(int i = 0; i < me.weaponList.Count; i++)
     {
       if(me.weaponList[i].weaponID == weaponId)
@@ -67,7 +64,6 @@ public class WeaponManager : MonoBehaviour
     }
 
     WeaponSelectionGrid.me.InstantiateWeaponButton(weaponId, viewId);
- 
   }
 
   internal static Sprite GetIcon(int weaponId)
@@ -102,11 +98,11 @@ public class WeaponManager : MonoBehaviour
     var curWorm_WeaponTrans = TurnController.GetPlayer((int)id[1], (int)id[2]).playerInfo.weaponMountPosition;
 
     if(_id == 3)
-    {
+    { // Special case for the bomb!
       var go = PhotonNetwork.Instantiate(weaponList[_id].weaponPrefab, 
         curWorm_WeaponTrans.position + curWorm_WeaponTrans.rotation * Quaternion.Euler(0,90,0) * new Vector3(5, 0, 0), 
         curWorm_WeaponTrans.rotation, 0);
-      // TODO end turn
+      TurnController.NextPhase();
       return;
     }
 
