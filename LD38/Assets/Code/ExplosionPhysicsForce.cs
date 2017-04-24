@@ -23,7 +23,7 @@ namespace UnityStandardAssets.Effects
 
         float multiplier = 1;//GetComponent<ParticleSystemMultiplier>().multiplier;
         //multiplier *= transform.localScale.x;
-
+        multiplier *= transform.localScale.x;
         float r = 10 * multiplier;
         var cols = Physics.OverlapSphere(transform.position, r, LayerMask.GetMask(new[] { "Character", "default" }));
         var rigidbodies = new List<Rigidbody>();
@@ -43,6 +43,7 @@ namespace UnityStandardAssets.Effects
             var lifeLine = rb.GetComponent<LifeLine>();
             if(lifeLine != null)
             {
+              print(explosionForce * multiplier);
               lifeLine.life -= explosionForce * multiplier;
             }
           }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ExplodeIn : MonoBehaviour {
   public float timeRemaining = 5;
-  public float explosionIntensity = 1;
+  public float explosionIntensity = 10;
   bool isDead;
 
   private void OnDestroy()

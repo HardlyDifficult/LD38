@@ -9,6 +9,7 @@ public class SpawnResource : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
     var res = Resources.Load<GameObject>(resource);
-    Instantiate(res, transform.position, transform.rotation);
+    var go = Instantiate(res, transform.position, transform.rotation);
+    go.transform.localScale = transform.localScale;
 	}
 }

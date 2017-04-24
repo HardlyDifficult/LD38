@@ -11,7 +11,7 @@ namespace HD
     {
       get
       {
-        return .01f * shootPower;
+        return .1f * shootPower;
       }
     }
 
