@@ -150,7 +150,16 @@ public class TurnController : MonoBehaviour
 
   internal static TeamPlayer GetPlayer(int teamId, int playerId)
   {
-    return instance.teamList[teamId].playerList[playerId];
+    var team = instance.teamList[teamId];
+    for(int i = 0; i < team.playerList.Count; i++)
+    {
+      if(team.playerList[i].photonView.viewID == playerId)
+      {
+        return team.playerList[i];
+      }
+    }
+
+    return null;
   }
 
   public static Team WinningTeam
@@ -188,6 +197,11 @@ public class TurnController : MonoBehaviour
   protected void FixedUpdate()
   {
     if(isGameOver) return;
+
+    if(PhotonNetwork.isMasterClient == false)
+    {
+      return;
+    }
 
     if(Input.GetKeyDown(KeyCode.T))
       timeRemaining = 0;

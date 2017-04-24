@@ -13,20 +13,26 @@ public class Tree : MonoBehaviour {
 
   protected void OnCollisionEnter(Collision collision)
   {
+
+      SoundManager.Play(headbutt, .2f);
+    if(PhotonNetwork.isMasterClient == false)
+    {
+      return;
+    }
+
     if(collision.gameObject.GetComponentInChildren<Tree>() != null)
     {
-      Destroy(gameObject);
+      PhotonNetwork.Destroy(gameObject);
     } else if(Time.timeSinceLevelLoad < .1f && collision.gameObject.layer == LayerMask.NameToLayer("Character"))
     {
-      Destroy(gameObject);
+      PhotonNetwork.Destroy(gameObject);
     } else 
     {
       if(collision.gameObject.layer == LayerMask.NameToLayer("Weapon"))
       {
-        Destroy(gameObject);
+        PhotonNetwork.Destroy(gameObject);
       }
 
-      SoundManager.Play(headbutt, .2f);
     }
   }
 }

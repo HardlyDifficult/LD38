@@ -16,11 +16,7 @@ public class NetworkWormMovement : Photon.PunBehaviour
   protected void Start()
   {
     photNetworkView = GetComponent<PhotonView>();
-    if(photNetworkView.isMine == false)
-    {
-      Destroy(this);
-    }
-
+   
     body = GetComponent<Rigidbody>();
     teamPlayer = GetComponent<TeamPlayer>();
     gravity = GetComponent<Gravity>();

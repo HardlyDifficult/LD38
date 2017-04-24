@@ -99,6 +99,7 @@
     <Compile Include="Assets\Code\EnvironmentController.cs" />
     <Compile Include="Assets\Code\EnvironmentSpawner.cs" />
     <Compile Include="Assets\Code\ExplosionDamage.cs" />
+    <Compile Include="Assets\Code\ExplosionPhysicsForce.cs" />
     <Compile Include="Assets\Code\FaceCamera.cs" />
     <Compile Include="Assets\Code\GameCamera.cs" />
     <Compile Include="Assets\Code\Gravity.cs" />

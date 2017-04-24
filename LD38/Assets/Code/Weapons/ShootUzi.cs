@@ -10,7 +10,6 @@ namespace HD
     public int bulletCount = 42;
     int bulletsInChamber;
 
-    protected Projectile bulletResource;
 
     public override bool showShootPower
     {
@@ -24,7 +23,6 @@ namespace HD
     {
       base.Start();
 
-      bulletResource = Resources.Load<Projectile>("Bullet");
       bulletsInChamber = bulletCount;
 
       TurnController.onTurnChange += TurnController_onTurnChange;
@@ -39,7 +37,7 @@ namespace HD
     {
       base.OnFireStay();
 
-      FireProjectile(bulletResource, 1);
+      FireProjectile("Bullet", 1);
 
       if(bulletsInChamber-- <= 0)
       {

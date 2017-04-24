@@ -15,10 +15,6 @@ public class EnvironmentController : MonoBehaviour
 
   public void Start()
   {
-    if(PhotonNetwork.isMasterClient == false)
-    {
-      Destroy(this);
-    }
 
     PlanetObject = GameObject.Find("Planet");
     _currentScale = PlanetObject.transform.localScale;
@@ -27,6 +23,11 @@ public class EnvironmentController : MonoBehaviour
 
   public void Update()
   {
+    if(PhotonNetwork.isMasterClient == false)
+    {
+      return;
+    }
+
     if(PlanetObject != null)
     {
       PlanetObject.transform.localScale = Vector3.Lerp(PlanetObject.transform.localScale, _currentScale,
@@ -36,6 +37,10 @@ public class EnvironmentController : MonoBehaviour
 
   private void OnTurnChange()
   {
+    if(PhotonNetwork.isMasterClient == false)
+    {
+      return;
+    }
     if(turnCounter++ < 3)
     {
       return;

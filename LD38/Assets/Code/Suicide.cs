@@ -7,10 +7,15 @@ public class Suicide : MonoBehaviour {
   
 	// Update is called once per frame
 	void Update () {
+
+    if(PhotonNetwork.isMasterClient == false)
+    {
+      return;
+    }
     timeToLiveInSeconds -= Time.deltaTime;
     if(timeToLiveInSeconds <= 0)
     {
-      Destroy(gameObject);
+      PhotonNetwork.Destroy(gameObject);
     }
 	}
 }

@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class TeamPlayer : MonoBehaviour
 {
+  public PhotonView photonView;
+
   public GameObject deathObject;
   public PlayerInfo playerInfo;
   protected ExplosionDamage explosion;
@@ -17,6 +19,7 @@ public class TeamPlayer : MonoBehaviour
 
   protected virtual void Awake()
   {
+    photonView = GetComponent<PhotonView>();
     explosion = Resources.Load<ExplosionDamage>("Explosion");
     playerInfo = GetComponent<PlayerInfo>();
   }

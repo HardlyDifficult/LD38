@@ -16,12 +16,12 @@ public class UICurrentTeam : MonoBehaviour
 
     if(TurnController.CurrentTeam != null)
     {
-      CurrentTeamText.text = TurnController.CurrentTeam.TeamName;
+      CurrentTeamText.text = "Team " + TurnController.CurrentTeam.Id;//TurnController.CurrentTeam.TeamName;
     }
 
     if(TurnController.CurrentPlayer != null)
     {
-      CurrentWormText.text = TurnController.CurrentPlayer.PlayerName;
+      CurrentWormText.text = "Player " + TurnController.CurrentTeam._currentPlayerIndex; //TurnController.CurrentPlayer.PlayerName;
     }
   }
 }

@@ -46,11 +46,8 @@ public class PlayerManager : MonoBehaviour
 
         PlayerInfo playerComponent = player.GetComponent<PlayerInfo>();
 
-        if (playerComponent != null)
             return playerComponent;
 
-        Destroy(player);
-        return null;
     }
 
 }

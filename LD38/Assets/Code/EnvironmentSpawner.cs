@@ -11,11 +11,6 @@ public class EnvironmentSpawner : MonoBehaviour
 
   public void Start()
   {
-    if(PhotonNetwork.isMasterClient == false)
-    {
-      Destroy(this);
-    }
-
     var p = PhotonNetwork.Instantiate("Planet", Vector3.zero, Quaternion.identity, 0);
     p.name = "Planet";
     TurnController.onTurnChange += OnTurnChange;
@@ -31,12 +26,19 @@ public class EnvironmentSpawner : MonoBehaviour
 
   private void OnTurnChange()
   {
+
     _treesDirty = true;
   }
 
   void Spawn(
     string gameObject)
   {
+
+    if(PhotonNetwork.isMasterClient == false)
+    {
+      return;
+    }
+
     Vector3 randomPosition;
     do
     {
@@ -85,6 +87,12 @@ public class EnvironmentSpawner : MonoBehaviour
 
   void LateUpdate()
   {
+
+    if(PhotonNetwork.isMasterClient == false)
+    {
+      return;
+    }
+
     if(_treesDirty)
     {
       float avgDistance = 0.0f;
@@ -136,6 +144,7 @@ public class EnvironmentSpawner : MonoBehaviour
 
   bool Test(Vector3 randomPosition, Quaternion rotation, Vector3 toCenter, RaycastHit hit, ref float maxDistance, Vector3 delta)
   {
+
     RaycastHit hit2;
     if(Physics.Raycast(randomPosition + rotation * delta * .2f, toCenter, out hit2, Mathf.Infinity,
     LayerMask.GetMask(new[] { "Planet" })))

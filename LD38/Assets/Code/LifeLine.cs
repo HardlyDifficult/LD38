@@ -17,7 +17,13 @@ public class LifeLine : MonoBehaviour {
 
       if(life <= 0)
       {
-        Destroy(gameObject);
+
+        if(PhotonNetwork.isMasterClient == false)
+        {
+          return;
+        }
+
+        PhotonNetwork.Destroy(gameObject);
       }
     }
   }

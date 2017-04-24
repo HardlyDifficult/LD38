@@ -9,6 +9,11 @@ public class ExplosionDamage : MonoBehaviour {
 
   protected void Start()
   {
+    if(PhotonNetwork.isMasterClient == false)
+    {
+      return;
+    }
+
     colliderRadius = GetComponent<SphereCollider>().radius;
     StartCoroutine(SuicideScript());
     // Does not leave a valid Mesh behind... PlanetDeformation.instance.ExplodeAt(transform.position, 3);
@@ -23,6 +28,10 @@ public class ExplosionDamage : MonoBehaviour {
   protected void OnTriggerEnter(
     Collider other)
   {
+    if(PhotonNetwork.isMasterClient == false)
+    {
+      return;
+    }
     var lifeLine = other.GetComponent<LifeLine>();
     if(lifeLine == null)
     {
