@@ -50,6 +50,12 @@ public class MainMenu : MonoBehaviour
 
   public void OpenOptionsScreen()
   {
+    if(optionsScreenUI.activeSelf)
+    {
+      optionsScreenUI.SetActive(false);
+      return;
+    }
+
     soundVolumeSliderUI.value = SoundManager.soundVolume;
     musicVolumeSliderUI.value = SoundManager.musicVolume;
     SoundManager.PlayClick();
