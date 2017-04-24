@@ -10,6 +10,7 @@ public class Team
   
   public int Id;
   public string TeamName;
+  public Color TeamColor;
 
   public List<TeamPlayer> playerList;
 
@@ -59,10 +60,11 @@ public class Team
   }
 
 
-  public Team(int id, int teamSize, string teamName)
+  public Team(int id, int teamSize, string teamName, Color teamColor)
   {
     Id = id;
     TeamName = teamName;
+    TeamColor = teamColor;
 
     playerList = new List<TeamPlayer>();
 
@@ -104,6 +106,7 @@ public class Team
     if(!ContainsPlayer(player))
     {
       playerList.Add(player);
+      player.playerInfo.team = this;
     }
   }
 

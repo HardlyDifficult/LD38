@@ -71,6 +71,7 @@ public class MiniMapController : MonoBehaviour {
 
       //Create new blips for each player object, and place them in the proper position
       RawImage blipImg = blip.GetComponent<RawImage>();
+      blipImg.canvasRenderer.SetColor(player.playerInfo.team.TeamColor); // Might be a better way idk
 			RectTransform blipTransform = blipImg.GetComponent<RectTransform> ();
       blipTransform.parent = miniMap.transform;
       //blipTransform.SetParent(miniMap.transform, true);
