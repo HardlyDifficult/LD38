@@ -11,7 +11,7 @@ public class DieOutOfBounds : MonoBehaviour {
       return;
     }
 
-		if(transform.position.sqrMagnitude > 1000000)
+		if(transform.position.sqrMagnitude > 100000)
     {
       PhotonNetwork.Destroy(gameObject);
     }

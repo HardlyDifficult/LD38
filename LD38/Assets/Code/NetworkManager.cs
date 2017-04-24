@@ -96,6 +96,7 @@ public class NetworkManager : Photon.PunBehaviour
         // Spawn network worm
         TeamPlayer worm = PhotonNetwork.Instantiate("NetworkWorm", SpawnLocation, Quaternion.identity, 0).GetComponent<TeamPlayer>();
         worm.GetComponentInChildren<NameDisplayer>().SetName(PhotonNetwork.playerName);
+        worm.GetComponent<PlayerInfo>().PlayerName = PhotonNetwork.playerName;
         TurnController.AddPlayer(_teamID, worm.GetComponent<PhotonView>().viewID);
       }
     }
