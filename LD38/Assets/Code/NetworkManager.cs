@@ -112,7 +112,8 @@ public class NetworkManager : Photon.PunBehaviour
   {
     SoundManager.PlayClick();
 
-    PhotonNetwork.Disconnect();
+    if (PhotonNetwork.connected)
+      PhotonNetwork.Disconnect();
 
     SceneManager.LoadScene("MainMenu");
 
@@ -123,9 +124,29 @@ public class NetworkManager : Photon.PunBehaviour
   #region Network Events
   public void Connect()
   {
-    if(!PhotonNetwork.connected)
+    GameObject canvas = GameObject.Find("Canvas");
+    GameObject conInfoTxt = canvas.transform.FindChild("ConnectionText").gameObject;
+
+    for (int i = 1; i <= 5; i++) // Retry 5 times
     {
-      PhotonNetwork.ConnectUsingSettings(VERSION);
+      if (!PhotonNetwork.connected && !PhotonNetwork.connecting)
+      {
+        conInfoTxt.GetComponent<Text>().text = "Connecting... Try " + i;
+        PhotonNetwork.ConnectUsingSettings(VERSION);
+      }
+      else if (PhotonNetwork.connecting) // Seems connected is game server and not lobby...
+      {
+        conInfoTxt.GetComponent<Text>().text = "Connected, join a game.";
+        return;
+      }
+      else
+        new WaitForSeconds(1.0f); // Wait 1 sec and try again.
+    }
+    if (!PhotonNetwork.connecting)
+    {
+      conInfoTxt.GetComponent<Text>().text = "Failed to connect. Please retry.";
+      // TODO: Create retry button that reloads scene? If so include line below.
+      //Destroy(gameObject);
     }
   }
 
