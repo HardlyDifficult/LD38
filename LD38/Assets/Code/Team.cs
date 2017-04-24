@@ -10,7 +10,20 @@ public class Team
   
   public int Id;
   public string TeamName;
-  public Color TeamColor;
+  public Color TeamColor
+  {
+    get
+    {
+      switch(Id)
+      {
+        case 0:
+          return Color.red;
+        default:
+        case 1:
+          return Color.blue;
+      }
+    }
+  }
 
   public List<TeamPlayer> playerList;
 
@@ -64,7 +77,6 @@ public class Team
   {
     Id = id;
     TeamName = teamName;
-    TeamColor = teamColor;
 
     playerList = new List<TeamPlayer>();
 
