@@ -78,8 +78,7 @@ public class NetworkManager : Photon.PunBehaviour
 
   private void OnDestroy()
   {
-    if (PhotonNetwork.connected)
-      PhotonNetwork.Disconnect();
+    PhotonNetwork.Disconnect();
     SceneManager.sceneLoaded -= OnFinishedLoadingLevel;
   }
 
@@ -113,8 +112,7 @@ public class NetworkManager : Photon.PunBehaviour
   {
     SoundManager.PlayClick();
 
-    if (PhotonNetwork.connected)
-      PhotonNetwork.Disconnect();
+    PhotonNetwork.Disconnect();
 
     SceneManager.LoadScene("MainMenu");
 
@@ -125,28 +123,9 @@ public class NetworkManager : Photon.PunBehaviour
   #region Network Events
   public void Connect()
   {
-    GameObject canvas = GameObject.Find("Canvas");
-    GameObject conInfoTxt = canvas.transform.FindChild("MultiplayerPanel 1").FindChild("MultiText").gameObject;
-
-    for (int i = 1; i <= 5; i++) // Retry 5 times
+    if(!PhotonNetwork.connected)
     {
-      if (!PhotonNetwork.connected && !PhotonNetwork.connecting)
-      {
-        conInfoTxt.GetComponent<Text>().text = "Connecting... Try "+i;
-        PhotonNetwork.ConnectUsingSettings(VERSION);
-      }
-      else
-      {
-        conInfoTxt.GetComponent<Text>().text = "Connected, join a game.";
-        return;
-      }
-      if (!PhotonNetwork.connected)
-        new WaitForSeconds(5.0f); // Retry in 5 secs
-    }
-    if (!PhotonNetwork.connected)
-    {
-      conInfoTxt.GetComponent<Text>().text = "Failed to connect. Please retry.";
-      Destroy(gameObject);
+      PhotonNetwork.ConnectUsingSettings(VERSION);
     }
   }
 
