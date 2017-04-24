@@ -4,53 +4,53 @@ using UnityEngine;
 
 public class NetworkWormMovement : Photon.PunBehaviour
 {
-    public float moveSpeed = 10f; //How fast we move
-    public float jumpStrengh = 1f; //How high we jump
+  public float moveSpeed = 10f; //How fast we move
+  public float jumpStrengh = 1f; //How high we jump
 
-    TeamPlayer teamPlayer;
-    Gravity gravity;
-    Rigidbody body;
+  TeamPlayer teamPlayer;
+  Gravity gravity;
+  Rigidbody body;
 
-    PhotonView photNetworkView;
+  PhotonView photNetworkView;
 
-    protected void Start()
+  protected void Start()
+  {
+    photNetworkView = GetComponent<PhotonView>();
+   
+    body = GetComponent<Rigidbody>();
+    teamPlayer = GetComponent<TeamPlayer>();
+    gravity = GetComponent<Gravity>();
+  }
+
+  protected void FixedUpdate()
+  {
+    if(teamPlayer.isMyTurn == false || photNetworkView.isMine == false)
     {
-        body = GetComponent<Rigidbody>();
-        teamPlayer = GetComponent<TeamPlayer>();
-        gravity = GetComponent<Gravity>();
-
-        photNetworkView = GetComponent<PhotonView>();
+      return;
     }
 
-    protected void FixedUpdate()
-    {
-        if (photNetworkView.isMine == false || teamPlayer.isMyTurn == false)
-        {
-            return;
-        }
+    MoveWorm();
+    Jump();
+  }
 
-        MoveWorm();
-        Jump();
+  void MoveWorm()
+  {
+    if(gravity.isGrounded)
+    {
+      body.AddForce((transform.right * Input.GetAxis("Vertical")
+        //+ transform.forward * Input.GetAxis("Vertical") Switching to turn instead of move that direction
+        )
+        * Time.deltaTime * moveSpeed);
     }
 
-    void MoveWorm()
-    {
-        if (gravity.isGrounded)
-        {
-            body.AddForce((transform.right * Input.GetAxis("Vertical")
-              //+ transform.forward * Input.GetAxis("Vertical") Switching to turn instead of move that direction
-              )
-              * Time.deltaTime * moveSpeed);
-        }
+    gravity.turnOffset = Quaternion.Euler(0, Input.GetAxis("Horizontal"), 0);
+  }
 
-        gravity.turnOffset = Quaternion.Euler(0, Input.GetAxis("Horizontal"), 0);
-    }
-
-    void Jump()
+  void Jump()
+  {
+    if(gravity.isGrounded && Input.GetAxis("Jump") > 0)
     {
-        if (gravity.isGrounded && Input.GetAxis("Jump") > 0)
-        {
-            body.AddForce(transform.up * jumpStrengh);
-        }
+      body.AddForce(transform.up * jumpStrengh);
     }
+  }
 }

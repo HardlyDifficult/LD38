@@ -6,9 +6,14 @@ public class DieOutOfBounds : MonoBehaviour {
   
 	// Update is called once per frame
 	void Update () {
-		if(transform.position.sqrMagnitude > 1000000)
+    if(PhotonNetwork.isMasterClient == false)
     {
-      Destroy(gameObject);
+      return;
+    }
+
+		if(transform.position.sqrMagnitude > 100000)
+    {
+      PhotonNetwork.Destroy(gameObject);
     }
 	}
 }

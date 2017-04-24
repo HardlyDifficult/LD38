@@ -9,7 +9,7 @@ public abstract class Projectile : MonoBehaviour
   internal float shootPower;
 
   protected Gravity gravity;
-  protected ExplosionDamage explosion;
+  //protected ExplosionDamage explosion;
   protected Vector3 previousPosition;
   protected Rigidbody body;
 
@@ -20,7 +20,7 @@ public abstract class Projectile : MonoBehaviour
 
   protected virtual void Awake()
   {
-    explosion = Resources.Load<ExplosionDamage>("Explosion");
+    //explosion = Resources.Load<ExplosionDamage>("");
   }
 
   protected virtual void Start()
@@ -36,6 +36,12 @@ public abstract class Projectile : MonoBehaviour
   protected virtual void OnCollisionEnter(
     Collision collision)
   {
+
+    if(PhotonNetwork.isMasterClient == false)
+    {
+      return;
+    }
+
     if(collision.transform.root == shooter)
     { // TODO this shouldn't really be here - just trying to avoid collisions coming out of the gun.
       return;
@@ -57,8 +63,14 @@ public abstract class Projectile : MonoBehaviour
 
   protected void BlowUp()
   {
-    var newExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
+
+    if(PhotonNetwork.isMasterClient == false)
+    {
+      return;
+    }
+
+    var newExplosion = PhotonNetwork.Instantiate("Explosion", transform.position, Quaternion.identity, 0);
     newExplosion.transform.localScale = Vector3.one * explosionIntensity;
-    Destroy(gameObject);
+    PhotonNetwork.Destroy(gameObject);
   }
 }

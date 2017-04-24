@@ -2,31 +2,47 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tree : MonoBehaviour {
+public class Tree : MonoBehaviour
+{
 
   AudioClip headbutt;
+  public GameObject deadTree;
 
   protected void Start()
   {
     headbutt = Resources.Load<AudioClip>("HeadbuttTree");
   }
 
+  protected void OnDestroy()
+  {
+    var go = Instantiate(deadTree, transform.position, transform.rotation);
+    go.transform.localScale = transform.root.localScale;
+  }
+
   protected void OnCollisionEnter(Collision collision)
   {
+
+    SoundManager.Play(headbutt, .2f);
+    if(PhotonNetwork.isMasterClient == false)
+    {
+      return;
+    }
+
     if(collision.gameObject.GetComponentInChildren<Tree>() != null)
     {
-      Destroy(gameObject);
-    } else if(Time.timeSinceLevelLoad < .1f && collision.gameObject.layer == LayerMask.NameToLayer("Character"))
+      PhotonNetwork.Destroy(gameObject);
+    }
+    else if(Time.timeSinceLevelLoad < .1f && collision.gameObject.layer == LayerMask.NameToLayer("Character"))
     {
-      Destroy(gameObject);
-    } else 
+      PhotonNetwork.Destroy(gameObject);
+    }
+    else
     {
       if(collision.gameObject.layer == LayerMask.NameToLayer("Weapon"))
       {
-        Destroy(gameObject);
+        PhotonNetwork.Destroy(gameObject.transform.root.gameObject);
       }
 
-      SoundManager.Play(headbutt, .2f);
     }
   }
 }

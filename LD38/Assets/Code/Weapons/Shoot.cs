@@ -14,7 +14,7 @@ public abstract class Shoot : MonoBehaviour
     get;
   }
 
-  public float shootPower
+  public virtual float shootPower
   {
     get
     {
@@ -29,7 +29,7 @@ public abstract class Shoot : MonoBehaviour
 
   protected virtual void Start()
   {
-    bulletSpawnAnchorPointOnGun = transform.FindChild("BulletSpawn");
+    bulletSpawnAnchorPointOnGun = transform.GetChild(0).FindChild("BulletSpawn");
   }
 
   protected virtual void OnFireStart()
@@ -51,7 +51,12 @@ public abstract class Shoot : MonoBehaviour
   {
     Player = GetComponentInParent<TeamPlayer>();
 
-    if(!TurnController.GetPlayerTurn(Player) || TurnController.phase != Phase.Shoot)
+    if(Player == null || Player.GetComponent<PhotonView>().isMine ==false)
+    {
+      return;
+    }
+
+    if(!TurnController.GetPlayerTurn(Player) || TurnController.instance.phase != Phase.Shoot)
     {
       return;
     }
@@ -109,12 +114,12 @@ public abstract class Shoot : MonoBehaviour
   }
 
   /// <param name="antiAccurancyInDegrees">Higher means worse aim</param>
-  protected void FireProjectile(Projectile resource, float antiAccurancyInDegrees)
+  protected void FireProjectile(string resource, float antiAccurancyInDegrees)
   {
     Quaternion rng = Quaternion.Euler(UnityEngine.Random.Range(-antiAccurancyInDegrees, antiAccurancyInDegrees),
       UnityEngine.Random.Range(-antiAccurancyInDegrees, antiAccurancyInDegrees),
       UnityEngine.Random.Range(-antiAccurancyInDegrees, antiAccurancyInDegrees));
-    Projectile newBullet = Instantiate(resource, bulletSpawnAnchorPointOnGun.transform.position, transform.rotation * rng);
+    Projectile newBullet = PhotonNetwork.Instantiate(resource, bulletSpawnAnchorPointOnGun.transform.position, transform.rotation * rng, 0).GetComponent<Projectile>();
     newBullet.shooter = gameObject.transform.root.gameObject;
     newBullet.shootPower = shootPower;
   }

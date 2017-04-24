@@ -11,14 +11,14 @@ namespace HD
     {
       get
       {
-        return .01f;
+        return .01f * shootPower;
       }
     }
 
     protected override void Start()
     {
       base.Start();
-
+      transform.localScale *= shootPower;
       body.AddForce(-transform.forward * speed);
     }
   }

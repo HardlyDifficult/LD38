@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class EnvironmentSpawner : MonoBehaviour
 {
-  public GameObject[] treeList;
+  public string[] treeList;
 
   private bool _treesDirty = false;
   private List<GameObject> _spawnedTreeList = new List<GameObject>();
 
   public void Start()
   {
+    var p = PhotonNetwork.Instantiate("Planet", Vector3.zero, Quaternion.identity, 0);
+    p.name = "Planet";
     TurnController.onTurnChange += OnTurnChange;
 
     for(int i = 0; i < treeList.Length; i++)
@@ -24,12 +26,19 @@ public class EnvironmentSpawner : MonoBehaviour
 
   private void OnTurnChange()
   {
+
     _treesDirty = true;
   }
 
   void Spawn(
-    GameObject gameObject)
+    string gameObject)
   {
+
+    if(PhotonNetwork.isMasterClient == false)
+    {
+      return;
+    }
+
     Vector3 randomPosition;
     do
     {
@@ -67,9 +76,9 @@ public class EnvironmentSpawner : MonoBehaviour
       }
 
       Vector3 hitPoint = hit.point + rotation * Vector3.down * .2f;
-      GameObject newTree = Instantiate(gameObject, hitPoint, rotation);
+      GameObject newTree = PhotonNetwork.Instantiate(gameObject, hitPoint, rotation, 0);
       float width = UnityEngine.Random.Range(.2f, 1.0f);
-      newTree.transform.localScale = new Vector3(width, UnityEngine.Random.Range(.5f, 1.5f), width);
+      //newTree.transform.localScale = new Vector3(width, UnityEngine.Random.Range(.5f, 1.5f), width);
       newTree.transform.localPosition = hitPoint;
 
       _spawnedTreeList.Add(newTree);
@@ -78,20 +87,31 @@ public class EnvironmentSpawner : MonoBehaviour
 
   void LateUpdate()
   {
+
+    if(PhotonNetwork.isMasterClient == false)
+    {
+      return;
+    }
+
     if(_treesDirty)
     {
       float avgDistance = 0.0f;
       for(int i = 0; i < _spawnedTreeList.Count; i++)
       {
+        if(_spawnedTreeList[i] == null)
+        {
+          continue;
+        }
+
         Transform tree = _spawnedTreeList[i].transform;
 
-        Vector3 treeScale = Vector3.Lerp(
-            tree.localScale,
-            tree.localScale * (1.0f - EnvironmentController.ShrinkPerTurn),
-            Time.deltaTime * EnvironmentController.ShrinkAnimationTime
-        );
+        //Vector3 treeScale = Vector3.Lerp(
+        //    tree.localScale,
+        //    tree.localScale * (1.0f - EnvironmentController.ShrinkPerTurn),
+        //    Time.deltaTime * EnvironmentController.ShrinkAnimationTime
+        //);
 
-        tree.localScale = treeScale;
+        //tree.localScale = treeScale;
 
         Vector3 position = RecalculatePosition(tree);
 
@@ -129,6 +149,7 @@ public class EnvironmentSpawner : MonoBehaviour
 
   bool Test(Vector3 randomPosition, Quaternion rotation, Vector3 toCenter, RaycastHit hit, ref float maxDistance, Vector3 delta)
   {
+
     RaycastHit hit2;
     if(Physics.Raycast(randomPosition + rotation * delta * .2f, toCenter, out hit2, Mathf.Infinity,
     LayerMask.GetMask(new[] { "Planet" })))

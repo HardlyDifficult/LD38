@@ -41,7 +41,6 @@ public class IngameMenu : MonoBehaviour
     if(inMenu)
     {
       //Then we unpause the game
-      Time.timeScale = 1;
       inMenu = false;
 
       menuUI.SetActive(false);
@@ -52,7 +51,6 @@ public class IngameMenu : MonoBehaviour
     else
     {
       //If not then we pause the Game
-      Time.timeScale = 0;
       inMenu = true;
 
       menuUI.SetActive(true);

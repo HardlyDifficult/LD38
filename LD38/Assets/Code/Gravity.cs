@@ -13,14 +13,22 @@ public class Gravity : MonoBehaviour
   public Quaternion turnOffset = Quaternion.identity;
   public bool allowRotation = true;
 
+  PhotonView photonView;
+
   protected void Start()
   {
+    photonView = GetComponent<PhotonView>();
     body = GetComponent<Rigidbody>();
     targetRotation = transform.rotation;
   }
 
   protected void FixedUpdate()
   {
+    if(photonView.isMine == false)
+    {
+      return;
+    }
+
     Vector3 directionToCenter = (Vector3.zero - transform.position).normalized;
     RaycastHit hit;
 
@@ -58,6 +66,11 @@ public class Gravity : MonoBehaviour
 
   protected void Update()
   {
+    if(photonView.isMine == false)
+    {
+      return;
+    }
+
     if(allowRotation)
     {
       transform.rotation *= turnOffset;

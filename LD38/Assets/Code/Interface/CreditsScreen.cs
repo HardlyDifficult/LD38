@@ -12,6 +12,8 @@ public class CreditsScreen : MonoBehaviour
   public GameObject creditsContentObject;
   public GameObject creditsTextObject;
 
+    public GameObject scrollView;
+
   // How much time should pass between letters
   public float timePerLetter = 0.1f;
   // How much time the system should wait after a user
@@ -78,7 +80,9 @@ public class CreditsScreen : MonoBehaviour
             _currentTextPosition++;
             _currentTime = 0.0f;
 
-            if(_currentTextPosition >= _textLength)
+            scrollView.transform.FindChild("Scrollbar Vertical").GetComponent<Scrollbar>().value = 0;
+
+            if (_currentTextPosition >= _textLength)
             {
               // next member
               _currentTextPosition = 0;
@@ -120,6 +124,8 @@ public class CreditsScreen : MonoBehaviour
             _currentTime = 0.0f;
 
             _atEndOfLine = false;
+            //creditsContentObject.transform.position += new Vector3(0, 70, 0);
+            scrollView.transform.FindChild("Scrollbar Vertical").GetComponent<Scrollbar>().value = 0;
           }
         }
       }

@@ -96,7 +96,9 @@
     <Compile Include="Assets\Code\DieOutOfBounds.cs" />
     <Compile Include="Assets\Code\EnvironmentController.cs" />
     <Compile Include="Assets\Code\EnvironmentSpawner.cs" />
+    <Compile Include="Assets\Code\ExplodeIn.cs" />
     <Compile Include="Assets\Code\ExplosionDamage.cs" />
+    <Compile Include="Assets\Code\ExplosionPhysicsForce.cs" />
     <Compile Include="Assets\Code\FaceCamera.cs" />
     <Compile Include="Assets\Code\GameCamera.cs" />
     <Compile Include="Assets\Code\Gravity.cs" />
@@ -125,11 +127,13 @@
     <Compile Include="Assets\Code\Weapons\Missile.cs" />
     <Compile Include="Assets\Code\Weapons\Projectile.cs" />
     <Compile Include="Assets\Code\Weapons\Shoot.cs" />
+    <Compile Include="Assets\Code\Weapons\ShootAssult.cs" />
     <Compile Include="Assets\Code\Weapons\ShootMissileLauncher.cs" />
     <Compile Include="Assets\Code\Weapons\ShootUzi.cs" />
-    <Compile Include="Assets\Code\WormMovement.cs" />
     <Compile Include="Assets\Mareske\Code\IngameMenu.cs" />
     <Compile Include="Assets\Mareske\Code\MainMenu.cs" />
+    <Compile Include="Assets\Mareske\Code\NameDisplayer.cs" />
+    <Compile Include="Assets\Mareske\Code\NameManager.cs" />
     <Compile Include="Assets\Mareske\Code\SoundManager.cs" />
     <Compile Include="Assets\Mareske\Code\WeaponManager.cs" />
     <Compile Include="Assets\Mareske\Code\WeaponSelectionButton.cs" />
@@ -287,7 +291,6 @@
     <None Include="Assets\Photon Unity Networking\Demos\DemoRockPaperScissors\Assets\OpenSans\Apache License.txt" />
     <None Include="Assets\Photon Unity Networking\Demos\MarcoPolo-Tutorial\marcopolo-readme.txt" />
     <None Include="Assets\Photon Unity Networking\Demos\Shared Assets\Skin\3dText.shader" />
-    <None Include="Assets\Photon Unity Networking\changelog.txt" />
     <None Include="Assets\Photon Unity Networking\link.xml" />
     <None Include="Assets\Photon Unity Networking\readme.txt" />
     <None Include="Assets\Plugins\Photon3Unity3D.xml" />

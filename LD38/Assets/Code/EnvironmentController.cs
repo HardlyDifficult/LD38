@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnvironmentController : MonoBehaviour
 {
-  public GameObject PlanetObject;
+  GameObject PlanetObject;
 
   public static float ShrinkPerTurn = 0.1f; // In percentages.
   public static float ShrinkAnimationTime = 0.8f;
@@ -15,12 +15,19 @@ public class EnvironmentController : MonoBehaviour
 
   public void Start()
   {
+
+    PlanetObject = GameObject.Find("Planet");
     _currentScale = PlanetObject.transform.localScale;
     TurnController.onTurnChange += OnTurnChange;
   }
 
   public void Update()
   {
+    if(PhotonNetwork.isMasterClient == false)
+    {
+      return;
+    }
+
     if(PlanetObject != null)
     {
       PlanetObject.transform.localScale = Vector3.Lerp(PlanetObject.transform.localScale, _currentScale,
@@ -30,6 +37,10 @@ public class EnvironmentController : MonoBehaviour
 
   private void OnTurnChange()
   {
+    if(PhotonNetwork.isMasterClient == false)
+    {
+      return;
+    }
     if(turnCounter++ < 3)
     {
       return;

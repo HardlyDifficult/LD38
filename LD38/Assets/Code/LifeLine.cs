@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LifeLine : MonoBehaviour {
+public class LifeLine : MonoBehaviour
+{
   float _life = 100;
 
   public float life
@@ -13,12 +14,24 @@ public class LifeLine : MonoBehaviour {
     }
     set
     {
-      _life = value;
+      GetComponent<PhotonView>().RPC("SetLife", PhotonTargets.All, value);
+    }
+  }
 
-      if(life <= 0)
+  [PunRPC]
+  void SetLife(float value)
+  {
+    _life = value;
+
+    if(life <= 0)
+    {
+
+      if(PhotonNetwork.isMasterClient == false)
       {
-        Destroy(gameObject);
+        return;
       }
+
+      PhotonNetwork.Destroy(gameObject);
     }
   }
 }

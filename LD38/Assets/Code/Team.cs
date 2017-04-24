@@ -3,6 +3,11 @@ using System.Collections.Generic;
 
 public class Team
 {
+  /// <summary>
+  /// TODO sync
+  /// </summary>
+  public int _currentPlayerIndex = 0;
+  
   public int Id;
   public string TeamName;
 
@@ -41,11 +46,18 @@ public class Team
         return null;
       }
 
-      return playerList[_currentPlayerIndex];
+      for(int i = 0; i < playerList.Count; i++)
+      {
+        if(playerList[i].photonView.viewID == _currentPlayerIndex)
+        {
+          return playerList[i];
+        }
+      }
+
+      return null;
     }
   }
 
-  private int _currentPlayerIndex = 0;
 
   public Team(int id, int teamSize, string teamName)
   {
@@ -59,7 +71,7 @@ public class Team
 
   private void OnTurnChange()
   {
-    if(TurnController.currentTeamId == Id)
+    if(TurnController.instance.currentTeamId == Id)
     {
       CycleTeamMembers();
     }
@@ -69,13 +81,21 @@ public class Team
   {
     if(!TeamAlive) return;
 
-    _currentPlayerIndex++;
+    int targetI = 0;
+    for(int i = 0; i < playerList.Count; i++)
+    {
+      if(playerList[i].photonView.viewID == _currentPlayerIndex)
+      {
+        targetI = i;
+      }
+    }
+    targetI++;
+    if(targetI >= playerList.Count)
+    {
+      targetI = 0;
+    }
 
-    if(_currentPlayerIndex >= playerList.Count)
-      _currentPlayerIndex = 0;
-
-    if(playerList[_currentPlayerIndex] == null)
-      CycleTeamMembers();
+    _currentPlayerIndex = playerList[targetI].photonView.viewID;
 
   }
 
@@ -102,6 +122,4 @@ public class Team
   {
     return CurrentPlayer == player;
   }
-
-
 }

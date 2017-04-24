@@ -7,7 +7,6 @@ namespace HD
 {
   public class ShootMissileLauncher : Shoot
   {
-    protected Projectile missileResource;
 
     public override bool showShootPower
     {
@@ -16,13 +15,7 @@ namespace HD
         return true;
       }
     }
-
-    protected override void Start()
-    {
-      base.Start();
-
-      missileResource = Resources.Load<Projectile>("Missile");
-    }
+    
 
     protected override void OnFireStop()
     {
@@ -30,7 +23,7 @@ namespace HD
 
       if(shootHoldTime > 0.01f)
       {
-        FireProjectile(missileResource, .1f);
+        FireProjectile("Missile", .1f);
         TurnController.NextPhase();
       }
     }

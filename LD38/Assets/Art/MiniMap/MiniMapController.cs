@@ -62,15 +62,18 @@ public class MiniMapController : MonoBehaviour {
 			GameObject blip = (GameObject)Instantiate(blipPrefab, blipPrefab.transform.position, blipPrefab.transform.rotation);
 			blips.Add (blip);
 
-			//blip.transform.SetParent (miniMap.transform, false); //doesn't work for some reason...
-			blip.transform.parent = miniMap.transform;
+      //blip.transform.SetParent (miniMap.transform, false); //doesn't work for some reason...
+      blip.transform.parent = miniMap.transform;
+      //blip.transform.SetParent(miniMap.transform, true);
 
-			//print("Blip: " + lat + ", " + lon);
 
-			//Create new blips for each player object, and place them in the proper position
-			RawImage blipImg = blip.GetComponent<RawImage>();
+      //print("Blip: " + lat + ", " + lon);
+
+      //Create new blips for each player object, and place them in the proper position
+      RawImage blipImg = blip.GetComponent<RawImage>();
 			RectTransform blipTransform = blipImg.GetComponent<RectTransform> ();
-			blipTransform.parent = miniMap.transform;
+      blipTransform.parent = miniMap.transform;
+      //blipTransform.SetParent(miniMap.transform, true);
 
 			RectTransform miniMapTransform = miniMap.GetComponent<RectTransform> ();
 
