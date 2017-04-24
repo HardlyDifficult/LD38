@@ -19,7 +19,9 @@ public class PlayerInfo : MonoBehaviour
     get { return LifeLineComponent.life; }
   }
 
-  public string PlayerName = "Jane doe"; 
+  public string PlayerName = "Jane doe";
+
+  public Team team;
 
 }
 

@@ -146,7 +146,9 @@ public class TurnController : MonoBehaviour
   {
     while(instance.teamList.Count <= teamID)
     {
-      instance.teamList.Add(new Team(instance.teamList.Count, 0, teamID == 0 ? "Team Red" : "Team Blue")); // TODO name
+      instance.teamList.Add(new Team(instance.teamList.Count, 0, teamID == 0 ? "Team Red" : "Team Blue",
+        teamID == 0 ? new Color(255,0,0,1) : new Color(0,0,255,1)
+        )); // TODO name
     }
 
     return instance.teamList[teamID];
