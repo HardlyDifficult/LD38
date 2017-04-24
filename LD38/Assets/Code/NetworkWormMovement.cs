@@ -20,7 +20,6 @@ public class NetworkWormMovement : Photon.PunBehaviour
     body = GetComponent<Rigidbody>();
     teamPlayer = GetComponent<TeamPlayer>();
     gravity = GetComponent<Gravity>();
-
   }
 
   protected void FixedUpdate()
