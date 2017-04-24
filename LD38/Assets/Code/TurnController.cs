@@ -29,7 +29,7 @@ public class TurnController : MonoBehaviour
       {
         WeaponManager.me.DeactivateWeapons();
       }
-      instance.GetComponent<PhotonView>().RPC("SetPhase", PhotonTargets.AllBuffered, value);
+      instance.GetComponent<PhotonView>().RPC("SetPhase", PhotonTargets.AllBufferedViaServer, value);
     }
   }
 
@@ -65,7 +65,7 @@ public class TurnController : MonoBehaviour
     }
     set
     {
-      instance.GetComponent<PhotonView>().RPC("SetTeamId", PhotonTargets.AllBuffered, value);
+      instance.GetComponent<PhotonView>().RPC("SetTeamId", PhotonTargets.AllBufferedViaServer, value);
     }
   }
 
@@ -233,7 +233,7 @@ public class TurnController : MonoBehaviour
 
   public static void AddPlayer(int teamId, int playerViewId)
   {
-    instance.GetComponent<PhotonView>().RPC("DoAddPlayer", PhotonTargets.AllBuffered, teamId, playerViewId);
+    instance.GetComponent<PhotonView>().RPC("DoAddPlayer", PhotonTargets.AllBufferedViaServer, teamId, playerViewId);
   }
 
   [PunRPC]

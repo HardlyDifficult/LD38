@@ -13,7 +13,7 @@ public class NameDisplayer : MonoBehaviour
   /// <param name="_name"></param>
   public void SetName(string _name)
   {
-    GetComponent<PhotonView>().RPC("DoSetName", PhotonTargets.AllBuffered, _name);
+    GetComponent<PhotonView>().RPC("DoSetName", PhotonTargets.AllBufferedViaServer, _name);
   }
 
   [PunRPC]

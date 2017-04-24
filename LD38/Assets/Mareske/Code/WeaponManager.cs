@@ -44,7 +44,7 @@ public class WeaponManager : MonoBehaviour
       //and Instantiate the weapon
       wb.weaponInstance = PhotonNetwork.Instantiate(wb.weaponPrefab, this.transform.position, Quaternion.identity, 0);
 
-      me.GetComponent<PhotonView>().RPC("RpcShowWeapon", PhotonTargets.AllBuffered, wb.weaponID, wb.weaponInstance.GetComponent<PhotonView>().viewID);
+      me.GetComponent<PhotonView>().RPC("RpcShowWeapon", PhotonTargets.AllBufferedViaServer, wb.weaponID, wb.weaponInstance.GetComponent<PhotonView>().viewID);
 
       //after that we instantiate the UI
       
@@ -89,7 +89,7 @@ public class WeaponManager : MonoBehaviour
   /// <param name="_id"></param>
   public void ActivateWeapon(int _id)
   {
-    GetComponent<PhotonView>().RPC("DoActivate", PhotonTargets.AllBuffered, 
+    GetComponent<PhotonView>().RPC("DoActivate", PhotonTargets.AllBufferedViaServer, 
       new[] { _id, TurnController.instance.currentTeamId, TurnController.CurrentTeam._currentPlayerIndex });
   }
   //var id = new[] { _id, TurnController.currentTeamId, TurnController.CurrentTeam._currentPlayerIndex };
