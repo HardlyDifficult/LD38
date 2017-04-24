@@ -96,6 +96,7 @@
     <Compile Include="Assets\Code\DieOutOfBounds.cs" />
     <Compile Include="Assets\Code\EnvironmentController.cs" />
     <Compile Include="Assets\Code\EnvironmentSpawner.cs" />
+    <Compile Include="Assets\Code\ExplodeIn.cs" />
     <Compile Include="Assets\Code\ExplosionDamage.cs" />
     <Compile Include="Assets\Code\ExplosionPhysicsForce.cs" />
     <Compile Include="Assets\Code\FaceCamera.cs" />
@@ -129,7 +130,6 @@
     <Compile Include="Assets\Code\Weapons\ShootAssult.cs" />
     <Compile Include="Assets\Code\Weapons\ShootMissileLauncher.cs" />
     <Compile Include="Assets\Code\Weapons\ShootUzi.cs" />
-    <Compile Include="Assets\ExplodeIn.cs" />
     <Compile Include="Assets\Mareske\Code\IngameMenu.cs" />
     <Compile Include="Assets\Mareske\Code\MainMenu.cs" />
     <Compile Include="Assets\Mareske\Code\NameDisplayer.cs" />

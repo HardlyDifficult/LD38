@@ -78,7 +78,7 @@ public class EnvironmentSpawner : MonoBehaviour
       Vector3 hitPoint = hit.point + rotation * Vector3.down * .2f;
       GameObject newTree = PhotonNetwork.Instantiate(gameObject, hitPoint, rotation, 0);
       float width = UnityEngine.Random.Range(.2f, 1.0f);
-      newTree.transform.localScale = new Vector3(width, UnityEngine.Random.Range(.5f, 1.5f), width);
+      //newTree.transform.localScale = new Vector3(width, UnityEngine.Random.Range(.5f, 1.5f), width);
       newTree.transform.localPosition = hitPoint;
 
       _spawnedTreeList.Add(newTree);
@@ -98,15 +98,20 @@ public class EnvironmentSpawner : MonoBehaviour
       float avgDistance = 0.0f;
       for(int i = 0; i < _spawnedTreeList.Count; i++)
       {
+        if(_spawnedTreeList[i] == null)
+        {
+          continue;
+        }
+
         Transform tree = _spawnedTreeList[i].transform;
 
-        Vector3 treeScale = Vector3.Lerp(
-            tree.localScale,
-            tree.localScale * (1.0f - EnvironmentController.ShrinkPerTurn),
-            Time.deltaTime * EnvironmentController.ShrinkAnimationTime
-        );
+        //Vector3 treeScale = Vector3.Lerp(
+        //    tree.localScale,
+        //    tree.localScale * (1.0f - EnvironmentController.ShrinkPerTurn),
+        //    Time.deltaTime * EnvironmentController.ShrinkAnimationTime
+        //);
 
-        tree.localScale = treeScale;
+        //tree.localScale = treeScale;
 
         Vector3 position = RecalculatePosition(tree);
 
