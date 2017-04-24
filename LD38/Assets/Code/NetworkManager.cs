@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class NetworkManager : Photon.PunBehaviour
 {
-  const string VERSION = "0.3";
+  const string VERSION = "0.4";
 
   #region Public Data
   public string roomName = "Let's Play Grubs!";
@@ -74,6 +74,40 @@ public class NetworkManager : Photon.PunBehaviour
 
     GameObject canvas = GameObject.Find("Canvas");
     canvas.transform.FindChild("ButtonHolder").FindChild("JoinRandomRoom").GetComponent<Button>().interactable = false;
+
+    GameObject.Find("Canvas").transform.FindChild("PlayerInfo").FindChild("TeamOption").GetComponent<Dropdown>().value
+      = UnityEngine.Random.Range(0, 2);
+
+    var nameList = new string[] {
+     "HardlyDifficult",
+    "Solomaz",
+"CalculatingClouds",
+"NullxPhantom",
+"Fred Hicks",
+"Bunjr",
+"Syntasu",
+"Tim Göransson",
+"Jessie Powell",
+"Otixa",
+"whitestike",
+"Roderick Griffioen",
+"SeedPodGames",
+"Aaron Fuquea",
+"Deltahawkz",
+"JathOsh",
+"TheCoCe",
+"BUNN1E5",
+"CreatorAtNight",
+"Matthew E",
+"thesbros",
+"Echologue Creative",
+"HappyFarang",
+"Krachwumm",
+"Lost_Thing",
+"CaveDraft",
+"Dark", };
+
+    userNameField.text = nameList[UnityEngine.Random.Range(0, nameList.Length)];
   }
 
   private void OnDestroy()
@@ -125,7 +159,7 @@ public class NetworkManager : Photon.PunBehaviour
   public void Connect()
   {
     GameObject canvas = GameObject.Find("Canvas");
-    GameObject conInfoTxt = canvas.transform.FindChild("ConnectionText").gameObject;
+    GameObject conInfoTxt = canvas.transform.FindChild("ButtonHolder").FindChild("ConnectionText").gameObject;
 
     for (int i = 1; i <= 5; i++) // Retry 5 times
     {
@@ -136,7 +170,6 @@ public class NetworkManager : Photon.PunBehaviour
       }
       else if (PhotonNetwork.connecting) // Seems connected is game server and not lobby...
       {
-        conInfoTxt.GetComponent<Text>().text = "Connected, join a game.";
         return;
       }
       else
@@ -163,8 +196,13 @@ public class NetworkManager : Photon.PunBehaviour
 
   public override void OnConnectedToMaster()
   {
-    Debug.Log("Connected to master server!");
     GameObject canvas = GameObject.Find("Canvas");
+
+    GameObject conInfoTxt = canvas.transform.FindChild("ButtonHolder").FindChild("ConnectionText").gameObject;
+
+    conInfoTxt.GetComponent<Text>().text = "Connected, join a game.";
+
+    Debug.Log("Connected to master server!");
     canvas.transform.FindChild("ButtonHolder").FindChild("JoinRandomRoom").GetComponent<Button>().interactable = true;
   }
 

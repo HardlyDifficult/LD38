@@ -98,8 +98,8 @@ public class TurnController : MonoBehaviour
 
   public static int playersPerTeam = 10;
 
-  const int timeForPreTurn = 1000;
-  const int timeForPostTurn = timeForPreTurn / 10;
+  const int timeForPreTurn = 750;
+  const int timeForPostTurn = timeForPreTurn / 7;
 
   internal static IEnumerable<TeamPlayer> GetAllPlayers()
   {

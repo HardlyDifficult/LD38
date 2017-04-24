@@ -19,6 +19,7 @@ public class NameDisplayer : MonoBehaviour
   [PunRPC]
   void DoSetName(string _name)
   {
+    GetComponent<PlayerInfo>().PlayerName = _name;
     myTextMesh.text = _name;
   }
 }
