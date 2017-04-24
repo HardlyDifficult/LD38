@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Code.Sound;
 using UnityEngine;
 
 public enum SoundType
@@ -61,8 +62,8 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public SoundPool EffectSoundPool;
-    public SoundPool MusicSoundPool;
+    private SoundPool EffectSoundPool;
+    private SoundPool MusicSoundPool;
     public SoundLibrary SoundLib;
 
     private void Awake()
@@ -89,6 +90,11 @@ public class SoundManager : MonoBehaviour
     public void PlayMusic(SoundClip clip)
     {
         MusicSoundPool.Play(clip, MusicVolume, 1.0f);
+    }
+
+    public void StopMusic()
+    {
+        MusicSoundPool.StopAll();
     }
 
     public void PlayEffect(SoundClip clip)

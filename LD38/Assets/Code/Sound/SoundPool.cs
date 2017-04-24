@@ -74,6 +74,14 @@ public class SoundPool : MonoBehaviour
         _currentlyPlaying.Add(soundObject);
     }
 
+    public void StopAll()
+    {
+        for (int i = 0; i < _currentlyPlaying.Count; i++)
+        {
+            _currentlyPlaying[i].Source.Stop();
+        }
+    }
+
     private AudioSource GetSource(SoundClip clip, float volume, float pitch)
     {
         AudioSource source = null;
