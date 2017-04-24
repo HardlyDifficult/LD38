@@ -16,7 +16,8 @@ public class EnvironmentSpawner : MonoBehaviour
       return;
     }
 
-    var p = PhotonNetwork.Instantiate("Planet", Vector3.zero, Quaternion.identity, 0);
+    var p = PhotonNetwork.Instantiate("Planet", Vector3.up, Quaternion.AngleAxis(90, Vector3.left), 0);
+    //var p = PhotonNetwork.Instantiate("Planet", Vector3.zero, Quaternion.identity, 0);
     p.name = "Planet";
     TurnController.onTurnChange += OnTurnChange;
 

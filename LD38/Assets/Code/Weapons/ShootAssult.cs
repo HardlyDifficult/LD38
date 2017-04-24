@@ -30,6 +30,7 @@ namespace HD
       if(shootHoldTime > 0.01f)
       {
         FireProjectile("Bullet", 0);
+        SoundManager.Play(SoundManager.instance.fireRifle, .1f);
         TurnController.NextPhase();
       }
     }

@@ -24,6 +24,8 @@ namespace HD
       if(shootHoldTime > 0.01f)
       {
         FireProjectile("Missile", .1f);
+        SoundManager.Play(SoundManager.instance.fireRocket, .1f);
+
         TurnController.NextPhase();
       }
     }

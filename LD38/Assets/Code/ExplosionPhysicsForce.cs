@@ -34,6 +34,8 @@ namespace UnityStandardAssets.Effects
             rigidbodies.Add(col.attachedRigidbody);
           }
         }
+        SoundManager.Play(SoundManager.instance.explode,  Mathf.Max(.1f, Mathf.Min(.6f, multiplier * .6f)));
+
         foreach(var rb in rigidbodies)
         {
           rb.AddExplosionForce(explosionForce * multiplier, transform.position, r, 1 * multiplier, ForceMode.Impulse);

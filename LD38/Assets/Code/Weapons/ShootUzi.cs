@@ -45,6 +45,7 @@ namespace HD
       base.OnFireStay();
 
       FireProjectile("Bullet", 10);
+      SoundManager.Play(SoundManager.instance.fireUzi, .03f);
 
       if(bulletsInChamber-- <= 0)
       {

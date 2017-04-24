@@ -5,6 +5,12 @@ using System;
 
 public class SoundManager : MonoBehaviour
 {
+  public AudioClip crawl;
+  public AudioClip explode;
+  public AudioClip fireUzi;
+  public AudioClip fireRifle;
+  public AudioClip fireRocket;
+
   public static event Action onVolumeChange;
   static AudioClip click;
   static GameObject tAudioSource;
@@ -38,12 +44,15 @@ public class SoundManager : MonoBehaviour
     set
     {
       _musicVolume = value;
+        Camera.main.GetComponent<AudioSource>().volume = value * .3f;
       if(onVolumeChange != null)
       {
         onVolumeChange.Invoke();
       }
     }
   }
+
+  public static SoundManager instance;
 
   static void Init()
   {
@@ -57,6 +66,7 @@ public class SoundManager : MonoBehaviour
 
   void Start()
   {
+    instance = this;
     Init();
     //DontDestroyOnLoad(transform.gameObject);
   }
