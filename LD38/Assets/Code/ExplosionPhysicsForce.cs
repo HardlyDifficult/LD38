@@ -14,7 +14,7 @@ namespace UnityStandardAssets.Effects
     {
 
 
-      if(PhotonView.Get(this).isMine)
+      if(PhotonView.Get(this) == null || PhotonView.Get(this).isMine)
       {
 
         // wait one frame because some explosions instantiate debris which should then
@@ -40,13 +40,13 @@ namespace UnityStandardAssets.Effects
         {
           rb.AddExplosionForce(explosionForce * multiplier, transform.position, r, 1 * multiplier, ForceMode.Impulse);
 
-          if(PhotonView.Get(this).isMine)
+          if(PhotonView.Get(this) == null || PhotonView.Get(this).isMine)
           {
             var lifeLine = rb.GetComponent<LifeLine>();
             if(lifeLine != null)
             {
               print(explosionForce * multiplier);
-              lifeLine.life -= explosionForce * multiplier;
+              lifeLine.life -= explosionForce * multiplier * 4;
             }
           }
         }

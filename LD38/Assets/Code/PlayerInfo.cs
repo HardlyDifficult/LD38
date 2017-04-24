@@ -23,5 +23,10 @@ public class PlayerInfo : MonoBehaviour
 
   public Team team;
 
+  protected void OnDestroy()
+  {
+    WeaponManager.me.DeactivateWeapons();
+  }
+
 }
 

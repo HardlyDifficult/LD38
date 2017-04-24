@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class NetworkManager : Photon.PunBehaviour
 {
-  const string VERSION = "0.4";
+  const string VERSION = "0.5";
 
   #region Public Data
   public string roomName = "Let's Play Grubs!";

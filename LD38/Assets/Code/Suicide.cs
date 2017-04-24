@@ -11,7 +11,6 @@ public class Suicide : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-
     if(isNotPhoton == false && PhotonView.Get(this).isMine == false)
     {
       return;
