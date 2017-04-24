@@ -17,7 +17,8 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void StartGame()
   {
-    SoundManager.PlayClick();
+        //TODO: Hook this backup
+    //SoundManager.PlayClick();
 
     optionsScreenUI.SetActive(false);
         //if (!IsMultiplayer)
@@ -31,9 +32,10 @@ public class MainMenu : MonoBehaviour
   /// </summary>
   public void GoToCredits()
   {
-    SoundManager.PlayClick();
+        //TODO: Hook this backup
+        //SoundManager.PlayClick();
 
-    optionsScreenUI.SetActive(false);
+        optionsScreenUI.SetActive(false);
     SceneManager.LoadScene("Credits");
   }
 
@@ -42,17 +44,20 @@ public class MainMenu : MonoBehaviour
   /// </summary>
   public void QuitGame()
   {
-    SoundManager.PlayClick();
+        //TODO: Hook this backup
+        //SoundManager.PlayClick();
 
-    optionsScreenUI.SetActive(false);
+        optionsScreenUI.SetActive(false);
     Application.Quit();
   }
 
   public void OpenOptionsScreen()
   {
-    soundVolumeSliderUI.value = SoundManager.soundVolume;
-    musicVolumeSliderUI.value = SoundManager.musicVolume;
-    SoundManager.PlayClick();
+    soundVolumeSliderUI.value = Game.SoundManager.EffectVolume;
+    musicVolumeSliderUI.value = Game.SoundManager.MusicVolume;
+
+        //TODO: Hook this backup
+        //SoundManager.PlayClick();
     optionsScreenUI.SetActive(true);
   }
   #endregion
@@ -64,7 +69,7 @@ public class MainMenu : MonoBehaviour
   /// <param name="_volume"></param>
   public void SoundVolumeChange()
   {
-    SoundManager.soundVolume = soundVolumeSliderUI.value;
+        Game.SoundManager.EffectVolume = soundVolumeSliderUI.value;
   }
 
   /// <summary>
@@ -73,7 +78,7 @@ public class MainMenu : MonoBehaviour
   /// <param name="_volume"></param>
   public void MusicVolumeChange()
   {
-    SoundManager.musicVolume = musicVolumeSliderUI.value;
+        Game.SoundManager.MusicVolume = musicVolumeSliderUI.value;
   }
   #endregion
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Tree : MonoBehaviour
 {
@@ -21,9 +19,9 @@ public class Tree : MonoBehaviour
 
   protected void OnCollisionEnter(Collision collision)
   {
-
-    SoundManager.Play(headbutt, .2f);
-    if(PhotonNetwork.isMasterClient == false)
+        //TODO: Hook this back up.
+        // SoundManager.Play(SoundType.Effect, headbutt, .2f);
+        if (PhotonNetwork.isMasterClient == false)
     {
       return;
     }

@@ -134,7 +134,8 @@ public class CreditsScreen : MonoBehaviour
 
   public void BackButton()
   {
-    SoundManager.PlayClick();
+        //TODO: Hook this back up.
+    //SoundManager.PlayClick();
     SceneManager.LoadScene("MainMenu");
   }
   #endregion
