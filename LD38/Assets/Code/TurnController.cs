@@ -17,6 +17,8 @@ public class TurnController : MonoBehaviour
   int _timeRemaining;
   int _currentTeamId;
 
+  public static bool hasShot;
+
   public Phase phase
   {
     get
@@ -25,6 +27,7 @@ public class TurnController : MonoBehaviour
     }
     set
     {
+      hasShot = false;
       if(WeaponManager.me != null)
       {
         WeaponManager.me.DeactivateWeapons();

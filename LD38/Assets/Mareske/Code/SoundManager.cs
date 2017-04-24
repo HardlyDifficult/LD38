@@ -74,7 +74,7 @@ public class SoundManager : MonoBehaviour
   #region Public API
   public static void PlayClick()
   {
-    Play(click);
+    Play(click, .1f);
   }
 
   public static void Play(AudioClip clip, float volume = 1.0f, float pitch = 1.0f)

@@ -127,6 +127,7 @@ public abstract class Shoot : MonoBehaviour
   /// <param name="antiAccurancyInDegrees">Higher means worse aim</param>
   protected void FireProjectile(string resource, float antiAccurancyInDegrees)
   {
+    TurnController.hasShot = true;
     Quaternion rng = Quaternion.Euler(UnityEngine.Random.Range(-antiAccurancyInDegrees, antiAccurancyInDegrees),
       UnityEngine.Random.Range(-antiAccurancyInDegrees, antiAccurancyInDegrees),
       UnityEngine.Random.Range(-antiAccurancyInDegrees, antiAccurancyInDegrees));

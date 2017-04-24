@@ -85,6 +85,16 @@ public class WeaponManager : MonoBehaviour
   /// <param name="_id"></param>
   public void ActivateWeapon(int _id)
   {
+    if(TurnController.hasShot)
+    {
+      return;
+    }
+
+    if(TurnController.instance.phase != Phase.Shoot)
+    {
+      return;
+    }
+
     GetComponent<PhotonView>().RPC("DoActivate", PhotonTargets.AllBufferedViaServer, 
       new[] { _id, TurnController.instance.currentTeamId, TurnController.CurrentTeam._currentPlayerIndex });
   }
@@ -92,6 +102,11 @@ public class WeaponManager : MonoBehaviour
   [PunRPC]
   void DoActivate(int[] id)
   {
+    if(TurnController.instance.phase != Phase.Shoot)
+    {
+      return;
+    }
+
     //Deactivating all weapons, why all? Just in case something weird happens
     DeactivateWeapons();
     int _id = (int)id[0];
@@ -99,6 +114,7 @@ public class WeaponManager : MonoBehaviour
 
     if(_id == 3)
     { // Special case for the bomb!
+      TurnController.hasShot = true;
       var go = PhotonNetwork.Instantiate(weaponList[_id].weaponPrefab, 
         curWorm_WeaponTrans.position + curWorm_WeaponTrans.rotation * Quaternion.Euler(0,90,0) * new Vector3(5, 0, 0), 
         curWorm_WeaponTrans.rotation, 0);
