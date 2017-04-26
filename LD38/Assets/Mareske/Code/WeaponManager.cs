@@ -89,6 +89,8 @@ public class WeaponManager : MonoBehaviour
     {
       return;
     }
+    TurnController.hasShot = true;
+
 
     if(TurnController.instance.phase != Phase.Shoot)
     {

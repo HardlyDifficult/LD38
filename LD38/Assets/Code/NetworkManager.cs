@@ -4,17 +4,16 @@ using UnityEngine.SceneManagement;
 
 public class NetworkManager : Photon.PunBehaviour
 {
-  const string VERSION = "0.5";
+  const string VERSION = "0.7";
 
   #region Public Data
   public string roomName = "Let's Play Grubs!";
 
-  public int maxPlayersInRoom = 6;
+  int maxPlayersInRoom = 2;
 
   public InputField userNameField;
 
   public GameObject networkWorm;
-  
 
   public Vector3 SpawnLocation
   {
@@ -61,7 +60,6 @@ public class NetworkManager : Photon.PunBehaviour
   #region Public API
   void Start()
   {
-
     PhotonNetwork.isMessageQueueRunning = false;
     DontDestroyOnLoad(gameObject);
 
@@ -131,6 +129,17 @@ public class NetworkManager : Photon.PunBehaviour
         TeamPlayer worm = PhotonNetwork.Instantiate("NetworkWorm", SpawnLocation, Quaternion.identity, 0).GetComponent<TeamPlayer>();
         worm.GetComponentInChildren<NameDisplayer>().SetName(PhotonNetwork.playerName);
         worm.GetComponent<PlayerInfo>().PlayerName = PhotonNetwork.playerName;
+
+        if(TurnController.GetTeam(_teamID).playerList.Count > 0)
+        {
+          if(_teamID == 1)
+          {
+            _teamID = 0;
+          } else
+          {
+            _teamID = 1;
+          }
+        }
         TurnController.AddPlayer(_teamID, worm.GetComponent<PhotonView>().viewID);
       }
     }
@@ -225,7 +234,7 @@ public class NetworkManager : Photon.PunBehaviour
   {
     Debug.Log("No random room available, creating one");
 
-    PhotonNetwork.CreateRoom(roomName, new RoomOptions() { MaxPlayers = (byte)maxPlayersInRoom }, null);
+    PhotonNetwork.CreateRoom(roomName + Random.Range(-10000f,10000f).ToString(), new RoomOptions() { MaxPlayers = (byte)maxPlayersInRoom }, null);
   }
   #endregion
 }
